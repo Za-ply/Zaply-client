@@ -37,6 +37,16 @@ const authService = {
     }
   },
 
+  checkEmailDuplicate: async (email: string): Promise<boolean> => {
+    try {
+      const response = await authController.checkEmailDuplicate(email);
+      return response.data;
+    } catch (error) {
+      console.error("Email duplicate check failed:", error);
+      throw new Error(error as string);
+    }
+  },
+
   refreshToken: async (): Promise<ApiResponse<LoginData>> => {
     try {
       const response = await authController.refreshToken();
