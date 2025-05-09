@@ -36,26 +36,22 @@ const SignInForm = () => {
     const { email, password } = data;
 
     try {
-      // const passwordCorrect = false;
-      const res = await authService.login({ email: email, password: password });
-
-      if (res.result === "ERROR") {
-        const message = "가입되지 않은 정보예요.";
+      const isEmailExists = await authService.checkEmailDuplicate(email);
+      if (!isEmailExists) {
+        const message = "계정 정보가 존재하지 않습니다.";
         setError("email", { type: "manual", message });
         toast({ variant: "error", description: message });
         return;
       }
 
-      // if (!passwordCorrect) {
-      //   const message = "아이디 또는 비밀번호가 맞지 않아요.\n다시 확인해주세요.";
-      //   setError("password", { type: "manual", message });
-      //   toast({ variant: "error", description: message });
-      //   return;
-      // }
+      await authService.login({ email, password });
 
       router.push("/");
     } catch (err) {
-      console.error("로그인 실패", err);
+      toast({
+        variant: "error",
+        description: `비밀번호가 맞지 않아요.\n다시 확인해주세요.`,
+      });
     }
   };
 
