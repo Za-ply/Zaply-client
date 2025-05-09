@@ -5,10 +5,13 @@ import { Button } from "@/components/common/button";
 import { ArrowIcon } from "@/components/icons";
 import { motion } from "framer-motion";
 import { fadeUpVariants, transition } from "./_animation";
+import { useRouter } from "next/navigation";
 
 export default function SignInCompletePage() {
+  const router = useRouter();
+
   return (
-    <Container className="bg-center bg-cover bg-background-line">
+    <Container className="bg-center bg-cover bg-backgroundLine-yellow">
       <div className="flex flex-col justify-between min-h-real-screen pb-[56px]">
         <motion.div
           variants={fadeUpVariants}
@@ -28,7 +31,7 @@ export default function SignInCompletePage() {
             className="w-full">
             <Button
               variant={"subAction"}
-              onClick={() => null}
+              onClick={() => router.push("/")}
               className="border border-grayscale-300">
               <p className="text-button1">건너뛰기</p>
             </Button>

@@ -17,6 +17,13 @@ const authController = {
     return response.data;
   },
 
+  checkEmailDuplicate: async (email: string): Promise<ApiResponse<boolean>> => {
+    const response = await apiClient.get<ApiResponse<boolean>>("/auth/email/duplicate", {
+      params: { email },
+    });
+    return response.data;
+  },
+
   refreshToken: async (): Promise<ApiResponse<LoginData>> => {
     const response = await apiClient.get<ApiResponse<LoginData>>("/auth/recreate");
     return response.data;
