@@ -7,6 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useToast } from "@/utils/useToast";
 import EmailForm from "./EmailForm";
+import { useSignUpStore } from "@/stores/useSignUpStore";
 
 const EmailCheckWrapper = () => {
   const router = useRouter();
@@ -22,6 +23,7 @@ const EmailCheckWrapper = () => {
 
   const handleSubmit = () => {
     formMethods.handleSubmit(data => {
+      useSignUpStore.getState().setEmail(data.email);
       // console.log("이메일" + data.email);
 
       /** api 호출 로직 추후 구현 */

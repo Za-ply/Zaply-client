@@ -8,6 +8,8 @@ import UserInfoForm from "./UserInfoForm";
 import { userInfoType, userInfoSchema } from "@/lib/zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
+import { authController } from "@/lib/api/controller";
+import { useSignUpStore } from "@/stores/useSignUpStore";
 
 const UserInfoWrapper = () => {
   const router = useRouter();
@@ -25,9 +27,31 @@ const UserInfoWrapper = () => {
   } = formMethods;
 
   const handleSubmit = () => {
-    formMethods.handleSubmit(data => {
-      console.log(data);
-      router.push("/sign-up-complete");
+    formMethods.handleSubmit(async data => {
+      try {
+        const { email, password, termsOfServiceAgreed, privacyPolicyAgreed, marketingAgreed } =
+          useSignUpStore.getState(); // 상태에서 가져옴
+
+        const requestBody = {
+          email,
+          password,
+          phoneNumber: data.phoneNumber,
+          residentNumber: `${data.frontRRN}-${data.backRRN}`,
+          termsOfServiceAgreed,
+          privacyPolicyAgreed,
+          marketingAgreed,
+        };
+
+        await authController.signUp(requestBody);
+        useSignUpStore.getState().reset();
+        router.push("/sign-up-complete");
+      } catch (err) {
+        toast({
+          variant: "error",
+          description: `회원가입에 실패했습니다. \n 다시 시도해주세요.`,
+        });
+        console.error("회원가입 에러:", err);
+      }
     })();
   };
 

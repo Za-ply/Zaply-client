@@ -97,9 +97,9 @@ const UserInfoForm = ({
     const verifyCode = watch("verifyCode");
 
     try {
-      const result = await smsService.certifySms({ phoneNum: phoneNumber, authNum: verifyCode });
+      const res = await smsService.certifySms({ phoneNum: phoneNumber, authNum: verifyCode });
 
-      if (result.data === "SUCCESS") {
+      if (res.result === "SUCCESS") {
         toast({
           variant: "check",
           description: `인증이 완료되었습니다.`,
