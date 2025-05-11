@@ -7,7 +7,7 @@ const BNB = () => {
   const [activeTab, setActiveTab] = useState<"upload" | "insight" | "comment" | "mypage">("upload");
 
   return (
-    <nav className="w-full max-w-[440px] mx-auto shadow-bnb fixed left-0 right-0 bottom-0 flex justify-between h-[120px] bg-grayscale-100 rounded-t-[20px] px-8 py-3">
+    <nav className="w-full max-w-[440px] mx-auto shadow-drop fixed left-0 right-0 bottom-0 flex justify-between h-[120px] bg-grayscale-100 rounded-t-[20px] px-8 py-3">
       <div
         onClick={() => setActiveTab("upload")}
         className="flex flex-col items-center gap-[6px] px-2 py-[6px] cursor-pointer">

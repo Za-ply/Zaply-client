@@ -1,38 +1,32 @@
-import { cookies } from "next/headers";
+import { getCookie, setCookie, deleteCookie } from "cookies-next";
 
 const ACCESS_TOKEN_KEY = "access_token";
 const REFRESH_TOKEN_KEY = "refresh_token";
 
 export const tokenManager = {
   setTokens: (accessToken: string, refreshToken: string) => {
-    const cookieStore = cookies();
-    cookieStore.set(ACCESS_TOKEN_KEY, accessToken, {
-      httpOnly: true,
+    setCookie(ACCESS_TOKEN_KEY, accessToken, {
+      path: "/",
       secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
-      path: "/",
     });
-    cookieStore.set(REFRESH_TOKEN_KEY, refreshToken, {
-      httpOnly: true,
+    setCookie(REFRESH_TOKEN_KEY, refreshToken, {
+      path: "/",
       secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
-      path: "/",
     });
   },
 
-  getAccessToken: () => {
-    const cookieStore = cookies();
-    return cookieStore.get(ACCESS_TOKEN_KEY)?.value;
+  getAccessToken: (): string | undefined => {
+    return getCookie(ACCESS_TOKEN_KEY)?.toString();
   },
 
-  getRefreshToken: () => {
-    const cookieStore = cookies();
-    return cookieStore.get(REFRESH_TOKEN_KEY)?.value;
+  getRefreshToken: (): string | undefined => {
+    return getCookie(REFRESH_TOKEN_KEY)?.toString();
   },
 
   removeTokens: () => {
-    const cookieStore = cookies();
-    cookieStore.delete(ACCESS_TOKEN_KEY);
-    cookieStore.delete(REFRESH_TOKEN_KEY);
+    deleteCookie(ACCESS_TOKEN_KEY);
+    deleteCookie(REFRESH_TOKEN_KEY);
   },
 };

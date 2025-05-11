@@ -6,6 +6,7 @@ import { Button } from "@/components/common/button";
 import { useRouter } from "next/navigation";
 import { POLICY_LIST } from "./constants";
 import { ZaplyColorLogoIcon } from "@/components/icons/logo";
+import { useSignUpStore } from "@/stores/useSignUpStore";
 
 const PolicyContainer = () => {
   const router = useRouter();
@@ -17,6 +18,18 @@ const PolicyContainer = () => {
     setRequiredCheck,
     setOptionalChecked,
   } = usePolicyStore();
+
+  const setAgreements = useSignUpStore(state => state.setAgreements);
+
+  const handleNext = () => {
+    setAgreements({
+      termsOfServiceAgreed: requiredChecks[0],
+      privacyPolicyAgreed: requiredChecks[1],
+      marketingAgreed: optionalChecked,
+    });
+
+    router.push("/sign-up?state=EMAIL");
+  };
 
   return (
     <article className="flex flex-col justify-between min-h-real-screen pb-[56px]">
@@ -49,7 +62,7 @@ const PolicyContainer = () => {
       <Button
         variant={requiredChecks.every(check => check) ? "active" : "deactive"}
         disabled={!requiredChecks.every(check => check)}
-        onClick={() => router.push("/sign-up?state=EMAIL")}>
+        onClick={handleNext}>
         다음
       </Button>
     </article>
