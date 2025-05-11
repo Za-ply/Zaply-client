@@ -88,6 +88,14 @@ a {
   scrollbar-width: none;
 }
 
+html body[data-scroll-locked] {
+  overflow: visible !important;
+  margin-right: auto !important;
+  margin-left: auto !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
