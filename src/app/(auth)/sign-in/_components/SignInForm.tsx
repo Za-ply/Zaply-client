@@ -46,7 +46,7 @@ const SignInForm = () => {
 
       await authService.login({ email, password });
 
-      router.push("/");
+      router.push("/main");
     } catch (err) {
       toast({
         variant: "error",
@@ -63,8 +63,8 @@ const SignInForm = () => {
   };
 
   return (
-    <section className="w-full flex flex-col gap-3">
-      <div className="w-full px-4 flex flex-col gap-2">
+    <section className="flex flex-col w-full gap-3">
+      <div className="flex flex-col w-full gap-2 px-4">
         <p className="text-t3 text-grayscale-800">로그인</p>
         <p className="text-b3R text-grayscale-800">이메일 주소와 비밀번호를 입력해 주세요.</p>
       </div>
@@ -92,7 +92,7 @@ const SignInForm = () => {
         </Button>
       </form>
 
-      <div className="flex gap-1 items-center justify-center">
+      <div className="flex items-center justify-center gap-1">
         <Link href="/" className="px-[10px] py-1 text-b4M text-blue-blueblack cursor-pointer">
           이메일 찾기
         </Link>

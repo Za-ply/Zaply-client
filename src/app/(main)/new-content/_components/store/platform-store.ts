@@ -6,6 +6,7 @@ interface PlatformState {
   selectedCategory: Category | null;
   setSelectedPlatform: (platform: Platforms) => void;
   setSelectedCategory: (category: Category) => void;
+  reset: () => void;
 }
 
 export const usePlatformStore = create<PlatformState>((set, get) => ({
@@ -21,5 +22,8 @@ export const usePlatformStore = create<PlatformState>((set, get) => ({
   },
   setSelectedCategory: (category: Category) => {
     set({ selectedCategory: category });
+  },
+  reset: () => {
+    set({ selectedPlatform: null, selectedCategory: null });
   },
 }));

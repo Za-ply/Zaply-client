@@ -44,13 +44,13 @@ const MainSection = () => {
       </AnimatePresence>
 
       {isEmpty ? (
-        <p className="text-t3 text-grayscale-900 text-center">
+        <p className="text-center text-t3 text-grayscale-900">
           {username}님의 콘텐츠를
           <br />
           재플리와 함께 성장시켜 보세요!
         </p>
       ) : (
-        <p className="text-t3 text-grayscale-900 text-center">
+        <p className="text-center text-t3 text-grayscale-900">
           {username}님의 콘텐츠가
           <br />
           재플리와 함께 성장하고 있어요

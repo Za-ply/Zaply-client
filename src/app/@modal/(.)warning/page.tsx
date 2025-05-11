@@ -1,11 +1,23 @@
 "use client";
 
+import { usePlatformStore } from "@/app/(main)/new-content/_components/store/platform-store";
 import { Modal } from "@/components";
 import { DangerIcon } from "@/components/icons";
 import { useRouter } from "next/navigation";
 
-const WarningModal = () => {
+const WarningModal = ({ searchParams }: { searchParams: { step?: string } }) => {
   const router = useRouter();
+  const { reset } = usePlatformStore();
+
+  const handleStop = () => {
+    router.back();
+    setTimeout(() => {
+      router.replace("/main");
+      router.refresh();
+      reset();
+    }, 10);
+  };
+
   return (
     <Modal
       isOpen={true}
@@ -13,10 +25,7 @@ const WarningModal = () => {
       description=""
       onCloseIconClick={() => router.back()}
       onLeftButtonClick={() => router.back()}
-      onRightButtonClick={() => {
-        router.replace("/main");
-        router.refresh();
-      }}
+      onRightButtonClick={handleStop}
       buttonType="multi"
       leftText="계속 작성하기"
       rightText="그만두기">

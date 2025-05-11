@@ -16,7 +16,7 @@ const MainContent = () => {
   }, [setCounts, now]);
 
   return (
-    <main className="h-full flex flex-col gap-4">
+    <main className="flex flex-col h-full gap-4">
       <ContentToggle />
       <ContentList />
     </main>

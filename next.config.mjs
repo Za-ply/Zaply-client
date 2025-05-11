@@ -22,6 +22,16 @@ const nextConfig = {
     });
     return config;
   },
+
+  async redirects() {
+    return [
+      {
+        source: "/",
+        destination: "/main",
+        permanent: false,
+      },
+    ];
+  },
 };
 
 export default withPwa(nextConfig);
