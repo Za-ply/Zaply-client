@@ -29,7 +29,7 @@ interface ModalProps {
   onRightButtonClick?: () => void;
 }
 
-export const Modal = ({
+const Modal = ({
   isOpen,
   onOpenChange,
   onCloseIconClick,
@@ -83,7 +83,7 @@ export const Modal = ({
               <Button
                 type="button"
                 className={cn(
-                  "bg-white border border-[#ECECEC] text-[#5E5F65] rounded-[100px] py-[6px] px-10",
+                  "whitespace-nowrap text-button1 bg-grayscale-500 text-grayscale-100 rounded-[100px] ",
                   leftClassName
                 )}
                 onClick={onLeftButtonClick}>
@@ -91,7 +91,10 @@ export const Modal = ({
               </Button>
               <Button
                 type="button"
-                className={cn("rounded-[100px] py-[6px] px-10", rightClassName)}
+                className={cn(
+                  "whitespace-nowrap text-button1 bg-blue-blueblack text-grayscale-100 rounded-[100px] ",
+                  rightClassName
+                )}
                 onClick={onRightButtonClick}
                 disabled={isDisabledButton}>
                 {rightText}
@@ -103,3 +106,5 @@ export const Modal = ({
     </Dialog>
   );
 };
+
+export default Modal;
