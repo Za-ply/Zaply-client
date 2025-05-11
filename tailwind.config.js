@@ -121,6 +121,14 @@ module.exports = {
           from: { transform: "translateY(0)" },
           to: { transform: "translateY(-10%)" },
         },
+        "slide-in-from-bottom": {
+          from: { transform: "translateY(100%)" },
+          to: { transform: "translateY(0)" },
+        },
+        "slide-out-to-bottom": {
+          from: { transform: "translateY(0)" },
+          to: { transform: "translateY(100%)" },
+        },
         "slide-in-from-left": {
           from: { transform: "translateX(-10%)" },
           to: { transform: "translateX(0)" },
@@ -153,6 +161,8 @@ module.exports = {
         "fade-out": "fade-out 0.2s ease-in",
         "slide-in-from-top": "slide-in-from-top 0.2s ease-out",
         "slide-out-to-top": "slide-out-to-top 0.2s ease-in",
+        "slide-in-from-bottom": "slide-in-from-bottom 0.4s ease-out",
+        "slide-out-to-bottom": "slide-out-to-bottom 0.4s ease-in",
         "slide-in-from-left": "slide-in-from-left 0.2s ease-out",
         "slide-out-to-left": "slide-out-to-left 0.2s ease-in",
         "zoom-in": "zoom-in 0.2s ease-out",
