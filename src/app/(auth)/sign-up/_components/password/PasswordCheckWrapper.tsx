@@ -12,6 +12,7 @@ import {
   passwordCheckSchema,
   passwordCheckType,
 } from "@/lib/zod/schema-password";
+import { useSignUpStore } from "@/stores/useSignUpStore";
 
 const PasswordCheckWrapper = () => {
   const router = useRouter();
@@ -31,6 +32,7 @@ const PasswordCheckWrapper = () => {
 
   const handleSubmit = () => {
     formMethods.handleSubmit(data => {
+      useSignUpStore.getState().setPassword(data.password);
       // console.log(data.password);
       // console.log(data.passwordConfirm);
 

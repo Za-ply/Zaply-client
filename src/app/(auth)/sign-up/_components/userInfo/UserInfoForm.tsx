@@ -7,8 +7,17 @@ import useAutoFocus from "../hooks/useAutoFocus";
 import { useToast } from "@/utils/useToast";
 import { cn } from "@/utils";
 import useTimer from "../hooks/useTimer";
+import smsService from "@/lib/api/service/SmsService";
 
-const UserInfoForm = ({ formMethods }: { formMethods: UseFormReturn<userInfoType> }) => {
+const UserInfoForm = ({
+  formMethods,
+  checkVerifyCode,
+  setCheckVerifyCode,
+}: {
+  formMethods: UseFormReturn<userInfoType>;
+  checkVerifyCode: boolean;
+  setCheckVerifyCode: (value: boolean) => void;
+}) => {
   const { toast } = useToast();
   const { register, setValue, watch, formState } = formMethods;
 
@@ -20,7 +29,6 @@ const UserInfoForm = ({ formMethods }: { formMethods: UseFormReturn<userInfoType
 
   const [isSendVerifyCode, setIsSendVerifyCode] = useState(false);
   const [isPhoneNumberValid, setIsPhoneNumberValid] = useState(false);
-  const [checkVerifyCode, setCheckVerifyCode] = useState(false);
 
   const { formatTimer } = useTimer({
     defaultTime: 180,
@@ -64,33 +72,51 @@ const UserInfoForm = ({ formMethods }: { formMethods: UseFormReturn<userInfoType
     [setValue]
   );
 
-  const handleSendVerifyCode = () => {
-    /** 인증번호 호출 api 로직 구현 */
+  const handleSendVerifyCode = async () => {
     const phoneNumber = watch("phoneNumber");
 
-    toast({
-      variant: "default",
-      description: `인증번호가 전송되었습니다.\n 문자를 확인하고 인증번호를 입력해주세요.`,
-    });
-    setIsSendVerifyCode(true);
-  };
+    try {
+      await smsService.sendSms({ phoneNum: phoneNumber });
 
-  const handleCheckVerifyCode = () => {
-    /** 인증번호 검증 api 로직 구현 */
-    const verifyCode = watch("verifyCode");
-
-    /** 테스트 용 로직 */
-    if (verifyCode === "123456") {
       toast({
-        variant: "check",
-        description: `인증이 완료되었습니다.`,
+        variant: "default",
+        description: `인증번호가 전송되었습니다.\n 문자를 확인하고 인증번호를 입력해주세요.`,
       });
-      setCheckVerifyCode(true);
-    } else {
+      setIsSendVerifyCode(true);
+    } catch (err) {
       toast({
         variant: "error",
-        description: `인증번호가 잘못되었습니다.`,
+        description: `인증번호 전송에 실패했습니다.`,
       });
+      console.error("인증번호 전송 실패:", err);
+    }
+  };
+
+  const handleCheckVerifyCode = async () => {
+    const phoneNumber = watch("phoneNumber");
+    const verifyCode = watch("verifyCode");
+
+    try {
+      const res = await smsService.certifySms({ phoneNum: phoneNumber, authNum: verifyCode });
+
+      if (res.result === "SUCCESS") {
+        toast({
+          variant: "check",
+          description: `인증이 완료되었습니다.`,
+        });
+        setCheckVerifyCode(true);
+      } else {
+        toast({
+          variant: "error",
+          description: `인증번호가 잘못되었습니다.`,
+        });
+      }
+    } catch (err) {
+      toast({
+        variant: "error",
+        description: `인증번호 검증에 실패했습니다.`,
+      });
+      console.error("인증번호 검증 실패:", err);
     }
   };
 
