@@ -1,16 +1,14 @@
 import { getCookie, setCookie, deleteCookie } from "cookies-next";
-
-const ACCESS_TOKEN_KEY = "access_token";
-const REFRESH_TOKEN_KEY = "refresh_token";
+import { TokenType } from "../model/token";
 
 export const tokenManager = {
   setTokens: (accessToken: string, refreshToken: string) => {
-    setCookie(ACCESS_TOKEN_KEY, accessToken, {
+    setCookie(TokenType.ACCESS_TOKEN, accessToken, {
       path: "/",
       secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
     });
-    setCookie(REFRESH_TOKEN_KEY, refreshToken, {
+    setCookie(TokenType.REFRESH_TOKEN, refreshToken, {
       path: "/",
       secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
@@ -18,15 +16,15 @@ export const tokenManager = {
   },
 
   getAccessToken: (): string | undefined => {
-    return getCookie(ACCESS_TOKEN_KEY)?.toString();
+    return getCookie(TokenType.ACCESS_TOKEN)?.toString();
   },
 
   getRefreshToken: (): string | undefined => {
-    return getCookie(REFRESH_TOKEN_KEY)?.toString();
+    return getCookie(TokenType.REFRESH_TOKEN)?.toString();
   },
 
   removeTokens: () => {
-    deleteCookie(ACCESS_TOKEN_KEY);
-    deleteCookie(REFRESH_TOKEN_KEY);
+    deleteCookie(TokenType.ACCESS_TOKEN);
+    deleteCookie(TokenType.REFRESH_TOKEN);
   },
 };

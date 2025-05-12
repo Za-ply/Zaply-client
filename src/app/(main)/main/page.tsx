@@ -6,8 +6,8 @@ import { Container } from "@/components";
 import { TopBar } from "@/components/common/topBar";
 import { useScrollBlur } from "@/utils/useScrollBlur";
 import BNB from "@/components/common/bnb";
-import MainSection from "./(main)/main/_components/section/MainSection";
-import MainContent from "./(main)/main/_components/content/MainContent";
+import MainSection from "./_components/section/MainSection";
+import MainContent from "./_components/content/MainContent";
 
 export default function Home() {
   const containerRef = useRef<HTMLElement>(null);
