@@ -1,3 +1,6 @@
+"use client";
+
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/common/button";
 import { ArrowIcon, ChevronIcon } from "@/components/icons";
 import SnsProfile from "./SnsProfile";
@@ -11,6 +14,7 @@ const linkedStatus = {
 
 export const SocialCard = () => {
   const linkedCount = Object.values(linkedStatus).filter(Boolean).length;
+  const router = useRouter();
 
   return (
     <div className="w-full px-5 py-4 rounded-[8px] bg-grayscale-100 flex flex-col gap-4 shadow-drop">
@@ -26,7 +30,7 @@ export const SocialCard = () => {
       <div className="flex items-center justify-center">
         <SnsProfile linkedStatus={linkedStatus} />
       </div>
-      <div className="p-[1px] rounded-full bg-b700-g700">
+      <div className="p-[1px] rounded-full bg-b700-g700" onClick={() => router.push("/connect")}>
         <Button
           className="bg-white w-full h-[48px] rounded-full text-button2 text-blue-700"
           variant="subAction"
