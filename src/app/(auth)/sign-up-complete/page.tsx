@@ -42,7 +42,10 @@ export default function SignInCompletePage() {
             animate="visible"
             transition={{ ...transition, delay: 0.5 }}
             className="w-full">
-            <Button variant={"active"} onClick={() => null} rightIcon={<ArrowIcon type="right" />}>
+            <Button
+              variant={"active"}
+              onClick={() => router.push("/mypage")}
+              rightIcon={<ArrowIcon type="right" />}>
               <p className="text-button1">계정 연결하기</p>
             </Button>
           </motion.div>
