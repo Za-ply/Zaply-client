@@ -3,12 +3,13 @@
 import { useRouter } from "next/navigation";
 import { Container } from "@/components";
 import { TopBar } from "@/components/common/topBar";
+import ConnectSocialStep from "./_components/ConnectSocialStep";
 
 export const SocialConnect = () => {
   const router = useRouter();
 
   return (
-    <Container className="min-h-real-screen bg-grayscale-100 bg-cover bg-center flex flex-col gap-[28px] pb-[185px]">
+    <Container className="min-h-real-screen bg-grayscale-100 bg-cover bg-center flex flex-col gap-[46px]">
       <TopBar
         hasLine={true}
         center={<p className="text-t4 text-grayscale-900">계정 연결</p>}
@@ -20,7 +21,7 @@ export const SocialConnect = () => {
           </p>
         }
       />
-      <div className="flex flex-col gap-[72px]"></div>
+      <ConnectSocialStep />
     </Container>
   );
 };
