@@ -1,5 +1,4 @@
-import { Button } from "@/components/common/button";
-import { Input } from "@/components/common/input";
+import { Button, Input } from "@/components";
 import { userInfoType } from "@/lib/zod";
 import { UseFormReturn } from "react-hook-form";
 import { useCallback, useEffect, useRef, useState } from "react";

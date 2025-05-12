@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@/components/common/button";
+import { Button } from "@/components";
 import { useRouter } from "next/navigation";
 import { emailCheckSchema, emailCheckType } from "@/lib/zod/schema-email";
 import { zodResolver } from "@hookform/resolvers/zod";

@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowIcon } from "@/components/icons";
+import { ArrowIcon } from "@/components";
 import { cn } from "@/utils";
 import { useRouter, useSearchParams } from "next/navigation";
 

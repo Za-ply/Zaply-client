@@ -1,11 +1,10 @@
 "use client";
 
-import { Fragment } from "react";
-import { Button } from "@/components/common/button";
-import BottomSheet from "@/components/common/sheet/BottomSheet";
 import { useRouter } from "next/navigation";
-import { usePlatformStore } from "../store/platform-store";
-import InfoMainPlatform from "../sheet-content/InfoMainPlatform";
+import { Fragment } from "react";
+import { BottomSheet, Button } from "@/components";
+import { usePlatformStore } from "../../store";
+import { InfoMainPlatform } from "../../common";
 
 const BottomContent = () => {
   const router = useRouter();

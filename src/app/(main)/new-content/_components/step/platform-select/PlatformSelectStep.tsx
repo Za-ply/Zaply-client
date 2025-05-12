@@ -1,5 +1,7 @@
-import { Continue, HeaderContent, PlatformList } from "../platform-select";
-import BottomContent from "../platform-select/BottomContent";
+import BottomContent from "./BottomContent";
+import Continue from "./Continue";
+import HeaderContent from "./HeaderContent";
+import PlatformList from "./PlatformList";
 
 const PlatformSelectStep = () => {
   return (

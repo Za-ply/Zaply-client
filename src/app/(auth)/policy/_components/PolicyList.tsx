@@ -1,4 +1,4 @@
-import { ChevronIcon, CircleCheckBoldIcon, CircleIcon } from "@/components/icons/service";
+import { ChevronIcon, CircleCheckBoldIcon, CircleIcon } from "@/components";
 import { cn } from "@/utils";
 
 interface PolicyListProps {

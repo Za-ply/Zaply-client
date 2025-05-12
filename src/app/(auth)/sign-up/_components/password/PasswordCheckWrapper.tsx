@@ -1,11 +1,9 @@
 "use client";
 
-import { Button } from "@/components/common/button";
+import { Button } from "@/components";
 import { useRouter } from "next/navigation";
-import { emailCheckSchema, emailCheckType } from "@/lib/zod/schema-email";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { useToast } from "@/utils/useToast";
 import PasswordForm from "./PasswordForm";
 import {
   getPasswordValidationErrors,
@@ -16,7 +14,6 @@ import { useSignUpStore } from "@/stores/useSignUpStore";
 
 const PasswordCheckWrapper = () => {
   const router = useRouter();
-  const { toast } = useToast();
   const formMethods = useForm<passwordCheckType>({
     resolver: zodResolver(passwordCheckSchema),
     mode: "onChange",
@@ -33,17 +30,6 @@ const PasswordCheckWrapper = () => {
   const handleSubmit = () => {
     formMethods.handleSubmit(data => {
       useSignUpStore.getState().setPassword(data.password);
-      // console.log(data.password);
-      // console.log(data.passwordConfirm);
-
-      // console.log("이메일" + data.email);
-
-      /** api 호출 로직 추후 구현 */
-
-      // toast({
-      //   variant: "error",
-      //   description: `이미 가입된 이메일입니다.\n 다른 이메일로 가입해주세요.`,
-      // });
       router.push("/sign-up?state=USER_INFO");
     })();
   };

@@ -1,6 +1,6 @@
-import { Button } from "@/components/common/button";
 import { Fragment } from "react";
 import { useSheetStore } from "../store/sheet-store";
+import { Button } from "@/components";
 
 const InfoMainPlatform = () => {
   const { setIsOpen } = useSheetStore();

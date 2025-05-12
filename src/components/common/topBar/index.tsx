@@ -13,13 +13,7 @@ interface TopBarProps {
   isBlur?: boolean;
 }
 
-export const TopBar: React.FC<TopBarProps> = ({
-  left,
-  center,
-  right,
-  className,
-  isBlur = false,
-}) => {
+const TopBar: React.FC<TopBarProps> = ({ left, center, right, className, isBlur = false }) => {
   return (
     <motion.header
       initial="normal"
@@ -39,8 +33,10 @@ export const TopBar: React.FC<TopBarProps> = ({
           : undefined
       }>
       <div className="w-[80px] flex justify-start">{left}</div>
-      <div className="flex-1 flex justify-center">{center}</div>
+      <div className="flex justify-center flex-1">{center}</div>
       <div className="w-[80px] flex justify-end">{right}</div>
     </motion.header>
   );
 };
+
+export default TopBar;

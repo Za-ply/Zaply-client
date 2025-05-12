@@ -1,7 +1,7 @@
 "use client";
 
-import { HelpIcon } from "@/components/icons";
-import { useSheetStore } from "../store/sheet-store";
+import { HelpIcon } from "@/components";
+import { useSheetStore } from "../../store";
 
 const HeaderContent = () => {
   const { setIsOpen } = useSheetStore();

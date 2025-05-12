@@ -1,5 +1,5 @@
 import { Container } from "@/components";
-import { PlatformSelectStep, ContentMakeStep } from "./_components/steps";
+import { ContentMakeStep, PlatformSelectStep } from "./_components/step";
 
 export default function NewContentPage({ searchParams }: { searchParams: { step: string } }) {
   return (

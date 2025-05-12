@@ -1,4 +1,4 @@
-import { Button } from "@/components/common/button";
+import { Button } from "@/components";
 import { Category } from "@/types/platform";
 import { cn } from "@/utils";
 

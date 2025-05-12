@@ -1,7 +1,7 @@
 "use client";
 
 import { Platforms } from "@/types/platform";
-import { usePlatformStore } from "../store/platform-store";
+import { usePlatformStore } from "../../store";
 import Platform from "./Platform";
 
 const PlatformList = () => {

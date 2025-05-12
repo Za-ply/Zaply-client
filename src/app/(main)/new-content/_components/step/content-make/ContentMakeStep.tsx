@@ -1,4 +1,4 @@
-import { Bedge } from "../content-make";
+import Bedge from "./Bedge";
 
 const ContentMakeStep = () => {
   return (

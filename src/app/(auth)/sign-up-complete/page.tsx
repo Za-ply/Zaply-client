@@ -1,8 +1,6 @@
 "use client";
 
-import { Container } from "@/components";
-import { Button } from "@/components/common/button";
-import { ArrowIcon } from "@/components/icons";
+import { Container, Button, ArrowIcon } from "@/components";
 import { motion } from "framer-motion";
 import { fadeUpVariants, transition } from "./_animation";
 import { useRouter } from "next/navigation";

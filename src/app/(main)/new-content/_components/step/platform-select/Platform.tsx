@@ -9,14 +9,14 @@ import {
   facebook,
   facebookMono,
 } from "@public/assets/images/sns";
-import { CheckIcon } from "@/components/icons";
-import { cn } from "@/utils";
 import { Category, Platforms } from "@/types/platform";
-import { motion } from "framer-motion";
-import CategoryButton from "./CategoryButton";
-import { usePlatformStore } from "../store/platform-store";
+import { usePlatformStore } from "../../store";
 import { useToast } from "@/utils/useToast";
 import { useEffect, useState } from "react";
+import { cn } from "@/utils";
+import { CheckIcon } from "@/components";
+import { motion } from "framer-motion";
+import CategoryButton from "./CategoryButton";
 
 interface PlatformProps {
   platform: Platforms;

@@ -1,7 +1,6 @@
 "use client";
 
-import { TopBar } from "@/components/common/topBar";
-import { ArrowIcon } from "@/components/icons";
+import { TopBar, ArrowIcon } from "@/components";
 import { useRouter } from "next/navigation";
 
 const SignInHeader = () => {
@@ -18,7 +17,7 @@ const SignInHeader = () => {
           />
         }
       />
-      <p className="font-creato700 italic text-h2 text-blue-700 text-center">
+      <p className="italic text-center text-blue-700 font-creato700 text-h2">
         Create Once,
         <br />
         Spread with Zaply

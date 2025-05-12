@@ -1,10 +1,9 @@
 "use client";
 
-import Image from "next/image";
-
 import { instagramCircle, threadCircle, facebookCircle } from "@public/assets/images/sns";
+import Image from "next/image";
+import { usePlatformStore } from "../../store";
 import { Category, Platforms } from "@/types/platform";
-import { usePlatformStore } from "../store/platform-store";
 
 const Bedge = () => {
   const { selectedPlatform, selectedCategory } = usePlatformStore();

@@ -1,6 +1,5 @@
 import Image from "next/image";
-import { Container } from "@/components";
-import { TopBar } from "@/components/common/topBar";
+import { Container, TopBar } from "@/components";
 import OnBoardingContent from "./_components/OnBoardingContent";
 import OnBoardingFooter from "./_components/OnBoardingFooter";
 
