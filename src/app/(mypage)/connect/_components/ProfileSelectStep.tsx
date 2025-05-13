@@ -1,9 +1,32 @@
+"use client";
+
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/common/button";
 import ProfileSelect from "./ProfileSelect";
+import { useSelectedSocialStore } from "./store/social-store";
+import { SnsType, useSnsLinkStore } from "./store/link-store";
 
 export const ProfileSelectStep = () => {
+  const router = useRouter();
   const [selectedId, setSelectedId] = useState<number | null>(null);
+
+  const handleLink = async () => {
+    const selected = useSelectedSocialStore.getState().selected?.toLowerCase() as SnsType;
+    if (!selectedId || !selected) return;
+
+    try {
+      // API 연동
+
+      // 연동 성공 시 상태 업데이트
+      useSnsLinkStore.getState().setLinked(selected, true);
+
+      // 페이지 이동
+      router.push("/connect-complete");
+    } catch (err) {
+      console.error("연결 실패", err);
+    }
+  };
 
   return (
     <>
@@ -20,7 +43,8 @@ export const ProfileSelectStep = () => {
         <Button
           className="w-full"
           variant={selectedId ? "active" : "deactive"}
-          disabled={!selectedId}>
+          disabled={!selectedId}
+          onClick={handleLink}>
           연결하기
         </Button>
       </div>

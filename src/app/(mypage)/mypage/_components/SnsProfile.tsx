@@ -7,13 +7,11 @@ import {
   threadCircle,
   threadCircleMono,
 } from "@public/assets/images/sns";
+import { cn } from "@/utils";
+import { useSnsLinkStore } from "../../connect/_components/store/link-store";
+import { useSelectedSocialStore } from "../../connect/_components/store/social-store";
 
 export type SnsType = "instagram" | "thread" | "facebook";
-
-type SnsProfileProps = {
-  type: SnsType;
-  isLinked: boolean;
-};
 
 const snsMap: Record<SnsType, { linked: StaticImageData; unlinked: StaticImageData }> = {
   instagram: {
@@ -30,21 +28,29 @@ const snsMap: Record<SnsType, { linked: StaticImageData; unlinked: StaticImageDa
   },
 };
 
-export const SnsProfile = ({ type, isLinked }: SnsProfileProps) => {
+export const SnsProfile = ({ type, hasBorder }: { type: SnsType; hasBorder?: boolean }) => {
+  const isLinked = useSnsLinkStore(state => state.linkedStatus[type]);
+  const { selected } = useSelectedSocialStore();
   const icon = snsMap[type];
 
-  return isLinked ? (
-    <div className="relative w-[48px] h-[48px] bg-grayscale-400 rounded-full">
+  const shouldShowFullProfile = isLinked || selected?.toLowerCase() === type;
+
+  return shouldShowFullProfile ? (
+    <div
+      className={cn(
+        "relative w-[48px] h-[48px] bg-grayscale-400 rounded-full",
+        hasBorder && "border-[2.8px] border-blue-700"
+      )}>
       <Image
         src={icon.unlinked}
         width={20}
         height={20}
-        alt={`${type} linked`}
-        className="absolute bottom-0 right-0"
+        alt={`${type} badge`}
+        className="absolute bottom-[-1px] right-[-3px]"
       />
     </div>
   ) : (
-    <Image src={icon.linked} width={48} height={48} alt={`${type}`} className="rounded-full" />
+    <Image src={icon.linked} width={48} height={48} alt={`${type} icon`} className="rounded-full" />
   );
 };
 

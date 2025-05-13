@@ -4,15 +4,11 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/common/button";
 import { ArrowIcon, ChevronIcon } from "@/components/icons";
 import SnsProfile from "./SnsProfile";
-
-const snsStatus = [
-  { type: "instagram", isLinked: true },
-  { type: "thread", isLinked: false },
-  { type: "facebook", isLinked: true },
-] as const;
+import { useSnsLinkStore } from "../../connect/_components/store/link-store";
 
 export const SocialCard = () => {
-  const linkedCount = snsStatus.filter(sns => sns.isLinked).length;
+  const linkedStatus = useSnsLinkStore(state => state.linkedStatus);
+  const linkedCount = Object.values(linkedStatus).filter(Boolean).length;
   const router = useRouter();
 
   return (
@@ -27,9 +23,9 @@ export const SocialCard = () => {
         </div>
       </div>
       <div className="flex items-center justify-center gap-3">
-        <SnsProfile type="instagram" isLinked={true} />
-        <SnsProfile type="thread" isLinked={false} />
-        <SnsProfile type="facebook" isLinked={true} />
+        <SnsProfile type="instagram" />
+        <SnsProfile type="thread" />
+        <SnsProfile type="facebook" />
       </div>
       <div className="p-[1px] rounded-full bg-b700-g700" onClick={() => router.push("/connect")}>
         <Button

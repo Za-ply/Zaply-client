@@ -1682,8 +1682,8 @@ export const ProjectIcon = ({
       strokeLinejoin="round"
     />
     <path
-      fill-rule="evenodd"
-      clip-rule="evenodd"
+      fillRule="evenodd"
+      clipRule="evenodd"
       d="M11.5679 0.75L1.3252 0.75V19.25H16.6745V6.06826L11.5679 0.75Z"
       stroke={stroke}
       strokeWidth="1.4"

@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { CircleCheckBoldIcon, CircleIcon } from "@/components/icons";
 import SnsProfile, { SnsType } from "../../mypage/_components/SnsProfile";
 import { cn } from "@/utils";
@@ -43,11 +42,11 @@ export const ProfileSelect = ({ selectedId, onSelect }: ProfileSelectProps) => {
           key={profile.id}
           onClick={() => onSelect(profile.id)}
           className={cn(
-            "w-full p-3 flex items-center justify-between rounded-[8px] border border-grayscale-200 shadow-box cursor-pointer transition-all duration-300 ease-in-out",
+            "w-full p-3 flex items-center justify-between rounded-[12px] border border-grayscale-200 shadow-box cursor-pointer transition-all duration-300 ease-in-out",
             profile.id === selectedId && "border-blue-700"
           )}>
           <div className="flex gap-3 items-center">
-            <SnsProfile type={selected?.toLowerCase() as SnsType} isLinked={true} />
+            <SnsProfile type={selected?.toLowerCase() as SnsType} />
             <div className="flex flex-col gap-[2px]">
               <p className="text-b2M text-grayscale-900">{profile.username}</p>
               <p className="text-b4R text-grayscale-600">{profile.label}</p>
