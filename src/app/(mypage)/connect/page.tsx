@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { Container } from "@/components";
 import { TopBar } from "@/components/common/topBar";
 import ConnectSocialStep from "./_components/ConnectSocialStep";
+import ProfileSelectStep from "./_components/ProfileSelectStep";
 
 export const SocialConnect = () => {
   const router = useRouter();
@@ -21,7 +22,7 @@ export const SocialConnect = () => {
           </p>
         }
       />
-      <ConnectSocialStep />
+      <ProfileSelectStep />
     </Container>
   );
 };

@@ -5,15 +5,14 @@ import { Button } from "@/components/common/button";
 import { ArrowIcon, ChevronIcon } from "@/components/icons";
 import SnsProfile from "./SnsProfile";
 
-// 임의의 값
-const linkedStatus = {
-  instagram: true,
-  thread: false,
-  facebook: true,
-};
+const snsStatus = [
+  { type: "instagram", isLinked: true },
+  { type: "thread", isLinked: false },
+  { type: "facebook", isLinked: true },
+] as const;
 
 export const SocialCard = () => {
-  const linkedCount = Object.values(linkedStatus).filter(Boolean).length;
+  const linkedCount = snsStatus.filter(sns => sns.isLinked).length;
   const router = useRouter();
 
   return (
@@ -27,8 +26,10 @@ export const SocialCard = () => {
           <ChevronIcon type="right" className="w-[20px] h-[20px] text-grayscale-800" />
         </div>
       </div>
-      <div className="flex items-center justify-center">
-        <SnsProfile linkedStatus={linkedStatus} />
+      <div className="flex items-center justify-center gap-3">
+        <SnsProfile type="instagram" isLinked={true} />
+        <SnsProfile type="thread" isLinked={false} />
+        <SnsProfile type="facebook" isLinked={true} />
       </div>
       <div className="p-[1px] rounded-full bg-b700-g700" onClick={() => router.push("/connect")}>
         <Button

@@ -8,10 +8,11 @@ import {
   threadCircleMono,
 } from "@public/assets/images/sns";
 
-type SnsType = "instagram" | "thread" | "facebook";
+export type SnsType = "instagram" | "thread" | "facebook";
 
 type SnsProfileProps = {
-  linkedStatus: Record<SnsType, boolean>;
+  type: SnsType;
+  isLinked: boolean;
 };
 
 const snsMap: Record<SnsType, { linked: StaticImageData; unlinked: StaticImageData }> = {
@@ -29,26 +30,21 @@ const snsMap: Record<SnsType, { linked: StaticImageData; unlinked: StaticImageDa
   },
 };
 
-export const SnsProfile = ({ linkedStatus }: SnsProfileProps) => {
-  return (
-    <div className="flex gap-3 items-center">
-      {Object.entries(snsMap).map(([sns, icons]) => {
-        const isLinked = linkedStatus[sns as SnsType];
-        return isLinked ? (
-          <div key={sns} className="relative w-[48px] h-[48px] bg-grayscale-400 rounded-full">
-            <Image
-              src={icons.unlinked}
-              width={20}
-              height={20}
-              alt={`${sns} linked`}
-              className="absolute bottom-0 right-0"
-            />
-          </div>
-        ) : (
-          <Image key={sns} src={icons.linked} width={48} height={48} alt={`${sns}`} />
-        );
-      })}
+export const SnsProfile = ({ type, isLinked }: SnsProfileProps) => {
+  const icon = snsMap[type];
+
+  return isLinked ? (
+    <div className="relative w-[48px] h-[48px] bg-grayscale-400 rounded-full">
+      <Image
+        src={icon.unlinked}
+        width={20}
+        height={20}
+        alt={`${type} linked`}
+        className="absolute bottom-0 right-0"
+      />
     </div>
+  ) : (
+    <Image src={icon.linked} width={48} height={48} alt={`${type}`} className="rounded-full" />
   );
 };
 
