@@ -1,3 +1,5 @@
+import { cn } from "@/utils";
+
 interface IconProps extends React.SVGProps<SVGSVGElement> {
   size?: number;
   className?: string;
@@ -105,6 +107,50 @@ export const DownLoadIcon = ({
     <path d="M12 3V16" stroke={stroke} strokeWidth="1.4" strokeLinecap="round" />
     <path d="M7 12L12 17L17 12" stroke={stroke} strokeWidth="1.4" strokeLinecap="round" />
     <path d="M20 21H4" stroke={stroke} strokeWidth="1.4" strokeLinecap="round" />
+  </svg>
+);
+
+export const DownLoadPageIcon = ({
+  width = 20,
+  height = 20,
+  stroke = "currentColor",
+  className,
+  ...props
+}: IconProps) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={width}
+    height={height}
+    viewBox="0 0 20 21"
+    fill="none"
+    className={className}
+    {...props}>
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M12.1399 2.7915L3.60425 2.7915V18.2082H16.3953V7.22339L12.1399 2.7915Z"
+      stroke={stroke}
+      strokeWidth="1.16667"
+      strokeLinecap="square"
+    />
+    <path
+      d="M11.7432 3.25391V7.70843H15.999"
+      stroke={stroke}
+      strokeWidth="1.16667"
+      strokeLinecap="square"
+    />
+    <path
+      d="M9.05355 14.106V9.03147"
+      stroke={stroke}
+      strokeWidth="1.16667"
+      strokeLinecap="square"
+    />
+    <path
+      d="M11.0229 12.6004L9.05307 14.5786L7.08325 12.6004"
+      stroke={stroke}
+      strokeWidth="1.16667"
+      strokeLinecap="square"
+    />
   </svg>
 );
 
@@ -1535,9 +1581,39 @@ export const AddIcon = ({
   </svg>
 );
 
-export const CancelIcon = () => {
-  return <AddIcon className="rotate-45" />;
+export const CancelIcon = ({ className }: IconProps) => {
+  return <AddIcon className={cn("rotate-45", className)} />;
 };
+
+export const CancelSolidIcon = ({
+  width = 24,
+  height = 24,
+  fill = "#FEFEFE",
+  stroke = "currentColor",
+  className,
+  ...props
+}: IconProps) => (
+  <svg
+    width={width}
+    height={height}
+    viewBox="0 0 34 34"
+    fill="none"
+    className={className}
+    {...props}>
+    <path
+      d="M20.5358 20.5355L13.4648 13.4644"
+      stroke={stroke}
+      strokeWidth="1.4"
+      strokeLinecap="round"
+    />
+    <path
+      d="M13.4642 20.5355L20.5352 13.4644"
+      stroke={stroke}
+      strokeWidth="1.4"
+      strokeLinecap="round"
+    />
+  </svg>
+);
 
 export const CircleCheckBoldIcon = ({
   width = 24,
@@ -1619,3 +1695,38 @@ export const TimeIcon = ({
     />
   </svg>
 );
+
+export const DefaultProfileIcon = ({
+  width = 32,
+  height = 32,
+  color = "#FEFEFE",
+  stroke = "currentColor",
+  className,
+  ...props
+}: IconProps) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={width}
+      height={height}
+      viewBox="0 0 32 32"
+      fill="none"
+      className={className}
+      {...props}>
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M21.8477 9.55948C21.8477 12.8148 19.2083 15.4525 15.9548 15.4525C12.6995 15.4525 10.0601 12.8148 10.0601 9.55948C10.0601 6.30416 12.6995 3.6665 15.9548 3.6665C19.2083 3.6665 21.8477 6.30416 21.8477 9.55948Z"
+        stroke={stroke}
+        strokeWidth="2"
+        strokeLinecap="square"
+      />
+      <path
+        d="M15.9999 19.7583C20.3417 19.7472 24.0334 21.7408 25.3904 26.0321C22.6552 27.6995 19.4357 28.3417 15.9999 28.3334C12.5641 28.3417 9.34453 27.6995 6.60938 26.0321C7.96791 21.7361 11.6534 19.7472 15.9999 19.7583Z"
+        stroke={stroke}
+        strokeWidth="2"
+        strokeLinecap="square"
+      />
+    </svg>
+  );
+};

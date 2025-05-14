@@ -10,7 +10,7 @@ type CheckItem = {
 const Input = React.forwardRef<
   HTMLInputElement,
   React.ComponentProps<"input"> & {
-    type?: "text" | "check" | "timer" | "password";
+    type?: "text" | "check" | "timer" | "password" | "file";
     timerText?: string;
     checkItems?: CheckItem[];
     inputSize?: "default" | "md" | "sm";
