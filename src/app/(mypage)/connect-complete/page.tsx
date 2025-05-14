@@ -34,7 +34,6 @@ export const ConnectComplete = () => {
           닫기
         </Button>
       </div>
-      <LinkModal />
     </>
   );
 };
