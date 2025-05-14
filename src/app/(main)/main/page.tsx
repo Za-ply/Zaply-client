@@ -1,6 +1,7 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { Container } from "@/components";
 import { TopBar } from "@/components/common/topBar";
@@ -8,13 +9,20 @@ import { useScrollBlur } from "@/utils/useScrollBlur";
 import BNB from "@/components/common/bnb";
 import MainSection from "./_components/section/MainSection";
 import MainContent from "./_components/content/MainContent";
-import BottomModal from "@/app/@modal/(.)link/page";
-import LinkModal from "@/app/@modal/(.)link/page";
 
 export default function Home() {
   const containerRef = useRef<HTMLElement>(null);
   const [isBlur, setIsBlur] = useState(false);
+  const router = useRouter();
   useScrollBlur(containerRef, setIsBlur);
+
+  useEffect(() => {
+    const shown = localStorage.getItem("link-modal-shown");
+    if (!shown) {
+      router.replace("/link");
+      localStorage.setItem("link-modal-shown", "true");
+    }
+  }, []);
 
   return (
     <>
@@ -31,7 +39,6 @@ export default function Home() {
         </div>
       </Container>
       <BNB />
-      <LinkModal />
     </>
   );
 }

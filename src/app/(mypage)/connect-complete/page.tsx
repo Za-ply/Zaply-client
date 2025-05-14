@@ -2,13 +2,12 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Container, Modal } from "@/components";
+import { Container } from "@/components";
 import CompleteContent from "./_components/CompleteContent";
 import { Button } from "@/components/common/button";
-import { ArrowIcon, LinkIcon } from "@/components/icons";
+import { ArrowIcon } from "@/components/icons";
 import ErrorContent from "./_components/ErrorContent";
 import { cn } from "@/utils";
-import LinkModal from "@/app/@modal/(.)link/page";
 
 export const ConnectComplete = () => {
   const [isSuccess, setIsSuccess] = useState(true);
