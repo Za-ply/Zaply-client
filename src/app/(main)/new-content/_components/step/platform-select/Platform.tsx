@@ -1,22 +1,15 @@
 "use client";
 
 import Image from "next/image";
-import {
-  instagram,
-  instagramMono,
-  thread,
-  threadMono,
-  facebook,
-  facebookMono,
-} from "@public/assets/images/sns";
 import { Category, Platforms } from "@/types/platform";
 import { usePlatformStore } from "../../store";
 import { useToast } from "@/utils/useToast";
-import { useEffect, useState } from "react";
 import { cn } from "@/utils";
 import { CheckIcon } from "@/components";
 import { motion } from "framer-motion";
 import CategoryButton from "./CategoryButton";
+import useElementHeight from "../../hooks/useElementHeight";
+import { platformConfig } from "../../config/platform-config";
 
 interface PlatformProps {
   platform: Platforms;
@@ -24,39 +17,12 @@ interface PlatformProps {
   onSelect: () => void;
 }
 
-const platformConfig = {
-  [Platforms.INSTAGRAM]: {
-    name: "Instagram",
-    icon: instagram,
-    iconMono: instagramMono,
-    categories: [Category.POST, Category.REELS, Category.STORY],
-  },
-  [Platforms.THREADS]: {
-    name: "Thread",
-    icon: thread,
-    iconMono: threadMono,
-    categories: [Category.POST],
-  },
-  [Platforms.FACEBOOK]: {
-    name: "Facebook",
-    icon: facebook,
-    iconMono: facebookMono,
-    categories: [Category.POST, Category.REELS, Category.STORY],
-  },
-};
-
 const Platform = ({ platform, isSelected, onSelect }: PlatformProps) => {
   const config = platformConfig[platform];
-  const { selectedCategory, setSelectedCategory } = usePlatformStore();
-  const { toast } = useToast();
-  const [height, setHeight] = useState(0);
-  const [ref, setRef] = useState<HTMLDivElement | null>(null);
 
-  useEffect(() => {
-    if (ref) {
-      setHeight(ref.scrollHeight);
-    }
-  }, [ref, isSelected]);
+  const { toast } = useToast();
+  const { height, ref } = useElementHeight([isSelected]);
+  const { selectedCategory, setSelectedCategory } = usePlatformStore();
 
   const categoryVariants = {
     closed: { opacity: 0, height: 0 },
@@ -66,10 +32,10 @@ const Platform = ({ platform, isSelected, onSelect }: PlatformProps) => {
   return (
     <div
       className={cn(
-        "flex flex-col items-center justify-between w-full gap-2 px-4 py-3 border cursor-pointer bg-grayscale-200 rounded-xl",
+        "flex flex-col items-center justify-between w-full px-4 py-3 border cursor-pointer bg-grayscale-200 rounded-xl",
         {
           "border-grayscale-300": !isSelected,
-          "border-blue-700": isSelected,
+          "border-blue-700 gap-2": isSelected,
         }
       )}
       onClick={onSelect}>
@@ -126,7 +92,7 @@ const Platform = ({ platform, isSelected, onSelect }: PlatformProps) => {
           duration: 0.25,
           ease: [0.4, 0, 0.2, 1],
         }}>
-        <div ref={setRef} className="w-full">
+        <div ref={ref} className="w-full">
           <div className="w-full h-[1px] bg-grayscale-300 origin-left" />
           <div className="grid items-center justify-between w-full grid-cols-3 gap-3 pt-2">
             {config.categories.map(category => (

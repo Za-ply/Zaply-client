@@ -1,10 +1,11 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { Fragment } from "react";
-import { BottomSheet, Button } from "@/components";
+import { useRouter } from "next/navigation";
 import { usePlatformStore } from "../../store";
 import { InfoMainPlatform } from "../../common";
+import { Button } from "@/components";
+import BottomSheet from "./BottomSheet";
 
 const BottomContent = () => {
   const router = useRouter();
@@ -14,7 +15,7 @@ const BottomContent = () => {
     <Fragment>
       <Button
         variant={selectedPlatform && selectedCategory ? "active" : "deactive"}
-        className="absolute bottom-[60px] left-0 right-0 mx-auto w-[calc(100%-40px)]"
+        className="mb-[60px]"
         onClick={() => router.push("/new-content?step=2")}>
         다음
       </Button>
