@@ -7,7 +7,6 @@ import { TopBar } from "@/components/common/topBar";
 import ConnectSocialStep from "./_components/ConnectSocialStep";
 import ProfileSelectStep from "./_components/ProfileSelectStep";
 import { ArrowIcon } from "@/components/icons/service";
-import { Button } from "@/components/common/button";
 
 export const SocialConnect = () => {
   const router = useRouter();
@@ -30,7 +29,7 @@ export const SocialConnect = () => {
         right={
           <p
             className="text-button2 text-grayscale-600 cursor-pointer"
-            onClick={() => router.back()}>
+            onClick={() => router.push("/mypage")}>
             닫기
           </p>
         }
