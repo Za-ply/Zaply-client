@@ -1,17 +1,31 @@
-import BottomModal from "@/components/common/bottomModal";
-import { LinkIcon } from "@/components/icons";
+"use client";
+
 import { useRouter } from "next/navigation";
+import { LinkIcon } from "@/components/icons";
+import BottomModal from "@/components/common/bottomModal";
 
 const LinkModal = () => {
   const router = useRouter();
+
+  const handleClose = () => {
+    router.back();
+    setTimeout(() => {
+      router.replace("/main");
+      router.refresh();
+    }, 10);
+  };
 
   return (
     <BottomModal
       isOpen={true}
       mainBtn="계정 연결하기"
       subBtn="다음에 하기"
-      onMainBtnClick={() => router.push("/connect")}
-      onSubBtnClick={() => router.push("/")}
+      onMainBtnClick={() => {
+        handleClose();
+        router.push("/connect");
+      }}
+      onSubBtnClick={handleClose}
+      onCloseIconClick={handleClose}
       className="bottom-0 translate-y-0">
       <div className="flex flex-col gap-[48px]">
         <div className="flex flex-col gap-4">
