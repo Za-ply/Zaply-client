@@ -1,12 +1,18 @@
 "use client";
 
-import { instagramCircle, threadCircle, facebookCircle } from "@public/assets/images/sns";
 import Image from "next/image";
+import { instagramCircle, threadCircle, facebookCircle } from "@public/assets/images/sns";
 import { usePlatformStore } from "../../store";
 import { Category, Platforms } from "@/types/platform";
+import { Skeleton } from "@/components";
 
 const Bedge = () => {
   const { selectedPlatform, selectedCategory } = usePlatformStore();
+
+  if (!selectedPlatform) {
+    return <Skeleton className="w-[72px] h-[32px]" />;
+  }
+
   return (
     <div className="inline-flex items-center gap-2 px-2 py-1 border rounded border-grayscale-300">
       <Image
@@ -17,7 +23,7 @@ const Bedge = () => {
               ? threadCircle
               : facebookCircle
         }
-        alt="instagram"
+        alt={`SNS-${selectedPlatform}`}
         width={20}
         height={20}
       />
