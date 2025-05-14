@@ -28,7 +28,7 @@ const snsMap: Record<SnsType, { linked: StaticImageData; unlinked: StaticImageDa
   },
 };
 
-export const SnsProfile = ({ type, hasBorder }: { type: SnsType; hasBorder?: boolean }) => {
+export const SnsProfile = ({ type, className }: { type: SnsType; className?: string }) => {
   const isLinked = useSnsLinkStore(state => state.linkedStatus[type]);
   const { selected } = useSelectedSocialStore();
   const icon = snsMap[type];
@@ -36,11 +36,7 @@ export const SnsProfile = ({ type, hasBorder }: { type: SnsType; hasBorder?: boo
   const shouldShowFullProfile = isLinked || selected?.toLowerCase() === type;
 
   return shouldShowFullProfile ? (
-    <div
-      className={cn(
-        "relative w-[48px] h-[48px] bg-grayscale-400 rounded-full",
-        hasBorder && "border-[2.8px] border-blue-700"
-      )}>
+    <div className={cn("relative w-[48px] h-[48px] bg-grayscale-400 rounded-full", className)}>
       <Image
         src={icon.unlinked}
         width={20}
