@@ -1,11 +1,12 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { LinkIcon } from "@/components/icons";
 import BottomModal from "@/components/common/bottomModal";
 
 const LinkModal = () => {
   const router = useRouter();
+  const pathname = usePathname();
 
   const handleClose = () => {
     setTimeout(() => {
@@ -14,14 +15,18 @@ const LinkModal = () => {
     }, 10);
   };
 
+  if (pathname !== "/link") return null;
+
   return (
     <BottomModal
       isOpen={true}
       mainBtn="계정 연결하기"
       subBtn="다음에 하기"
       onMainBtnClick={() => {
-        handleClose();
-        router.push("/connect");
+        setTimeout(() => {
+          router.push("/connect");
+          router.refresh();
+        }, 10);
       }}
       onSubBtnClick={handleClose}
       onCloseIconClick={handleClose}
