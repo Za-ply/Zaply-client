@@ -8,6 +8,7 @@ import { useScrollBlur } from "@/utils/useScrollBlur";
 import BNB from "@/components/common/bnb";
 import MainSection from "./_components/section/MainSection";
 import MainContent from "./_components/content/MainContent";
+import BottomModal from "@/app/@modal/(.)link/page";
 
 export default function Home() {
   const containerRef = useRef<HTMLElement>(null);
@@ -29,6 +30,7 @@ export default function Home() {
         </div>
       </Container>
       <BNB />
+      <BottomModal />
     </>
   );
 }

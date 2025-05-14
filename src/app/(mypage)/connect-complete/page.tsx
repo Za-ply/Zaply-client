@@ -2,12 +2,13 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Container } from "@/components";
+import { Container, Modal } from "@/components";
 import CompleteContent from "./_components/CompleteContent";
 import { Button } from "@/components/common/button";
-import { ArrowIcon } from "@/components/icons";
+import { ArrowIcon, LinkIcon } from "@/components/icons";
 import ErrorContent from "./_components/ErrorContent";
 import { cn } from "@/utils";
+import LinkModal from "@/app/@modal/(.)link/page";
 
 export const ConnectComplete = () => {
   const [isSuccess, setIsSuccess] = useState(true);
@@ -33,6 +34,7 @@ export const ConnectComplete = () => {
           닫기
         </Button>
       </div>
+      <LinkModal />
     </>
   );
 };
