@@ -47,10 +47,6 @@ const UploadFile = () => {
     handleFileChange(e);
   };
 
-  useEffect(() => {
-    console.log(previewUrls);
-  }, [previewUrls]);
-
   return (
     <div
       className={cn({
