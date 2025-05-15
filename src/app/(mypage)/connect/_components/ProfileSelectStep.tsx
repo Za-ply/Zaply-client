@@ -22,9 +22,11 @@ export const ProfileSelectStep = () => {
       useSnsLinkStore.getState().setLinked(selected, true);
 
       // 페이지 이동
-      router.push("/connect-complete");
+      router.push("/connect-complete?success=true");
     } catch (err) {
       console.error("연결 실패", err);
+
+      router.push("/connect-mypage?success=false");
     }
   };
 

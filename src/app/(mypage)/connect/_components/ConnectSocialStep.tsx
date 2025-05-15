@@ -2,9 +2,9 @@ import { Button } from "@/components/common/button";
 import SocialSelect from "./SocialSelect";
 import { useSelectedSocialStore } from "./store/social-store";
 
-type ConnectSocialStep = {
+interface ConnectSocialStep {
   onNext: () => void;
-};
+}
 
 export const ConnectSocialStep = ({ onNext }: ConnectSocialStep) => {
   const { selected } = useSelectedSocialStore();
