@@ -3,6 +3,7 @@
 import { useSnsLinkStore } from "../../connect/_components/store/link-store";
 import { ChevronIcon } from "@/components/icons";
 import SnsProfile, { SnsType } from "../../mypage/_components/SnsProfile";
+import { useRouter } from "next/navigation";
 
 const snsList: { name: string; type: SnsType }[] = [
   {
@@ -20,6 +21,7 @@ const snsList: { name: string; type: SnsType }[] = [
 ];
 
 const SocialList = () => {
+  const router = useRouter();
   const { linkedStatus } = useSnsLinkStore();
 
   return (
@@ -30,6 +32,7 @@ const SocialList = () => {
         return (
           <div
             key={type}
+            onClick={() => router.push(`/socials/info?platform=${type}`)}
             className={`w-full flex items-center justify-between pb-3 cursor-pointer ${
               !isLast ? "border-b border-grayscale-grayscale-200" : ""
             }`}>

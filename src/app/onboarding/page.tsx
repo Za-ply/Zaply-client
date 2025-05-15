@@ -6,7 +6,7 @@ import OnBoardingFooter from "./_components/OnBoardingFooter";
 
 const OnBoarding = () => {
   return (
-    <Container className="bg-center bg-cover bg-background-default flex flex-col gap-[114px]">
+    <Container className="min-h-real-screen bg-center bg-cover bg-background-default flex flex-col gap-[114px]">
       <TopBar
         left={<Image src={"/assets/images/logo-black.webp"} width={99} height={36} alt="logo" />}
       />
