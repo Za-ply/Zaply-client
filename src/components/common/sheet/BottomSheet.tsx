@@ -8,12 +8,15 @@ import {
   SheetTitle,
 } from "@/components/common/sheet";
 import { useSheetStore } from "../../../app/(main)/new-content/_components/store/sheet-store";
+import { cn } from "@/utils";
 
-const BottomSheet = ({ children }: { children: React.ReactNode }) => {
+const BottomSheet = ({ children, className }: { children: React.ReactNode; className: string }) => {
   const { isOpen, setIsOpen } = useSheetStore();
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
-      <SheetContent className="max-w-[440px] mx-auto pt-8 pb-[60px] px-5 shadow-bnb">
+      <SheetContent
+        className={cn("max-w-[440px] mx-auto pt-8 pb-[60px] px-5 shadow-bnb", className)}
+        hideCloseIcon={true}>
         <SheetHeader>
           <SheetTitle className="hidden" />
           <SheetDescription className="hidden" />

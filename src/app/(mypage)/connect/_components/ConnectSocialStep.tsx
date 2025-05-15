@@ -5,10 +5,11 @@ import { Button } from "@/components/common/button";
 import SocialSelect from "./SocialSelect";
 import SocialLogin from "./SocialLogin";
 import { useSelectedSocialStore } from "./store/social-store";
-import accountService from "@/lib/api/service/AccountService";
 import { useToast } from "@/utils/useToast";
-import { useSheetStore } from "./store/sheet-store";
 import BottomSheetContent from "./BottomSheetContent";
+import { useSnsLinkStore } from "./store/link-store";
+import { useSheetStore } from "./store/sheet-store";
+// import accountService from "@/lib/api/service/AccountService";
 
 const snsList = [
   {
@@ -26,7 +27,9 @@ export const ConnectSocialStep = () => {
   const { selected } = useSelectedSocialStore();
   const { toast } = useToast();
   const [step, setStep] = useState<1 | 2>(1);
-  const { isOpen, setIsOpen } = useSheetStore();
+  const { setIsOpen } = useSheetStore();
+  const { setLinked } = useSnsLinkStore();
+
   const selectedSns = snsList.find(sns => sns.name === selected);
 
   const handleClick = async () => {
@@ -34,13 +37,18 @@ export const ConnectSocialStep = () => {
     setStep(2);
 
     try {
-      if (selectedSns?.name === "Thread") {
-        await accountService.threads();
-      } else if (selectedSns?.name === "Facebook") {
-        await accountService.facebook();
-      } else if (selectedSns?.name === "Instagram") {
-        console.log("Instagram login not implemented yet");
+      if (selectedSns?.name) {
+        const key = selectedSns.name.toLowerCase() as "instagram" | "thread" | "facebook";
+        setLinked(key, true);
       }
+
+      // if (selectedSns?.name === "Thread") {
+      //   await accountService.threads();
+      // } else if (selectedSns?.name === "Facebook") {
+      //   await accountService.facebook();
+      // } else if (selectedSns?.name === "Instagram") {
+      //   console.log("Instagram login not implemented yet");
+      // }
     } catch (err) {
       toast({
         variant: "error",

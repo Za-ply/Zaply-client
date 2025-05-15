@@ -5,6 +5,7 @@ import { Button } from "@/components/common/button";
 import { ArrowIcon, ChevronIcon } from "@/components/icons";
 import SnsProfile from "./SnsProfile";
 import { useSnsLinkStore } from "../../connect/_components/store/link-store";
+import Link from "next/link";
 
 export const SocialCard = () => {
   const linkedStatus = useSnsLinkStore(state => state.linkedStatus);
@@ -18,7 +19,9 @@ export const SocialCard = () => {
           연동된 계정 <span className="text-blue-700">{linkedCount}</span>
         </p>
         <div className="flex items-center gap-[2px] cursor-pointer">
-          <p className="text-b3M text-grayscale-600">전체 보기</p>
+          <Link className="text-b3M text-grayscale-600" href={"/socials"}>
+            전체 보기
+          </Link>
           <ChevronIcon type="right" className="w-[20px] h-[20px] text-grayscale-800" />
         </div>
       </div>
