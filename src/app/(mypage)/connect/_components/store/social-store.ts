@@ -1,10 +1,9 @@
+import { Platforms } from "@/types/platform";
 import { create } from "zustand";
 
-type Social = "Instagram" | "Facebook" | "Thread" | null;
-
 interface SelectedSocialState {
-  selected: Social;
-  setSelected: (name: Social) => void;
+  selected: Platforms | null;
+  setSelected: (name: Platforms) => void;
 }
 
 export const useSelectedSocialStore = create<SelectedSocialState>(set => ({

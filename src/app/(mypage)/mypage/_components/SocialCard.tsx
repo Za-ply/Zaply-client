@@ -6,6 +6,7 @@ import { ArrowIcon, ChevronIcon } from "@/components/icons";
 import SnsProfile from "./SnsProfile";
 import { useSnsLinkStore } from "../../connect/_components/store/link-store";
 import Link from "next/link";
+import { Platforms } from "@/types/platform";
 
 export const SocialCard = () => {
   const linkedStatus = useSnsLinkStore(state => state.linkedStatus);
@@ -25,11 +26,13 @@ export const SocialCard = () => {
           <ChevronIcon type="right" className="w-[20px] h-[20px] text-grayscale-800" />
         </div>
       </div>
+
       <div className="flex items-center justify-center gap-3">
-        <SnsProfile type="instagram" />
-        <SnsProfile type="thread" />
-        <SnsProfile type="facebook" />
+        <SnsProfile type={Platforms.INSTAGRAM} />
+        <SnsProfile type={Platforms.THREADS} />
+        <SnsProfile type={Platforms.FACEBOOK} />
       </div>
+
       <div className="p-[1px] rounded-full bg-b700-g700" onClick={() => router.push("/connect")}>
         <Button
           className="bg-white w-full h-[48px] rounded-full text-button2 text-blue-700"

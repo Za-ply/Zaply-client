@@ -1,38 +1,50 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useSnsLinkStore } from "../../connect/_components/store/link-store";
 import { ChevronIcon } from "@/components/icons";
-import SnsProfile, { SnsType } from "../../mypage/_components/SnsProfile";
-import { useRouter } from "next/navigation";
+import SnsProfile from "../../mypage/_components/SnsProfile";
+import { Platforms } from "@/types/platform";
 
-const snsList: { name: string; type: SnsType }[] = [
+const snsList: { name: string; type: Platforms }[] = [
   {
     name: "Instagram",
-    type: "instagram",
+    type: Platforms.INSTAGRAM,
   },
   {
     name: "Thread",
-    type: "thread",
+    type: Platforms.THREADS,
   },
   {
     name: "Facebook",
-    type: "facebook",
+    type: Platforms.FACEBOOK,
   },
 ];
 
 const SocialList = () => {
   const router = useRouter();
   const { linkedStatus } = useSnsLinkStore();
+  console.log(linkedStatus);
 
   return (
     <section className="pt-[92px] w-full flex flex-col gap-3">
       {snsList.map(({ name, type }, index) => {
         const isLast = index === snsList.length - 1;
         const isLinked = linkedStatus[type];
+
+        console.log("type:", type, "linked:", linkedStatus[type]);
+
+        const handleClick = () => {
+          const path = isLinked
+            ? `/socials/unlinked?platform=${type}`
+            : `/socials/info?platform=${type}`;
+          router.push(path);
+        };
+
         return (
           <div
             key={type}
-            onClick={() => router.push(`/socials/info?platform=${type}`)}
+            onClick={handleClick}
             className={`w-full flex items-center justify-between pb-3 cursor-pointer ${
               !isLast ? "border-b border-grayscale-grayscale-200" : ""
             }`}>
