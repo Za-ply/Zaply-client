@@ -8,11 +8,14 @@ import { useScrollBlur } from "@/utils/useScrollBlur";
 import BNB from "@/components/common/bnb";
 import MainSection from "./_components/section/MainSection";
 import MainContent from "./_components/content/MainContent";
+import { useLinkModalOnce } from "./_components/hooks/useLinkModalOnce";
 
 export default function Home() {
   const containerRef = useRef<HTMLElement>(null);
   const [isBlur, setIsBlur] = useState(false);
+
   useScrollBlur(containerRef, setIsBlur);
+  useLinkModalOnce();
 
   return (
     <>

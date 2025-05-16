@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 const ContentButton = () => {
   const router = useRouter();
   return (
-    <div className="relative w-full mt-4 rounded-[12px] p-[1.4px] bg-gradation-border bg-[length:300%_300%] animate-border-rotate">
+    <div className="relative w-full mt-4 rounded-[14px] p-[1.4px] bg-gradation-border bg-[length:300%_300%] animate-border-rotate">
       <div
         className="w-full bg-grayscale-100 rounded-[12px] py-5 px-6 cursor-pointer flex items-center justify-between relative z-10"
         onClick={() => router.push("/new-content?step=1")}>

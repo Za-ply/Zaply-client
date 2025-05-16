@@ -86,7 +86,7 @@ module.exports = {
         },
       },
       backgroundImage: {
-        "b700-g700": "linear-gradient(135deg, #22C7FA 0%, #1FEAAB 100%)",
+        "b700-g700": "linear-gradient(98deg, #22C7FA 48.53%, #1FEAAB 70.88%)",
         "y300-b700": "linear-gradient(135deg, #FFFCE6 0%, #22C7FA 100%)",
         "b500-y300": "linear-gradient(180deg, #93E6FF 0%, #FEFEFE 49%, #FFFCE6 100%)",
         "b300-g100": "linear-gradient(180deg, #D8F5FF 0%, #FEFEFE 100%)",
@@ -100,6 +100,7 @@ module.exports = {
         "backgroundLine-yellow": "url('/assets/images/background_yellow.webp')",
         "backgroundLine-green": "url('/assets/images/background_green.webp')",
         "backgroundLine-pink": "url('/assets/images/background_pink.webp')",
+        "backgroundLine-white": "url('/assets/images/background_white.webp')",
       },
       keyframes: {
         "toast-pop-in": {
@@ -161,7 +162,9 @@ module.exports = {
         },
         "border-rotate": {
           "0%": { backgroundPosition: "0% 50%" },
+          "25%": { backgroundPosition: "50% 0%" },
           "50%": { backgroundPosition: "100% 50%" },
+          "75%": { backgroundPosition: "50% 100%" },
           "100%": { backgroundPosition: "0% 50%" },
         },
       },
@@ -178,12 +181,13 @@ module.exports = {
         "slide-out-to-left": "slide-out-to-left 0.2s ease-in",
         "zoom-in": "zoom-in 0.2s ease-out",
         "zoom-out": "zoom-out 0.2s ease-in",
-        "border-rotate": "border-rotate 1.5s linear infinite",
+        "border-rotate": "border-rotate 2s ease-in-out infinite",
         in: "in 0.2s ease-out",
         out: "out 0.2s ease-in",
       },
       boxShadow: {
         drop: "0px 0px 50px 0px rgba(152, 167, 172, 0.10)",
+        box: "0px 0px 25px 0px rgba(177, 184, 195, 0.05)",
       },
     },
   },
