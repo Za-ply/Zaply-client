@@ -1,11 +1,11 @@
-export type PlatformType = "instagram" | "threads" | "facebook";
+export type Platform = "instagram" | "threads" | "facebook";
 
-export interface ContentItemProps {
+export interface ContentItem {
   id: number;
   type: "게시글" | "숏폼";
   title: string;
   publishedAt: string;
-  platforms: PlatformType[];
+  platforms: Platform[];
 }
 
-export type ContentItemList = ContentItemProps[];
+export type ContentItemList = ContentItem[];

@@ -1,11 +1,12 @@
 import { create } from "zustand";
 
-type TabType = "reserved" | "recent";
+// 추후에 스토어 -> props로 내려주는 방향으로 수정하기
+type Tab = "reserved" | "recent";
 
 interface ContentStore {
-  activeTab: TabType;
+  activeTab: Tab;
   counts: { reserved: number; recent: number };
-  setActiveTab: (tab: TabType) => void;
+  setActiveTab: (tab: Tab) => void;
   setCounts: (counts: { reserved: number; recent: number }) => void;
 }
 
