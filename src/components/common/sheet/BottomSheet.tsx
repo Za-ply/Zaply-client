@@ -7,10 +7,16 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/common/sheet";
-import { useSheetStore } from "../../../app/(main)/new-content/_components/store/sheet-store";
+import { useSheetStore } from "@/app/(main)/new-content/_components/store/sheet-store";
 import { cn } from "@/utils";
 
-const BottomSheet = ({ children, className }: { children: React.ReactNode; className: string }) => {
+const BottomSheet = ({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) => {
   const { isOpen, setIsOpen } = useSheetStore();
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>

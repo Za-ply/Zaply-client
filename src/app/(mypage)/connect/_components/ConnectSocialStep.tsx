@@ -8,9 +8,9 @@ import { useSelectedSocialStore } from "./store/social-store";
 import { useToast } from "@/utils/useToast";
 import BottomSheetContent from "./BottomSheetContent";
 import { useSnsLinkStore } from "./store/link-store";
-import { useSheetStore } from "./store/sheet-store";
 import { Platforms } from "@/types/platform";
 import accountService from "@/lib/api/service/AccountService";
+import { useSheetStore } from "@/app/(main)/new-content/_components/store/sheet-store";
 
 const snsList = [
   {
