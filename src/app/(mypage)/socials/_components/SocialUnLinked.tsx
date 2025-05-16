@@ -3,21 +3,26 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import SnsProfile from "../../mypage/_components/SnsProfile";
 import { Platforms } from "@/types/platform";
+import { useCallback } from "react";
+
+const platformAliasMap: Record<string, Platforms> = {
+  insta: Platforms.INSTAGRAM,
+  instagram: Platforms.INSTAGRAM,
+  facebook: Platforms.FACEBOOK,
+  thread: Platforms.THREADS,
+  threads: Platforms.THREADS,
+};
 
 const SocialUnLinked = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const platformParam = searchParams.get("platform")?.toLowerCase();
 
-  const platformAliasMap: Record<string, Platforms> = {
-    insta: Platforms.INSTAGRAM,
-    instagram: Platforms.INSTAGRAM,
-    facebook: Platforms.FACEBOOK,
-    thread: Platforms.THREADS,
-    threads: Platforms.THREADS,
-  };
-
   const platformKey = platformAliasMap[platformParam ?? ""];
+
+  const handleUnlink = useCallback(() => {
+    router.push("/unLinkWarning");
+  }, [router]);
 
   if (!platformKey) {
     return <div className="text-center text-red-500 text-b3M mt-10"></div>;
@@ -34,9 +39,7 @@ const SocialUnLinked = () => {
       </div>
       <div className="w-full border border-grayscale-300 rounded-[4px] px-4 py-3 flex items-center justify-between">
         <p className="text-b4R text-grayscale-700">25/05/08부터 연결됨</p>
-        <p
-          className="text-b3M text-redscale-700 cursor-pointer"
-          onClick={() => router.push("/unLinkWarning")}>
+        <p className="text-b3M text-redscale-700 cursor-pointer" onClick={handleUnlink}>
           계정 연결 끊기
         </p>
       </div>

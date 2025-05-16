@@ -5,8 +5,9 @@ import { useSnsLinkStore } from "../../connect/_components/store/link-store";
 import { ChevronIcon } from "@/components/icons";
 import SnsProfile from "../../mypage/_components/SnsProfile";
 import { Platforms } from "@/types/platform";
+import { useCallback } from "react";
 
-const snsList: { name: string; type: Platforms }[] = [
+const snsList = [
   {
     name: "Instagram",
     type: Platforms.INSTAGRAM,
@@ -19,12 +20,21 @@ const snsList: { name: string; type: Platforms }[] = [
     name: "Facebook",
     type: Platforms.FACEBOOK,
   },
-];
+] as const;
 
 const SocialList = () => {
   const router = useRouter();
-  const { linkedStatus } = useSnsLinkStore();
-  console.log(linkedStatus);
+  const linkedStatus = useSnsLinkStore(state => state.linkedStatus);
+
+  const handleClick = useCallback(
+    (isLinked: boolean, type: Platforms) => {
+      const path = isLinked
+        ? `/socials/unlinked?platform=${type}`
+        : `/socials/info?platform=${type}`;
+      router.push(path);
+    },
+    [router]
+  );
 
   return (
     <section className="pt-[92px] w-full flex flex-col gap-3">
@@ -32,19 +42,10 @@ const SocialList = () => {
         const isLast = index === snsList.length - 1;
         const isLinked = linkedStatus[type];
 
-        console.log("type:", type, "linked:", linkedStatus[type]);
-
-        const handleClick = () => {
-          const path = isLinked
-            ? `/socials/unlinked?platform=${type}`
-            : `/socials/info?platform=${type}`;
-          router.push(path);
-        };
-
         return (
           <div
             key={type}
-            onClick={handleClick}
+            onClick={() => handleClick(isLinked, type)}
             className={`w-full flex items-center justify-between pb-3 cursor-pointer ${
               !isLast ? "border-b border-grayscale-grayscale-200" : ""
             }`}>
