@@ -40,8 +40,8 @@ export const SocialLogin = () => {
   };
 
   return (
-    <div className="flex flex-col justify-between min-h-real-screen pt-[60px] pb-[120px]">
-      <div className="flex flex-1 justify-center items-center px-5">
+    <div className="flex flex-col justify-between items-center h-[100%] pt-[60px] pb-[120px]">
+      <div className="h-full flex flex-1 justify-center items-center px-5">
         <section className="flex flex-col items-center gap-2">
           <Image src={selectedSns.icon} width={48} height={48} alt={`${selectedSns.name} logo`} />
           <p className="text-grayscale-800 text-h3 text-center leading-snug">

@@ -1,3 +1,5 @@
+"use client";
+
 import { Platforms } from "@/types/platform";
 import { platformConfig } from "./config/social-config";
 import Image from "next/image";
@@ -5,8 +7,13 @@ import { ArrowIcon, CircleCheckIcon, EllipseIcon, ErrorIcon } from "@/components
 import { useSearchParams } from "next/navigation";
 import { socialInfo } from "./constants/socialInfo";
 import { Button } from "@/components/common/button";
+import { useState } from "react";
+import { useSelectedSocialStore } from "../../connect/_components/store/social-store";
+import SocialLogin from "../../connect/_components/SocialLogin";
 
 const InfoCard = () => {
+  const [step, setStep] = useState<1 | 2>(1);
+  const { setSelected } = useSelectedSocialStore();
   const searchParams = useSearchParams();
   const platformParam = searchParams.get("platform")?.toLowerCase();
 
@@ -25,6 +32,19 @@ const InfoCard = () => {
   if (!platformData) {
     return (
       <div className="text-center text-b2R text-red-500 mt-20">유효하지 않은 플랫폼입니다.</div>
+    );
+  }
+
+  const handleClick = () => {
+    setSelected(platformKey);
+    setStep(2);
+  };
+
+  if (step === 2) {
+    return (
+      <div className="pt-[120px] flex-1">
+        <SocialLogin />
+      </div>
     );
   }
 
@@ -84,7 +104,11 @@ const InfoCard = () => {
       </article>
       <div className="fixed bottom-[60px] left-1/2 -translate-x-1/2 w-full max-w-[440px] px-5 z-50 flex flex-col gap-3">
         <div className="p-[1px] rounded-full bg-b700-g700">
-          <Button variant="subAction" className="w-full " rightIcon={<ArrowIcon type="right" />}>
+          <Button
+            variant="subAction"
+            className="w-full "
+            rightIcon={<ArrowIcon type="right" />}
+            onClick={handleClick}>
             계정 연동하기
           </Button>
         </div>

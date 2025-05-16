@@ -9,7 +9,8 @@ import { useToast } from "@/utils/useToast";
 import BottomSheetContent from "./BottomSheetContent";
 import { useSnsLinkStore } from "./store/link-store";
 import { useSheetStore } from "./store/sheet-store";
-// import accountService from "@/lib/api/service/AccountService";
+import { Platforms } from "@/types/platform";
+import accountService from "@/lib/api/service/AccountService";
 
 const snsList = [
   {
@@ -36,19 +37,20 @@ export const ConnectSocialStep = () => {
     setIsOpen(true);
     setStep(2);
 
+    // api는 배포돼야 확인이 가능해서 머지되고 되는지 볼게요
     try {
       if (selectedSns?.name) {
-        const key = selectedSns.name.toLowerCase() as "instagram" | "thread" | "facebook";
+        const key = selectedSns.name.toLowerCase() as Platforms;
         setLinked(key, true);
       }
 
-      // if (selectedSns?.name === "Thread") {
-      //   await accountService.threads();
-      // } else if (selectedSns?.name === "Facebook") {
-      //   await accountService.facebook();
-      // } else if (selectedSns?.name === "Instagram") {
-      //   console.log("Instagram login not implemented yet");
-      // }
+      if (selectedSns?.name === "Thread") {
+        await accountService.threads();
+      } else if (selectedSns?.name === "Facebook") {
+        await accountService.facebook();
+      } else if (selectedSns?.name === "Instagram") {
+        console.log("Instagram login not implemented yet");
+      }
     } catch (err) {
       toast({
         variant: "error",
