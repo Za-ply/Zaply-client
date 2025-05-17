@@ -1,0 +1,103 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  --font-pretendard: "Pretendard";
+  --font-creato-800: "CreatoDisplay-ExtraBoldItalic";
+  --font-creato-700: "CreatoDisplay-BoldItalic";
+  --font-creato-500: "CreatoDisplay-MediumItalic";
+  --font-creato-400: "CreatoDisplay-RegularItalic";
+}
+
+@media (prefers-colorxscheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+@font-face {
+  font-family: "CreatoDisplay-RegularItalic";
+  src: url("/fonts/CreatoDisplay-RegularItalic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "CreatoDisplay-MediumItalic";
+  src: url("/fonts/CreatoDisplay-MediumItalic.woff2") format("woff2");
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "CreatoDisplay-BoldItalic";
+  src: url("/fonts/CreatoDisplay-BoldItalic.woff2") format("woff2");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "CreatoDisplay-ExtraBoldItalic";
+  src: url("/fonts/CreatoDisplay-ExtraBoldItalic.woff2") format("woff2");
+  font-weight: 800;
+  font-style: italic;
+  font-display: swap;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  height: 100%;
+  overflow-y: auto;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family:
+    var(--font-pretendard), var(--font-creato-400), var(--font-creato-500), var(--font-creato-700),
+    var(--font-creato-800), Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+html body[data-scroll-locked] {
+  overflow: visible !important;
+  margin-right: auto !important;
+  margin-left: auto !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
+}
