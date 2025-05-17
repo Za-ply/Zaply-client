@@ -8,7 +8,7 @@ export const buttonVariants = cva("h-[50px] flex items-center justify-center gap
     variant: {
       active: "bg-blue-blueblack text-grayscale-100",
       deactive: "bg-grayscale-400 text-grayscale-100",
-      subAction: "bg-grayscale-100 text-blue-700 border-grayscale-300",
+      subAction: "bg-grayscale-100 text-blue-700 border-grayscale-300 border border-grayscale-300",
     },
     size: {
       default: "w-full py-3 px-2 rounded-full",

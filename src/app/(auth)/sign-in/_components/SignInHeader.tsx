@@ -7,7 +7,7 @@ const SignInHeader = () => {
   const router = useRouter();
 
   return (
-    <header className="mt-[66px] w-full flex flex-col items-center justify-center">
+    <header className="mt-[60px] w-full flex flex-col items-center justify-center">
       <TopBar
         left={
           <ArrowIcon

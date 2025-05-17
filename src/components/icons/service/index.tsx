@@ -1696,6 +1696,145 @@ export const TimeIcon = ({
   </svg>
 );
 
+export const PieChartIcon = ({
+  width = 24,
+  height = 24,
+  color = "#FEFEFE",
+  stroke = "currentColor",
+  className,
+  ...props
+}: IconProps) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="25"
+    height="24"
+    viewBox="0 0 25 24"
+    fill="none"
+    className={className}
+    {...props}>
+    <path
+      d="M18.4764 13.4961C18.4764 15.0296 18.0216 16.5287 17.1696 17.8039C16.3176 19.079 15.1066 20.0728 13.6898 20.6597C12.273 21.2465 10.714 21.4001 9.20987 21.1009C7.70578 20.8017 6.32418 20.0632 5.23979 18.9788C4.1554 17.8944 3.41692 16.5129 3.11774 15.0088C2.81855 13.5047 2.97211 11.9456 3.55897 10.5288C4.14584 9.11198 5.13967 7.901 6.41478 7.049C7.68988 6.197 9.189 5.74225 10.7226 5.74225L10.7226 13.4961H18.4764Z"
+      stroke={stroke}
+      strokeWidth="1.4"
+      strokeLinecap="square"
+    />
+    <path
+      d="M13.7773 2.75018C15.8337 2.75018 17.8059 3.5671 19.26 5.02122C20.7141 6.47535 21.5311 8.44756 21.5311 10.504L13.7773 10.504L13.7773 2.75018Z"
+      stroke={stroke}
+      strokeWidth="1.4"
+      strokeLinecap="square"
+    />
+  </svg>
+);
+
+export const ProjectIcon = ({
+  width = 24,
+  height = 24,
+  color = "#FEFEFE",
+  stroke = "currentColor",
+  className,
+  ...props
+}: IconProps) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="18"
+    height="20"
+    viewBox="0 0 18 20"
+    fill="none"
+    className={className}
+    {...props}>
+    <path
+      d="M11.0927 14.2865H5.64941"
+      stroke={stroke}
+      strokeWidth="1.4"
+      strokeLinecap="square"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M9.03132 10.504H5.64844"
+      stroke={stroke}
+      strokeWidth="1.4"
+      strokeLinecap="square"
+      strokeLinejoin="round"
+    />
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M11.5679 0.75L1.3252 0.75V19.25H16.6745V6.06826L11.5679 0.75Z"
+      stroke={stroke}
+      strokeWidth="1.4"
+      strokeLinecap="square"
+    />
+    <path
+      d="M11.0918 1.30469V6.65011H16.1989"
+      stroke={stroke}
+      strokeWidth="1.4"
+      strokeLinecap="square"
+    />
+  </svg>
+);
+
+export const SupportIcon = ({
+  width = 24,
+  height = 24,
+  color = "#FEFEFE",
+  stroke = "currentColor",
+  className,
+  ...props
+}: IconProps) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="21"
+    viewBox="0 0 20 21"
+    fill="none"
+    className={className}
+    {...props}>
+    <path
+      d="M17.5 11H15.8333C14.9129 11 14.1667 11.7462 14.1667 12.6667V14.3333C14.1667 15.2538 14.9129 16 15.8333 16V16C16.7538 16 17.5 15.2538 17.5 14.3333V11C17.5 6.85786 14.1421 3.5 10 3.5C5.85786 3.5 2.5 6.85786 2.5 11V14.3333C2.5 15.2538 3.24619 16 4.16667 16V16C5.08714 16 5.83333 15.2538 5.83333 14.3333V12.6667C5.83333 11.7462 5.08714 11 4.16667 11H2.5"
+      stroke={stroke}
+      strokeWidth="1.16667"
+    />
+  </svg>
+);
+
+export const GoOutIcon = ({
+  width = 24,
+  height = 24,
+  color = "#FEFEFE",
+  stroke = "currentColor",
+  className,
+  ...props
+}: IconProps) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 20 20"
+    fill="none"
+    className={className}
+    {...props}>
+    <path
+      d="M17.3073 9.99974L6.65918 9.99974"
+      stroke={stroke}
+      strokeWidth="1.16667"
+      strokeLinecap="square"
+    />
+    <path
+      d="M15.1904 7.271L17.9317 10.0001L15.1904 12.7302"
+      stroke={stroke}
+      strokeWidth="1.16667"
+      strokeLinecap="square"
+    />
+    <path
+      d="M10.8379 13.8541L10.8379 17.7083L2.06794 17.7083L2.06794 2.29163L10.8379 2.29163L10.8379 6.14579"
+      stroke={stroke}
+      strokeWidth="1.16667"
+      strokeLinecap="square"
+    />
+  </svg>
+);
+
 export const DefaultProfileIcon = ({
   width = 32,
   height = 32,

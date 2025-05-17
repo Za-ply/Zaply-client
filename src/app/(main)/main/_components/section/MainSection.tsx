@@ -23,7 +23,7 @@ const MainSection = () => {
   const currentType = CHIP_TYPES[currentIndex];
 
   return (
-    <section className="mt-[90px] flex flex-col items-center justify-center gap-5">
+    <section className="mt-[84px] flex flex-col items-center justify-center gap-5">
       <AnimatePresence mode="wait">
         <motion.div
           key={currentType}
