@@ -8,7 +8,7 @@ import ConnectSocialStep from "./_components/ConnectSocialStep";
 import ProfileSelectStep from "./_components/ProfileSelectStep";
 import { ArrowIcon } from "@/components/icons/service";
 
-const SocialConnect = () => {
+export default function SocialConnect() {
   const router = useRouter();
   const [step, setStep] = useState<1 | 2>(1);
 
@@ -37,6 +37,4 @@ const SocialConnect = () => {
       {step === 1 ? <ConnectSocialStep onNext={() => setStep(2)} /> : <ProfileSelectStep />}
     </Container>
   );
-};
-
-export default SocialConnect;
+}

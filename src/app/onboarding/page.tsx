@@ -3,7 +3,7 @@ import { Container, TopBar } from "@/components";
 import OnBoardingContent from "./_components/OnBoardingContent";
 import OnBoardingFooter from "./_components/OnBoardingFooter";
 
-const OnBoarding = () => {
+export default function OnBoarding() {
   return (
     <Container className="bg-center bg-cover bg-background-default flex flex-col gap-[114px]">
       <TopBar
@@ -13,6 +13,4 @@ const OnBoarding = () => {
       <OnBoardingFooter />
     </Container>
   );
-};
-
-export default OnBoarding;
+}
