@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Button } from "@/components/common/button";
+import { Button } from "@/components";
 import ProfileSelect from "./ProfileSelect";
 import { useSelectedSocialStore } from "./store/social-store";
 import { SnsType, useSnsLinkStore } from "./store/link-store";
@@ -34,7 +34,7 @@ export const ProfileSelectStep = () => {
     <>
       <section className="relative mt-[106px] flex flex-col gap-12 pb-[120px]">
         <div className="flex flex-col gap-2">
-          <p className="text-t4 text-blue-700">
+          <p className="text-blue-700 text-t4">
             2<span className="text-grayscale-400">/2</span>
           </p>
           <p className="text-t3 text-grayscale-900">연결할 계정을 선택해주세요.</p>

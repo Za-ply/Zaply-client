@@ -1,10 +1,10 @@
 import { ChevronIcon, TimeIcon } from "@/components/icons";
 import { useContentStore } from "@/stores/useContentStore";
-import { ContentItemProps } from "@/types/contentItem";
+import type { ContentItem } from "@/types/contentItem";
 import { useDateLabel, useFormattedDateTime } from "../hooks/useFormatTime";
 import Platforms from "./Platforms";
 
-const ContentItem = ({ type, title, publishedAt, platforms }: ContentItemProps) => {
+const ContentItem = ({ type, title, publishedAt, platforms }: ContentItem) => {
   const formatted = useFormattedDateTime(publishedAt);
   const label = useDateLabel(publishedAt);
   const toggleState = useContentStore(state => state.activeTab);
