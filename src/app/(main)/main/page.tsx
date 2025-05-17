@@ -2,8 +2,7 @@
 
 import { useRef, useState } from "react";
 import Image from "next/image";
-import { Container } from "@/components";
-import { TopBar } from "@/components/common/topBar";
+import { Container, TopBar } from "@/components";
 import { useScrollBlur } from "@/utils/useScrollBlur";
 import BNB from "@/components/common/bnb";
 import MainSection from "./_components/section/MainSection";

@@ -1,4 +1,4 @@
-import { Input } from "@/components/common/input";
+import { Input } from "@/components";
 import { emailCheckType } from "@/lib/zod/schema-email";
 import { UseFormReturn } from "react-hook-form";
 

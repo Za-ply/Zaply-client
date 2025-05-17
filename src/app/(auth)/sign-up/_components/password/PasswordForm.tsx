@@ -1,4 +1,4 @@
-import { Input } from "@/components/common/input";
+import { Input } from "@/components";
 import { passwordCheckType } from "@/lib/zod/schema-password";
 import { PasswordValidation } from "@/types";
 import { UseFormReturn } from "react-hook-form";

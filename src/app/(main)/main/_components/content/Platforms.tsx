@@ -1,15 +1,16 @@
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import React from "react";
 import { PlatformType } from "@/types/contentItem";
+import { instagramCircle, threadCircle, facebookCircle } from "@public/assets/images/sns";
 
 interface PlatformsProps {
   platforms: PlatformType[];
 }
 
-const platformIcons: Record<PlatformType, string> = {
-  instagram: "/assets/images/insta-logo.svg",
-  threads: "/assets/images/threads-logo.svg",
-  facebook: "/assets/images/facebook-logo.svg",
+const platformIcons: Record<PlatformType, StaticImageData> = {
+  instagram: instagramCircle,
+  threads: threadCircle,
+  facebook: facebookCircle,
 };
 
 const Platforms = ({ platforms }: PlatformsProps) => {

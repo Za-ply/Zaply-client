@@ -42,7 +42,7 @@ export const TopBar: React.FC<TopBarProps> = ({
             : undefined
         }>
         <div className="w-[80px] flex justify-start items-center">{left}</div>
-        <div className="flex-1 flex justify-center items-center">{center}</div>
+        <div className="flex items-center justify-center flex-1">{center}</div>
         <div className="w-[80px] flex justify-end items-center">{right}</div>
       </motion.header>
 
@@ -52,3 +52,5 @@ export const TopBar: React.FC<TopBarProps> = ({
     </>
   );
 };
+
+export default TopBar;
