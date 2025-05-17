@@ -1,19 +1,26 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { CHIP_TYPES } from "../constants/chips";
 import { useContentStore } from "@/stores/useContentStore";
 import Chips from "./Chips";
 import ContentButton from "./ContentButton";
+import { useRouter } from "next/navigation";
 
-const MainSection = () => {
+const MainSection = ({ state }: { state: string }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [username, setUsername] = useState("민영");
+  const router = useRouter();
 
   const { counts } = useContentStore();
 
   const isEmpty = counts.reserved === 0 && counts.recent === 0;
 
   useEffect(() => {
+    if (state === "INIT") {
+      router.push("/main/link");
+    }
     const interval = setInterval(() => {
       setCurrentIndex(prev => (prev + 1) % CHIP_TYPES.length);
     }, 5000);

@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { usePlatformStore } from "../../store";
 import { InfoMainPlatform } from "../../common";
 import { Button } from "@/components";
-import BottomSheet from "./BottomSheet";
+import { DrawerSheet } from "@/components/drawer";
 
 const BottomContent = () => {
   const router = useRouter();
@@ -19,9 +19,7 @@ const BottomContent = () => {
         onClick={() => router.push("/new-content?step=2")}>
         다음
       </Button>
-      <BottomSheet>
-        <InfoMainPlatform />
-      </BottomSheet>
+      <DrawerSheet contentProps={<InfoMainPlatform />} showCloseButton={true} />
     </Fragment>
   );
 };

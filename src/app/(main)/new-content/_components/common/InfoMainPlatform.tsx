@@ -4,6 +4,7 @@ import { Button } from "@/components";
 
 const InfoMainPlatform = () => {
   const { setIsOpen } = useSheetStore();
+
   return (
     <Fragment>
       <p className="mb-4 text-black text-t4">메인 플랫폼이란?</p>

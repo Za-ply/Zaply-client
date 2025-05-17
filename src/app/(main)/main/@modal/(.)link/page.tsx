@@ -1,36 +1,37 @@
 "use client";
 
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { LinkIcon } from "@/components/icons";
-import BottomModal from "@/components/common/bottomModal";
+import { Modal } from "@/components";
 
 const LinkModal = () => {
   const router = useRouter();
-  const pathname = usePathname();
 
-  const handleClose = () => {
+  const handleMain = () => {
+    router.back();
     setTimeout(() => {
-      router.replace("/main");
-      router.refresh();
-    }, 10);
+      router.push("/main");
+    }, 100);
   };
 
-  if (pathname !== "/link") return null;
-
   return (
-    <BottomModal
+    <Modal
       isOpen={true}
-      mainBtn="계정 연결하기"
-      subBtn="다음에 하기"
-      onMainBtnClick={() => {
-        setTimeout(() => {
-          router.push("/connect");
-          router.refresh();
-        }, 10);
-      }}
-      onSubBtnClick={handleClose}
-      onCloseIconClick={handleClose}
-      className="bottom-0 translate-y-0">
+      title=""
+      description=""
+      leftText="다음에 하기"
+      leftClassName="bg-grayscale-100 text-grayscale-500"
+      rightText="계정 연결하기"
+      buttonType="multi"
+      buttonDirectionType="column"
+      showCloseIcon={true}
+      modalPosition="bottom"
+      onCloseIconClick={handleMain}
+      onLeftButtonClick={handleMain}
+      onRightButtonClick={() => {
+        router.replace("/connect");
+        router.refresh();
+      }}>
       <div className="flex flex-col gap-[48px]">
         <div className="flex flex-col gap-4">
           <LinkIcon className="w-10 h-10 text-green-700" />
@@ -44,7 +45,7 @@ const LinkModal = () => {
           </div>
         </div>
       </div>
-    </BottomModal>
+    </Modal>
   );
 };
 

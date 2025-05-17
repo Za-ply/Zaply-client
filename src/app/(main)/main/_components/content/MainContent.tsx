@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect } from "react";
 import ContentList from "./ContentList";
 import ContentToggle from "./ContentToggle";

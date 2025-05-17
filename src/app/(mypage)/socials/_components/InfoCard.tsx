@@ -32,7 +32,7 @@ const InfoCard = () => {
 
   if (!platformData) {
     return (
-      <div className="text-center text-b2R text-red-500 mt-20">유효하지 않은 플랫폼입니다.</div>
+      <div className="mt-20 text-center text-red-500 text-b2R">유효하지 않은 플랫폼입니다.</div>
     );
   }
 
@@ -51,23 +51,23 @@ const InfoCard = () => {
 
   return (
     <>
-      <article className="mt-[60px] w-full flex flex-col bg-center bg-cover bg-background-blue-green px-3 py-8 rounded-[12px] shadow-drop">
-        <div className="flex flex-col gap-2 items-center">
+      <article className="mt-[60px] w-full flex flex-col bg-center bg-cover bg-background-blue-green px-3 py-8 rounded-[12px] shadow-infoCard">
+        <div className="flex flex-col items-center gap-2">
           <Image src={platformData.icon} width={48} height={48} alt="logo" />
-          <p className="text-h3 text-blue-blueblack italic creato-700">{platformData.name}</p>
+          <p className="italic text-h3 text-blue-blueblack creato-700">{platformData.name}</p>
           <div className="w-[80px] h-[32px] bg-grayscale-100 border border-grayscale-300 rounded-[4px] shadow-drop text-b2M text-blue-700 flex items-center justify-center">
             연결 필요
           </div>
         </div>
 
         {platformData.limitMessage?.show && "title" in platformData.limitMessage && (
-          <div className="mt-9 p-4 flex flex-col gap-2">
+          <div className="flex flex-col gap-2 p-4 mt-9">
             <div className="flex gap-1">
-              <ErrorIcon className="text-redscale-700 w-5 h-5" />
+              <ErrorIcon className="w-5 h-5 text-redscale-700" />
               <p className="text-redscale-700 text-b3M">{platformData.limitMessage.title}</p>
             </div>
-            <div className="flex gap-2 items-center">
-              <EllipseIcon className="text-grayscale-600 w-1 h-1" />
+            <div className="flex items-center gap-2">
+              <EllipseIcon className="w-1 h-1 text-grayscale-600" />
               <p className="text-b4M text-grayscale-800">{platformData.limitMessage.description}</p>
             </div>
           </div>
@@ -75,22 +75,22 @@ const InfoCard = () => {
 
         <div className={`${!platformData.limitMessage.show ? "mt-9" : ""} p-4 flex flex-col gap-2`}>
           <div className="flex gap-1">
-            <CircleCheckIcon className="text-blue-700 w-5 h-5" />
+            <CircleCheckIcon className="w-5 h-5 text-blue-700" />
             <p className="text-blue-700 text-b3M">이런 분들께 추천드려요</p>
           </div>
           <div className="flex flex-col gap-1">
             {platformData.recommendations.map((text: string, idx: number) => (
-              <div key={idx} className="flex gap-2 items-center">
-                <EllipseIcon className="text-blue-800 w-1 h-1" />
+              <div key={idx} className="flex items-center gap-2">
+                <EllipseIcon className="w-1 h-1 text-blue-800" />
                 <p className="text-b4M text-grayscale-800">{text}</p>
               </div>
             ))}
           </div>
         </div>
 
-        <div className="p-4 flex flex-col gap-2">
+        <div className="flex flex-col gap-2 p-4">
           <div className="flex gap-1">
-            <CircleCheckIcon className="text-blue-700 w-5 h-5" />
+            <CircleCheckIcon className="w-5 h-5 text-blue-700" />
             <p className="text-blue-700 text-b3M">이 플랫폼과 함께 하면 효과가 2배!</p>
           </div>
           <div className="flex gap-2">
