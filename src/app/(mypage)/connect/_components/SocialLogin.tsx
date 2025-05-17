@@ -10,17 +10,14 @@ const snsList = [
   {
     name: "Instagram",
     icon: instagramCircle,
-    url: process.env.NEXT_PUBLIC_OAUTH_URL_INSTAGRAM,
   },
   {
     name: "Thread",
     icon: threadCircle,
-    url: process.env.NEXT_PUBLIC_OAUTH_URL_THREAD,
   },
   {
     name: "Facebook",
     icon: facebookCircle,
-    url: process.env.NEXT_PUBLIC_OAUTH_URL_FACEBOOK,
   },
 ];
 
@@ -33,9 +30,9 @@ export const SocialLogin = () => {
 
   const handleLoginClick = async () => {
     if (selectedSns?.name === "Thread") {
-      await accountService.threads();
+      window.location.href = `${process.env.NEXT_PUBLIC_OAUTH_URL_THREAD}`;
     } else if (selectedSns?.name === "Facebook") {
-      await accountService.facebook();
+      window.location.href = `${process.env.NEXT_PUBLIC_OAUTH_URL_FACEBOOK}`;
     }
   };
 
