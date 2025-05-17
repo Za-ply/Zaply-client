@@ -1,4 +1,9 @@
 import Image, { StaticImageData } from "next/image";
+
+import { cn } from "@/utils";
+import { useSnsLinkStore } from "../../connect/_components/store/link-store";
+import { useSelectedSocialStore } from "../../connect/_components/store/social-store";
+import { Platforms } from "@/types/platform";
 import {
   facebookCircle,
   facebookCircleMono,
@@ -7,33 +12,29 @@ import {
   threadCircle,
   threadCircleMono,
 } from "@public/assets/images/sns";
-import { cn } from "@/utils";
-import { useSnsLinkStore } from "../../connect/_components/store/link-store";
-import { useSelectedSocialStore } from "../../connect/_components/store/social-store";
+import { SocialPlatform } from "@/app/(mypage)/_components/types/platform";
 
-export type SnsType = "instagram" | "thread" | "facebook";
-
-const snsMap: Record<SnsType, { linked: StaticImageData; unlinked: StaticImageData }> = {
-  instagram: {
+const snsMap: Record<SocialPlatform, { linked: StaticImageData; unlinked: StaticImageData }> = {
+  [Platforms.INSTAGRAM]: {
     linked: instagramCircleMono,
     unlinked: instagramCircle,
   },
-  thread: {
+  [Platforms.THREADS]: {
     linked: threadCircleMono,
     unlinked: threadCircle,
   },
-  facebook: {
+  [Platforms.FACEBOOK]: {
     linked: facebookCircleMono,
     unlinked: facebookCircle,
   },
 };
 
-export const SnsProfile = ({ type, className }: { type: SnsType; className?: string }) => {
+export const SnsProfile = ({ type, className }: { type: SocialPlatform; className?: string }) => {
   const isLinked = useSnsLinkStore(state => state.linkedStatus[type]);
   const { selected } = useSelectedSocialStore();
   const icon = snsMap[type];
 
-  const shouldShowFullProfile = isLinked || selected?.toLowerCase() === type;
+  const shouldShowFullProfile = isLinked || selected === type;
 
   return shouldShowFullProfile ? (
     <div className={cn("relative w-[48px] h-[48px] bg-grayscale-400 rounded-full", className)}>

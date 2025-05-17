@@ -1,17 +1,17 @@
+import { Platforms } from "@/types/platform";
 import { create } from "zustand";
-
-export type SnsType = "instagram" | "thread" | "facebook";
+import { SocialPlatform } from "@/app/(mypage)/_components/types/platform";
 
 interface SnsLinkState {
-  linkedStatus: Record<SnsType, boolean>;
-  setLinked: (type: SnsType, isLinked: boolean) => void;
+  linkedStatus: Record<SocialPlatform, boolean>;
+  setLinked: (type: SocialPlatform, isLinked: boolean) => void;
 }
 
 export const useSnsLinkStore = create<SnsLinkState>(set => ({
   linkedStatus: {
-    instagram: false,
-    thread: false,
-    facebook: false,
+    [Platforms.INSTAGRAM]: false,
+    [Platforms.THREADS]: false,
+    [Platforms.FACEBOOK]: false,
   },
   setLinked: (type, isLinked) =>
     set(state => ({
