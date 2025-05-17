@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { Button } from "@/components/common/button";
+import { Button } from "@/components";
 import { ArrowIcon, ChevronIcon } from "@/components/icons";
 import SnsProfile from "./SnsProfile";
 import { useSnsLinkStore } from "../../connect/_components/store/link-store";

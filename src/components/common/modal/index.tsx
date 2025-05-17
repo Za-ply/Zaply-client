@@ -1,5 +1,5 @@
 import { cn } from "@/utils";
-import { Button } from "../button";
+import Button from "../button";
 import {
   Dialog,
   DialogContent,

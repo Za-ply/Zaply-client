@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@/components/common/button";
+import { Button } from "@/components";
 import { useSelectedSocialStore } from "../../connect/_components/store/social-store";
 import SnsProfile, { SnsType } from "../../mypage/_components/SnsProfile";
 import { ArrowIcon } from "@/components/icons/service";
@@ -17,7 +17,7 @@ export const CompleteContent = () => {
           type={selected?.toLowerCase() as SnsType}
           className="border-[2.8px] border-blue-700"
         />
-        <p className="text-b2M text-blue-700 italic creato-500">@username1</p>
+        <p className="italic text-blue-700 text-b2M creato-500">@username1</p>
       </div>
       <div className="flex flex-col items-center gap-2">
         <p className="text-h3 text-grayscale-900">계정이 연결되었어요!</p>

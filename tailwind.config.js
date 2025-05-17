@@ -189,8 +189,9 @@ module.exports = {
       boxShadow: {
         drop: "0px 0px 50px 0px rgba(152, 167, 172, 0.10)",
         box: "0px 0px 25px 0px rgba(177, 184, 195, 0.05)",
+        cancel: "0px 0px 5px 0px rgba(114, 126, 144, 0.20)",
       },
     },
   },
-  plugins: [],
+  plugins: [require("tailwind-scrollbar")],
 };

@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@/components/common/button";
+import { Button } from "@/components";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { useToast } from "@/utils/useToast";
@@ -30,7 +30,7 @@ const UserInfoWrapper = () => {
     formMethods.handleSubmit(async data => {
       try {
         const { email, password, termsOfServiceAgreed, privacyPolicyAgreed, marketingAgreed } =
-          useSignUpStore.getState(); // 상태에서 가져옴
+          useSignUpStore.getState();
 
         const requestBody = {
           email,

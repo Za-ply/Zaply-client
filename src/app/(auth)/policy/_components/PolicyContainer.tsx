@@ -2,10 +2,9 @@
 
 import PolicyList from "./PolicyList";
 import { usePolicyStore } from "./store/policy-store";
-import { Button } from "@/components/common/button";
+import { Button, ZaplyColorLogoIcon } from "@/components";
 import { useRouter } from "next/navigation";
 import { POLICY_LIST } from "./constants";
-import { ZaplyColorLogoIcon } from "@/components/icons/logo";
 import { useSignUpStore } from "@/stores/useSignUpStore";
 
 const PolicyContainer = () => {

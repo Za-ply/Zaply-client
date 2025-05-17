@@ -5,7 +5,7 @@ import { Container } from "@/components";
 import { TopBar } from "@/components/common/topBar";
 import ConnectSocialStep from "./_components/ConnectSocialStep";
 
-export const SocialConnect = () => {
+export default function SocialConnect() {
   const router = useRouter();
 
   return (
@@ -15,7 +15,7 @@ export const SocialConnect = () => {
         center={<p className="text-t4 text-grayscale-900">계정 연결</p>}
         right={
           <p
-            className="text-button2 text-grayscale-600 cursor-pointer"
+            className="cursor-pointer text-button2 text-grayscale-600"
             onClick={() => router.push("/mypage")}>
             닫기
           </p>
@@ -24,6 +24,4 @@ export const SocialConnect = () => {
       <ConnectSocialStep />
     </Container>
   );
-};
-
-export default SocialConnect;
+}

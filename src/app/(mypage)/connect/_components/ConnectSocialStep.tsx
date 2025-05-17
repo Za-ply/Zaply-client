@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Button } from "@/components/common/button";
+import { Button } from "@/components";
 import SocialSelect from "./SocialSelect";
 import SocialLogin from "./SocialLogin";
 import { useSelectedSocialStore } from "./store/social-store";

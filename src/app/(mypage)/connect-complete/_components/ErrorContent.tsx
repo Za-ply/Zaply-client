@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@/components/common/button";
+import { Button } from "@/components";
 import { useSelectedSocialStore } from "../../connect/_components/store/social-store";
 import SnsProfile, { SnsType } from "../../mypage/_components/SnsProfile";
 import { ArrowIcon } from "@/components/icons/service";
@@ -17,7 +17,7 @@ export const ErrorContent = () => {
           type={selected?.toLowerCase() as SnsType}
           className="border-[2.8px] border-redscale-700"
         />
-        <p className="text-b2M text-grayscale-600 italic creato-500">@username1</p>
+        <p className="italic text-b2M text-grayscale-600 creato-500">@username1</p>
       </div>
       <div className="flex flex-col items-center gap-2">
         <p className="text-h3 text-grayscale-900">계정이 연결에 실패했어요.</p>
