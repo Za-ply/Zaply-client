@@ -5,20 +5,25 @@ import { CheckIcon } from "@/components/icons";
 import { useSelectedSocialStore } from "./store/social-store";
 import { useSnsLinkStore } from "./store/link-store";
 import { useToast } from "@/utils/useToast";
+import { SocialPlatform } from "../../_components/types/platform";
+import { Platforms } from "@/types/platform";
 
-const snsList = [
+const snsList: { name: string; icon: any; type: SocialPlatform; description?: string }[] = [
   {
     name: "Instagram",
     icon: instagram,
+    type: Platforms.INSTAGRAM,
     description: "베타 테스트에서는 '비즈니스' 계정만 연결 가능해요.",
   },
   {
     name: "Thread",
     icon: thread,
+    type: Platforms.THREADS,
   },
   {
     name: "Facebook",
     icon: facebook,
+    type: Platforms.FACEBOOK,
     description: "베타 테스트에서는 '페이지' 계정만 연결 가능해요.",
   },
 ];
@@ -30,13 +35,12 @@ export const SocialSelect = () => {
 
   return (
     <div className="w-full flex flex-col gap-4">
-      {snsList.map(({ name, icon, description }) => {
-        const key = name.toLowerCase() as keyof typeof linkedStatus;
-        const isLinked = linkedStatus[key];
+      {snsList.map(({ name, icon, type, description }) => {
+        const isLinked = linkedStatus[type];
 
         return isLinked ? (
           <div
-            key={name}
+            key={type}
             className="w-full flex items-center justify-between px-4 py-3 bg-grayscale-300 rounded-[12px] border border-grayscale-300"
             onClick={() =>
               toast({
@@ -52,21 +56,21 @@ export const SocialSelect = () => {
           </div>
         ) : (
           <div
-            key={name}
+            key={type}
             className={cn(
               "w-full px-4 py-3 rounded-[12px] border border-grayscale-300 cursor-pointer transition-all duration-300 ease-in-out",
-              name === selected && "border-blue-700"
+              selected === type && "border-blue-700"
             )}
-            onClick={() => setSelected(name as any)}>
+            onClick={() => {
+              setSelected(type);
+            }}>
             <div className="flex flex-col gap-2">
               <div className="flex items-center justify-between">
                 <div className="flex gap-2 items-center">
                   <Image src={icon} width={24} height={24} alt={name} />
                   <p className="text-b2M text-grayscale-900">{name}</p>
                 </div>
-                <div className="flex items-center gap-2">
-                  {name === selected && <CheckIcon className="text-blue-700" />}
-                </div>
+                {selected === type && <CheckIcon className="text-blue-700" />}
               </div>
               {description && <p className="text-b4R text-grayscale-600">{description}</p>}
             </div>

@@ -101,6 +101,7 @@ module.exports = {
         "backgroundLine-green": "url('/assets/images/background_green.webp')",
         "backgroundLine-pink": "url('/assets/images/background_pink.webp')",
         "backgroundLine-white": "url('/assets/images/background_white.webp')",
+        "background-blue-green": "url('/assets/images/background_blue_green.webp')",
       },
       keyframes: {
         "toast-pop-in": {

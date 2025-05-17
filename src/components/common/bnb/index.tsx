@@ -11,7 +11,7 @@ const BNB = () => {
   const pathname = usePathname();
 
   useEffect(() => {
-    if (pathname.includes("/mypage")) {
+    if (pathname.includes("/mypage") || pathname.includes("/socials")) {
       setActiveTab("mypage");
     } else if (pathname.includes("/comment")) {
       setActiveTab("comment");
