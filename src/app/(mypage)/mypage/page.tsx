@@ -6,7 +6,7 @@ import MyPageList from "./_components/MyPageList";
 export default function MyPage() {
   return (
     <>
-      <Container className="overflow-y-scroll scrollbar-hide min-h-real-screen bg-center bg-cover bg-backgroundLine-white flex flex-col gap-[40px] pb-[157px]">
+      <Container className="overflow-y-scroll scrollbar-hide min-h-real-screen bg-b300-g100-mypage flex flex-col gap-[40px] pb-[157px]">
         <MyPageHeader />
         <MyPageList />
       </Container>
