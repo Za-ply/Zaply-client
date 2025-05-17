@@ -12,8 +12,9 @@ import {
   threadCircle,
   threadCircleMono,
 } from "@public/assets/images/sns";
+import { SocialPlatform } from "@/app/(mypage)/_components/types/platform";
 
-const snsMap: Record<Platforms, { linked: StaticImageData; unlinked: StaticImageData }> = {
+const snsMap: Record<SocialPlatform, { linked: StaticImageData; unlinked: StaticImageData }> = {
   [Platforms.INSTAGRAM]: {
     linked: instagramCircleMono,
     unlinked: instagramCircle,
@@ -28,7 +29,7 @@ const snsMap: Record<Platforms, { linked: StaticImageData; unlinked: StaticImage
   },
 };
 
-export const SnsProfile = ({ type, className }: { type: Platforms; className?: string }) => {
+export const SnsProfile = ({ type, className }: { type: SocialPlatform; className?: string }) => {
   const isLinked = useSnsLinkStore(state => state.linkedStatus[type]);
   const { selected } = useSelectedSocialStore();
   const icon = snsMap[type];

@@ -3,7 +3,7 @@
 import { facebookCircle, instagramCircle, threadCircle } from "@public/assets/images/sns";
 import { useSelectedSocialStore } from "./store/social-store";
 import Image from "next/image";
-import { Button } from "@/components/common/button";
+import { Button } from "@/components";
 import accountService from "@/lib/api/service/AccountService";
 
 const snsList = [

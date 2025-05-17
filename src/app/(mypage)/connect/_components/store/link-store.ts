@@ -1,9 +1,10 @@
 import { Platforms } from "@/types/platform";
 import { create } from "zustand";
+import { SocialPlatform } from "@/app/(mypage)/_components/types/platform";
 
 interface SnsLinkState {
-  linkedStatus: Record<Platforms, boolean>;
-  setLinked: (type: Platforms, isLinked: boolean) => void;
+  linkedStatus: Record<SocialPlatform, boolean>;
+  setLinked: (type: SocialPlatform, isLinked: boolean) => void;
 }
 
 export const useSnsLinkStore = create<SnsLinkState>(set => ({

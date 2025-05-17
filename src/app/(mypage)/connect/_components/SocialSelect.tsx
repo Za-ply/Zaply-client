@@ -5,9 +5,10 @@ import { CheckIcon } from "@/components/icons";
 import { useSelectedSocialStore } from "./store/social-store";
 import { useSnsLinkStore } from "./store/link-store";
 import { useToast } from "@/utils/useToast";
+import { SocialPlatform } from "../../_components/types/platform";
 import { Platforms } from "@/types/platform";
 
-const snsList: { name: string; icon: any; type: Platforms; description?: string }[] = [
+const snsList: { name: string; icon: any; type: SocialPlatform; description?: string }[] = [
   {
     name: "Instagram",
     icon: instagram,

@@ -6,10 +6,11 @@ import Image from "next/image";
 import { ArrowIcon, CircleCheckIcon, EllipseIcon, ErrorIcon } from "@/components/icons";
 import { useSearchParams } from "next/navigation";
 import { socialInfo } from "./constants/socialInfo";
-import { Button } from "@/components/common/button";
+import { Button } from "@/components";
 import { useState } from "react";
 import { useSelectedSocialStore } from "../../connect/_components/store/social-store";
 import SocialLogin from "../../connect/_components/SocialLogin";
+import { SocialPlatform } from "@/app/(mypage)/_components/types/platform";
 
 const InfoCard = () => {
   const [step, setStep] = useState<1 | 2>(1);
@@ -17,7 +18,7 @@ const InfoCard = () => {
   const searchParams = useSearchParams();
   const platformParam = searchParams.get("platform")?.toLowerCase();
 
-  const platformAliasMap: Record<string, Platforms> = {
+  const platformAliasMap: Record<string, SocialPlatform> = {
     insta: Platforms.INSTAGRAM,
     instagram: Platforms.INSTAGRAM,
     facebook: Platforms.FACEBOOK,
@@ -25,7 +26,7 @@ const InfoCard = () => {
     threads: Platforms.THREADS,
   };
 
-  const platformKey = platformAliasMap[platformParam ?? ""];
+  const platformKey = platformAliasMap[platformParam ?? ""] as SocialPlatform;
 
   const platformData = socialInfo[platformKey];
 
@@ -78,7 +79,7 @@ const InfoCard = () => {
             <p className="text-blue-700 text-b3M">이런 분들께 추천드려요</p>
           </div>
           <div className="flex flex-col gap-1">
-            {platformData.recommendations.map((text, idx) => (
+            {platformData.recommendations.map((text: string, idx: number) => (
               <div key={idx} className="flex gap-2 items-center">
                 <EllipseIcon className="text-blue-800 w-1 h-1" />
                 <p className="text-b4M text-grayscale-800">{text}</p>
@@ -93,7 +94,7 @@ const InfoCard = () => {
             <p className="text-blue-700 text-b3M">이 플랫폼과 함께 하면 효과가 2배!</p>
           </div>
           <div className="flex gap-2">
-            {platformData.synergy.map(p => (
+            {(platformData.synergy as SocialPlatform[]).map(p => (
               <div key={p} className="flex gap-1 items-center px-2 py-1 bg-blue-300 rounded-[4px]">
                 <Image src={platformConfig[p].icon} width={20} height={20} alt="logo" />
                 <p className="text-b4M text-grayscale-900">{platformConfig[p].name}</p>

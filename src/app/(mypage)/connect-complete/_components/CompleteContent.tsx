@@ -2,9 +2,10 @@
 
 import { Button } from "@/components";
 import { useSelectedSocialStore } from "../../connect/_components/store/social-store";
-import SnsProfile, { SnsType } from "../../mypage/_components/SnsProfile";
+import SnsProfile from "../../mypage/_components/SnsProfile";
 import { ArrowIcon } from "@/components/icons/service";
 import { useRouter } from "next/navigation";
+import { SocialPlatform } from "@/app/(mypage)/_components/types/platform";
 
 export const CompleteContent = () => {
   const { selected } = useSelectedSocialStore();
@@ -14,7 +15,7 @@ export const CompleteContent = () => {
     <section className="pt-[194px] flex flex-col gap-5 items-center justify-center">
       <div className="flex flex-col items-center gap-1">
         <SnsProfile
-          type={selected?.toLowerCase() as SnsType}
+          type={selected?.toLowerCase() as SocialPlatform}
           className="border-[2.8px] border-blue-700"
         />
         <p className="italic text-blue-700 text-b2M creato-500">@username1</p>

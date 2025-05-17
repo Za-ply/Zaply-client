@@ -6,7 +6,7 @@ import { ArrowIcon } from "@/components/icons/service";
 import { useRouter } from "next/navigation";
 import InfoCard from "../_components/InfoCard";
 
-export const SocialInfo = () => {
+export default function SocialInfo() {
   const router = useRouter();
 
   return (
@@ -23,6 +23,4 @@ export const SocialInfo = () => {
       <InfoCard />
     </Container>
   );
-};
-
-export default SocialInfo;
+}

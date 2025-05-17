@@ -4,8 +4,9 @@ import { useRouter, useSearchParams } from "next/navigation";
 import SnsProfile from "../../mypage/_components/SnsProfile";
 import { Platforms } from "@/types/platform";
 import { useCallback } from "react";
+import { SocialPlatform } from "../../_components/types/platform";
 
-const platformAliasMap: Record<string, Platforms> = {
+const platformAliasMap: Record<string, SocialPlatform> = {
   insta: Platforms.INSTAGRAM,
   instagram: Platforms.INSTAGRAM,
   facebook: Platforms.FACEBOOK,

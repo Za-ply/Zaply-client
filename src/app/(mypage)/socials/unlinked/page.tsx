@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import SocialUnLinked from "../_components/SocialUnLinked";
 import BNB from "@/components/common/bnb";
 
-export const UnLinked = () => {
+export default function UnLinked() {
   const router = useRouter();
 
   return (
@@ -27,6 +27,4 @@ export const UnLinked = () => {
       <BNB />
     </>
   );
-};
-
-export default UnLinked;
+}

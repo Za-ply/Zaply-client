@@ -1,7 +1,20 @@
 import { Platforms } from "@/types/platform";
 import { instagramCircle, facebookCircle, threadCircle } from "@public/assets/images/sns";
+import { SocialPlatform } from "@/app/(mypage)/_components/types/platform";
 
-export const socialInfo = {
+type SocialInfo = {
+  name: string;
+  icon: any;
+  limitMessage: {
+    show: boolean;
+    title?: string;
+    description?: string;
+  };
+  recommendations: string[];
+  synergy: SocialPlatform[];
+};
+
+export const socialInfo: Record<SocialPlatform, SocialInfo> = {
   [Platforms.INSTAGRAM]: {
     name: "Instagram",
     icon: instagramCircle,

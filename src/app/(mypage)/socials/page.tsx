@@ -8,7 +8,7 @@ import { ArrowIcon } from "@/components/icons";
 import { useRouter } from "next/navigation";
 import Update from "./_components/Update";
 
-const SocialManage = () => {
+export default function SocialManage() {
   const router = useRouter();
 
   return (
@@ -30,6 +30,4 @@ const SocialManage = () => {
       <BNB />
     </>
   );
-};
-
-export default SocialManage;
+}

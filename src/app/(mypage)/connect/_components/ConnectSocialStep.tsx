@@ -6,11 +6,10 @@ import SocialSelect from "./SocialSelect";
 import SocialLogin from "./SocialLogin";
 import { useSelectedSocialStore } from "./store/social-store";
 import { useToast } from "@/utils/useToast";
-import BottomSheetContent from "./BottomSheetContent";
 import { useSnsLinkStore } from "./store/link-store";
-import { Platforms } from "@/types/platform";
 import accountService from "@/lib/api/service/AccountService";
 import { useSheetStore } from "@/app/(main)/new-content/_components/store/sheet-store";
+import { SocialPlatform } from "../../_components/types/platform";
 
 const snsList = [
   {
@@ -40,7 +39,7 @@ export const ConnectSocialStep = () => {
     // api는 배포돼야 확인이 가능해서 머지되고 되는지 볼게요
     try {
       if (selectedSns?.name) {
-        const key = selectedSns.name.toLowerCase() as Platforms;
+        const key = selectedSns.name.toLowerCase() as SocialPlatform;
         setLinked(key, true);
       }
 
@@ -60,12 +59,7 @@ export const ConnectSocialStep = () => {
   };
 
   if (step === 2) {
-    return (
-      <>
-        <SocialLogin />
-        <BottomSheetContent platform={selectedSns?.name} />
-      </>
-    );
+    return <SocialLogin />;
   }
 
   return (
