@@ -89,7 +89,8 @@ module.exports = {
         "b700-g700": "linear-gradient(98deg, #22C7FA 48.53%, #1FEAAB 70.88%)",
         "y300-b700": "linear-gradient(135deg, #FFFCE6 0%, #22C7FA 100%)",
         "b500-y300": "linear-gradient(180deg, #93E6FF 0%, #FEFEFE 49%, #FFFCE6 100%)",
-        "b300-g100": "linear-gradient(180deg, #D8F5FF 0%, #FEFEFE 100%)",
+        "b300-g100": "linear-gradient(to bottom, #D8F5FF 0%, #FEFEFE 41%, #E9FDF7 100%)",
+        "b300-g100-mypage": "linear-gradient(to bottom, #D8F5FF 0%, #FEFEFE 41%)",
         "gradation-btn":
           "linear-gradient(180deg, var(--main-blue-700-primary-grd, #22C7FA) 8.84%, var(--main-green-700-secondary, #1FEAAB) 98.01%)",
         "gradation-border":
@@ -97,10 +98,6 @@ module.exports = {
         "gradation-text":
           "linear-gradient(272deg, var(--main-blue-700-primary-grd, #22C7FA) 70.08%, var(--main-green-700-secondary, #1FEAAB) 97.13%)",
         "background-default": "url('/assets/images/background_default.webp')",
-        "backgroundLine-yellow": "url('/assets/images/background_yellow.webp')",
-        "backgroundLine-green": "url('/assets/images/background_green.webp')",
-        "backgroundLine-pink": "url('/assets/images/background_pink.webp')",
-        "backgroundLine-white": "url('/assets/images/background_white.webp')",
       },
       keyframes: {
         "toast-pop-in": {
