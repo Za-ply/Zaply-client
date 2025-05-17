@@ -1,5 +1,4 @@
-import { cn } from "@/utils";
-import { Button } from "../button";
+import Button from "../button";
 import {
   Dialog,
   DialogContent,
@@ -61,7 +60,7 @@ const BottomModal = ({
         </div>
 
         <DialogFooter>
-          <div className="w-full flex flex-col gap-1">
+          <div className="flex flex-col w-full gap-1">
             <Button onClick={onMainBtnClick}>{mainBtn}</Button>
             <Button
               variant="deactive"

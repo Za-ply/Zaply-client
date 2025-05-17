@@ -1,6 +1,6 @@
-import { ContentItemProps } from "@/types/contentItem";
+// import { ContentItemProps } from "@/types/contentItem";
 
-export const contentItemsMock: ContentItemProps[] = [
+export const contentItemsMock: any[] = [
   {
     id: 1,
     type: "게시글",

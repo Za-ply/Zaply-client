@@ -1,6 +1,6 @@
 import { ViewIcon, HeartIcon, FollowersIcon } from "@/components/icons";
-import { formatNumberWithComma } from "../hooks/useFormatCount";
 import { ChipType } from "../constants/chips";
+import { formatNumberWithComma } from "@/utils/useFormatCount";
 
 interface ChipsProps {
   type?: ChipType;
@@ -10,25 +10,25 @@ interface ChipsProps {
 
 const Chips = ({ type = "default", month = 5, counts }: ChipsProps) => {
   const iconMap = {
-    default: <ViewIcon className="text-grayscale-200 w-5" />,
-    like: <HeartIcon className="text-grayscale-200 w-5 h-5" />,
-    follow: <FollowersIcon className="text-grayscale-200 w-5 h-5" />,
+    default: <ViewIcon className="w-5 text-grayscale-200" />,
+    like: <HeartIcon className="w-5 h-5 text-grayscale-200" />,
+    follow: <FollowersIcon className="w-5 h-5 text-grayscale-200" />,
   };
 
   const labelMap = {
     default: (
       <>
-        {month}월 누적 <span className="text-b3M text-blue-700">조회수</span>
+        {month}월 누적 <span className="text-blue-700 text-b3M">조회수</span>
       </>
     ),
     like: (
       <>
-        {month}월 누적 <span className="text-b3M text-blue-700">좋아요</span>
+        {month}월 누적 <span className="text-blue-700 text-b3M">좋아요</span>
       </>
     ),
     follow: (
       <>
-        {month}월 누적 <span className="text-b3M text-blue-700">팔로우</span>
+        {month}월 누적 <span className="text-blue-700 text-b3M">팔로우</span>
       </>
     ),
   };

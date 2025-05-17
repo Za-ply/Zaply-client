@@ -8,7 +8,7 @@ import ConnectSocialStep from "./_components/ConnectSocialStep";
 import ProfileSelectStep from "./_components/ProfileSelectStep";
 import { ArrowIcon } from "@/components/icons/service";
 
-export const SocialConnect = () => {
+const SocialConnect = () => {
   const router = useRouter();
   const [step, setStep] = useState<1 | 2>(1);
 
@@ -20,7 +20,7 @@ export const SocialConnect = () => {
           step === 2 ? (
             <ArrowIcon
               type="left"
-              className="text-grayscale-900 cursor-pointer"
+              className="cursor-pointer text-grayscale-900"
               onClick={() => setStep(1)}
             />
           ) : null
@@ -28,7 +28,7 @@ export const SocialConnect = () => {
         center={<p className="text-t4 text-grayscale-900">계정 연결</p>}
         right={
           <p
-            className="text-button2 text-grayscale-600 cursor-pointer"
+            className="cursor-pointer text-button2 text-grayscale-600"
             onClick={() => router.push("/mypage")}>
             닫기
           </p>
