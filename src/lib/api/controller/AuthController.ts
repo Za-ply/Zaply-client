@@ -1,9 +1,15 @@
+import { useMemberStore } from "@/stores/memberStore";
 import { apiClient } from "../axios/instance";
 import { ApiResponse, LoginData, LoginRequest, SignUpData, SignUpRequest } from "../model";
 
 const authController = {
   login: async (data: LoginRequest): Promise<ApiResponse<LoginData>> => {
     const response = await apiClient.post<ApiResponse<LoginData>>("/auth/sign-in", data);
+
+    // memberId 저장
+    const memberId = response.data.data.memberId;
+    useMemberStore.getState().setMemberId(memberId);
+
     return response.data;
   },
 

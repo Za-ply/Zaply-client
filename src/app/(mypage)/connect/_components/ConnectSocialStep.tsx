@@ -36,7 +36,6 @@ export const ConnectSocialStep = () => {
     setIsOpen(true);
     setStep(2);
 
-    // api는 배포돼야 확인이 가능해서 머지되고 되는지 볼게요
     try {
       if (selectedSns?.name) {
         const key = selectedSns.name.toLowerCase() as SocialPlatform;

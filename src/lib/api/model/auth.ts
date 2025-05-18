@@ -11,6 +11,7 @@ export interface SignUpRequest {
 }
 
 export interface LoginData {
+  memberId: number;
   accessToken: string;
   refreshToken: string;
 }
