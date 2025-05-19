@@ -1,5 +1,3 @@
-import { useMemberStore } from "@/stores/memberStore";
-
 const FACEBOOK_CLIENT_ID = process.env.NEXT_PUBLIC_FACEBOOK_CLIENT_ID!;
 const FACEBOOK_REDIRECT_URI = "https://api.zapply.site/v1/account/facebook/link";
 
@@ -10,7 +8,7 @@ const accountController = {
   threads: async (): Promise<void> => {
     if (typeof window === "undefined") return;
 
-    const memberId = useMemberStore.getState().memberId;
+    const memberId = localStorage.getItem("memberId");
     if (!memberId) {
       throw new Error("로그인 후 시도해주세요 (memberId 없음)");
     }
@@ -18,7 +16,6 @@ const accountController = {
     const params = new URLSearchParams({
       client_id: THREADS_CLIENT_ID,
       redirect_uri: THREADS_REDIRECT_URI,
-      state: memberId.toString(),
       scope: [
         "threads_basic",
         "threads_content_publish",
@@ -30,16 +27,17 @@ const accountController = {
         "threads_delete",
       ].join(","),
       response_type: "code",
+      state: memberId.toString(),
     });
 
     const threadsUrl = `https://threads.net/oauth/authorize?${params.toString()}`;
-    window.location.href = threadsUrl;
+    window.open(threadsUrl, "_blank", "width=600,height=800");
   },
 
   facebook: async (): Promise<void> => {
     if (typeof window === "undefined") return;
 
-    const memberId = useMemberStore.getState().memberId;
+    const memberId = localStorage.getItem("memberId");
     if (!memberId) {
       throw new Error("로그인 후 시도해주세요 (memberId 없음)");
     }

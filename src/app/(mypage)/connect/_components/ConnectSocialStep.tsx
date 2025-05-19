@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components";
 import SocialSelect from "./SocialSelect";
 import SocialLogin from "./SocialLogin";
@@ -10,6 +10,7 @@ import { useSnsLinkStore } from "./store/link-store";
 import accountService from "@/lib/api/service/AccountService";
 import { useSheetStore } from "@/app/(main)/new-content/_components/store/sheet-store";
 import { SocialPlatform } from "../../_components/types/platform";
+import { Platforms } from "@/types/platform";
 
 const snsList = [
   {
@@ -31,6 +32,20 @@ export const ConnectSocialStep = () => {
   const { setLinked } = useSnsLinkStore();
 
   const selectedSns = snsList.find(sns => sns.name === selected);
+
+  useEffect(() => {
+    const handler = (event: MessageEvent) => {
+      if (event.data.status === "success") {
+        setLinked(Platforms.THREADS, true);
+        window.location.href = "/connect-complete?status=success";
+      } else if (event.data.status === "error") {
+        window.location.href = "/connect-complete?status=error";
+      }
+    };
+
+    window.addEventListener("message", handler);
+    return () => window.removeEventListener("message", handler);
+  }, [setLinked]);
 
   const handleClick = async () => {
     setIsOpen(true);

@@ -21,3 +21,15 @@ export interface SignUpData {
   email: string;
   phoneNumber: string;
 }
+
+export type SnsType = "FACEBOOK" | "THREADS" | "INSTAGRAM";
+
+export interface Account {
+  snsType: SnsType;
+  accountName: string;
+}
+
+export interface AccountsResponse {
+  totalCount: number;
+  accounts: Account[];
+}

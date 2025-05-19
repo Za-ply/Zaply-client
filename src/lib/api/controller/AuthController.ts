@@ -1,20 +1,28 @@
-import { useMemberStore } from "@/stores/memberStore";
 import { apiClient } from "../axios/instance";
-import { ApiResponse, LoginData, LoginRequest, SignUpData, SignUpRequest } from "../model";
+import {
+  ApiResponse,
+  LoginData,
+  LoginRequest,
+  SignUpData,
+  SignUpRequest,
+  AccountsResponse,
+} from "../model";
 
 const authController = {
   login: async (data: LoginRequest): Promise<ApiResponse<LoginData>> => {
     const response = await apiClient.post<ApiResponse<LoginData>>("/auth/sign-in", data);
 
-    // memberId 저장
     const memberId = response.data.data.memberId;
-    useMemberStore.getState().setMemberId(memberId);
+    localStorage.setItem("memberId", memberId.toString());
 
     return response.data;
   },
 
   logout: async (): Promise<void> => {
     const response = await apiClient.post("/auth/sign-out");
+
+    localStorage.removeItem("memberId");
+
     return response.data;
   },
 
@@ -31,7 +39,12 @@ const authController = {
   },
 
   refreshToken: async (): Promise<ApiResponse<LoginData>> => {
-    const response = await apiClient.get<ApiResponse<LoginData>>("/auth/recreate");
+    const response = await apiClient.post<ApiResponse<LoginData>>("/auth/recreate");
+    return response.data;
+  },
+
+  getAccounts: async (): Promise<ApiResponse<AccountsResponse>> => {
+    const response = await apiClient.get<ApiResponse<AccountsResponse>>("/auth/accounts");
     return response.data;
   },
 };

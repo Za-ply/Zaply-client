@@ -7,12 +7,39 @@ import SnsProfile from "./SnsProfile";
 import { useSnsLinkStore } from "../../connect/_components/store/link-store";
 import Link from "next/link";
 import { Platforms } from "@/types/platform";
-import { useMemo } from "react";
+import { useMemo, useEffect } from "react";
+import authService from "@/lib/api/service/AuthService";
+import { SnsType } from "@/lib/api/model/auth";
+import { SocialPlatform } from "@/app/(mypage)/_components/types/platform";
+
+const snsTypeToPlatform: Record<SnsType, SocialPlatform> = {
+  FACEBOOK: Platforms.FACEBOOK,
+  THREADS: Platforms.THREADS,
+  INSTAGRAM: Platforms.INSTAGRAM,
+};
 
 export const SocialCard = () => {
-  const linkedStatus = useSnsLinkStore(state => state.linkedStatus);
+  const { linkedStatus, setLinked } = useSnsLinkStore();
   const linkedCount = Object.values(linkedStatus).filter(Boolean).length;
   const router = useRouter();
+
+  useEffect(() => {
+    const fetchAccounts = async () => {
+      try {
+        const response = await authService.getAccounts();
+        if (response.result === "SUCCESS") {
+          response.data.accounts.forEach(account => {
+            const platform = snsTypeToPlatform[account.snsType];
+            setLinked(platform, true);
+          });
+        }
+      } catch (error) {
+        console.error("Failed to fetch accounts:", error);
+      }
+    };
+
+    fetchAccounts();
+  }, [setLinked]);
 
   const handleConnectClick = () => router.push("/connect");
 

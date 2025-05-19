@@ -34,6 +34,11 @@ export const SnsProfile = ({ type, className }: { type: SocialPlatform; classNam
   const { selected } = useSelectedSocialStore();
   const icon = snsMap[type];
 
+  if (!icon) {
+    console.error(`Invalid social platform type: ${type}`);
+    return null;
+  }
+
   const shouldShowFullProfile = isLinked || selected === type;
 
   return shouldShowFullProfile ? (

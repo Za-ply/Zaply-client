@@ -1,6 +1,13 @@
 import { authController } from "../controller";
 import { tokenManager } from "../axios/tokenManager";
-import { ApiResponse, LoginData, LoginRequest, SignUpData, SignUpRequest } from "../model";
+import {
+  ApiResponse,
+  LoginData,
+  LoginRequest,
+  SignUpData,
+  SignUpRequest,
+  AccountsResponse,
+} from "../model";
 
 const authService = {
   login: async (data: LoginRequest): Promise<ApiResponse<LoginData>> => {
@@ -55,6 +62,16 @@ const authService = {
       return response;
     } catch (error) {
       console.error("Token refresh failed:", error);
+      throw new Error(error as string);
+    }
+  },
+
+  getAccounts: async (): Promise<ApiResponse<AccountsResponse>> => {
+    try {
+      const response = await authController.getAccounts();
+      return response;
+    } catch (error) {
+      console.error("Get accounts failed:", error);
       throw new Error(error as string);
     }
   },
