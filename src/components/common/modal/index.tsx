@@ -22,6 +22,8 @@ interface ModalProps {
   rightClassName?: string;
   width?: string;
   children?: React.ReactNode;
+  buttonDirectionType?: "row" | "column";
+  modalPosition?: "center" | "bottom";
   className?: string;
   onOpenChange?: (open: boolean) => void;
   onCloseIconClick?: () => void;
@@ -31,8 +33,6 @@ interface ModalProps {
 
 const Modal = ({
   isOpen,
-  onOpenChange,
-  onCloseIconClick,
   width,
   showCloseIcon = true,
   title = "",
@@ -42,11 +42,15 @@ const Modal = ({
   leftText = "취소",
   rightText = "완료",
   className,
-  onLeftButtonClick,
-  onRightButtonClick,
   leftClassName,
   rightClassName,
+  buttonDirectionType = "row",
+  modalPosition = "center",
   isDisabledButton = false,
+  onOpenChange,
+  onCloseIconClick,
+  onLeftButtonClick,
+  onRightButtonClick,
 }: ModalProps) => {
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
@@ -54,7 +58,8 @@ const Modal = ({
         style={{ maxWidth: width ? `${width}px` : undefined }}
         showCloseIcon={showCloseIcon}
         className={className}
-        onClose={onCloseIconClick}>
+        onClose={onCloseIconClick}
+        modalPosition={modalPosition}>
         <DialogHeader>
           <DialogTitle className={`${title?.length === 0 ? "hidden" : ""}`}>{title}</DialogTitle>
           {description && (
@@ -68,7 +73,7 @@ const Modal = ({
           {children}
         </div>
 
-        <DialogFooter>
+        <DialogFooter className={cn(buttonDirectionType === "row" ? "" : "flex-col-reverse")}>
           {buttonType === "single" && (
             <Button
               type="button"

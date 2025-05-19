@@ -43,9 +43,18 @@ const SignInForm = () => {
         return;
       }
 
-      await authService.login({ email, password });
+      const response = await authService.login({ email, password });
 
-      router.push("/main");
+      /** 로그인 성공 응답 리스폰스에 유저 정보 저장하는 로직 추가 필요 */
+      /** 연동된 계정 수 여부에 따라 메인 페이지 쿼리 설정하는 로직 추가 필요 */
+      const isConnectedAccount = false;
+      if (isConnectedAccount) {
+        router.replace("/main");
+        router.refresh();
+      } else {
+        router.replace("/main?state=INIT");
+        router.refresh();
+      }
     } catch (err) {
       toast({
         variant: "error",

@@ -7,7 +7,6 @@ import { usePlatformStore } from "../../store";
 import { policyConfig } from "../../config/constraint-config";
 import Image from "next/image";
 import { useToast } from "@/utils/useToast";
-import { useEffect } from "react";
 
 const UploadFile = () => {
   const { selectedPlatform } = usePlatformStore();
@@ -59,7 +58,7 @@ const UploadFile = () => {
         <AddIcon className="text-grayscale-600" />
         <p className="text-grayscale-600 text-b2M">
           {`${previewUrls.length > 0 ? "" : "사진 혹은 동영상 추가"}`} ({previewUrls.length}/
-          {maxImageCount === 9999 ? <span className="text-b4M">제한 없음</span> : maxImageCount})
+          {maxImageCount === 50 ? <span className="text-b4M">제한 없음</span> : maxImageCount})
         </p>
         <Input
           type="file"

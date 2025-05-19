@@ -5,17 +5,16 @@ import { Modal } from "@/components";
 import { DangerIcon } from "@/components/icons";
 import { useRouter } from "next/navigation";
 
-const WarningModal = ({ searchParams }: { searchParams: { step?: string } }) => {
+const WarningModal = () => {
   const router = useRouter();
   const { reset } = usePlatformStore();
 
   const handleStop = () => {
+    reset();
     router.back();
     setTimeout(() => {
-      router.replace("/main");
-      router.refresh();
-      reset();
-    }, 10);
+      router.push("/main");
+    }, 100);
   };
 
   return (
