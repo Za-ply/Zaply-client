@@ -9,18 +9,29 @@ import Link from "next/link";
 import { Platforms } from "@/types/platform";
 import { useEffect, useMemo } from "react";
 import { useAccounts } from "../../connect/_components/hooks/useAccounts";
+import { SocialPlatform } from "@/app/(mypage)/_components/types/platform";
+
+const platformMap: Record<string, SocialPlatform> = {
+  instagram: Platforms.INSTAGRAM,
+  threads: Platforms.THREADS,
+  facebook: Platforms.FACEBOOK,
+};
 
 export const SocialCard = () => {
-  const { linkedStatus, initializeLinkedStatus } = useSnsLinkStore();
+  const { linkedStatus, setLinked } = useSnsLinkStore();
   const { data } = useAccounts();
   const linkedCount = Object.values(linkedStatus).filter(Boolean).length;
   const router = useRouter();
 
   useEffect(() => {
     if (data) {
-      initializeLinkedStatus(data);
+      Object.entries(data.linkedStatus).forEach(([platform, isLinked]) => {
+        if (isLinked && platformMap[platform]) {
+          setLinked(platformMap[platform], data.accountInfo[platformMap[platform]]);
+        }
+      });
     }
-  }, [data, initializeLinkedStatus]);
+  }, [data, setLinked]);
 
   const handleConnectClick = () => router.push("/connect");
 

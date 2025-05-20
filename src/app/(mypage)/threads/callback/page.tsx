@@ -2,7 +2,8 @@
 
 import { useEffect } from "react";
 import { useSnsLinkStore } from "@/app/(mypage)/connect/_components/store/link-store";
-import { Platforms } from "@/types/platform";
+import Image from "next/image";
+import { threadCircle } from "@public/assets/images/sns";
 
 export default function ThreadsCallback() {
   const { setLinked } = useSnsLinkStore();
@@ -17,10 +18,14 @@ export default function ThreadsCallback() {
   }, [setLinked]);
 
   return (
-    <div className="flex items-center justify-center min-h-screen">
-      <div className="text-center">
-        <h1 className="text-xl font-semibold mb-2">Threads 연동 완료</h1>
-        <p className="text-gray-600">잠시 후 창이 닫힙니다.</p>
+    <div className="flex bg-b500-g100 items-center justify-center my-auto min-h-screen">
+      <div className="flex flex-col items-center gap-4">
+        <Image src={threadCircle} alt="threadCircle" width={48} height={48} />
+        <p className="text-h3 text-blue-blueblack">
+          Threads 계정을
+          <br />
+          연동하고 있어요.
+        </p>
       </div>
     </div>
   );

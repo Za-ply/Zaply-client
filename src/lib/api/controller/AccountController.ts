@@ -1,4 +1,4 @@
-import { SnsType } from "../model/account";
+import { SnsType, UnlinkResponse } from "../model/account";
 import { apiClient } from "../axios/instance";
 
 const FACEBOOK_CLIENT_ID = process.env.NEXT_PUBLIC_FACEBOOK_CLIENT_ID!;
@@ -56,9 +56,8 @@ const accountController = {
     window.location.href = facebookUrl;
   },
 
-  unlink: async (snsType: SnsType): Promise<void> => {
-    const response = await apiClient.get(`/auth/${snsType}/unlink`);
-
+  unlink: async (snsType: SnsType): Promise<UnlinkResponse> => {
+    const response = await apiClient.get<UnlinkResponse>(`/account/${snsType}/unlink`);
     return response.data;
   },
 };

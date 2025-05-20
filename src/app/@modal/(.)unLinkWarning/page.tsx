@@ -2,10 +2,17 @@
 
 import { Modal } from "@/components";
 import { DangerIcon } from "@/components/icons/service";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
+import accountService from "@/lib/api/service/AccountService";
+import { SnsType } from "@/lib/api/model/account";
+import { SocialPlatform } from "@/app/(mypage)/_components/types/platform";
+import { useSnsLinkStore } from "@/app/(mypage)/connect/_components/store/link-store";
 
 const UnLinkWarning = () => {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const platform = searchParams.get("platform") as SocialPlatform;
+  const { setLinked } = useSnsLinkStore();
 
   const handleStop = () => {
     router.back();
@@ -15,14 +22,30 @@ const UnLinkWarning = () => {
     }, 10);
   };
 
-  // 연결 끊기는 api 연결
+  const handleUnlink = async () => {
+    try {
+      const snsType = platform.toUpperCase() as SnsType;
+      const response = await accountService.unlink(snsType);
+
+      if (response.result === "SUCCESS") {
+        setLinked(platform, "");
+        router.back();
+        router.back();
+        router.refresh();
+        router.push("/mypage");
+      }
+    } catch (error) {
+      console.error("Failed to unlink account:", error);
+    }
+  };
+
   return (
     <Modal
       isOpen={true}
       title=""
       description=""
       onCloseIconClick={() => router.back()}
-      onLeftButtonClick={() => null}
+      onLeftButtonClick={handleUnlink}
       onRightButtonClick={handleStop}
       buttonType="multi"
       leftText="연결 끊기"
