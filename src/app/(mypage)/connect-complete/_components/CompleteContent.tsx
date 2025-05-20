@@ -7,23 +7,15 @@ import { ArrowIcon } from "@/components/icons/service";
 import { useRouter } from "next/navigation";
 import { Platforms } from "@/types/platform";
 import { useSnsLinkStore } from "../../connect/_components/store/link-store";
-import { useEffect } from "react";
 import { SocialPlatform } from "@/app/(mypage)/_components/types/platform";
 
 export const CompleteContent = () => {
   const { selected } = useSelectedSocialStore();
   const router = useRouter();
-  const { accountInfo, setLinked } = useSnsLinkStore();
+  const { accountInfo } = useSnsLinkStore();
 
   const platform = (selected?.toUpperCase() as keyof typeof Platforms) || "THREADS";
   const currentPlatform = Platforms[platform] as SocialPlatform;
-
-  useEffect(() => {
-    if (currentPlatform) {
-      const accountName = accountInfo[currentPlatform];
-      setLinked(currentPlatform, accountName);
-    }
-  }, [currentPlatform, setLinked, accountInfo]);
 
   return (
     <section className="pt-[194px] flex flex-col gap-5 items-center justify-center">
