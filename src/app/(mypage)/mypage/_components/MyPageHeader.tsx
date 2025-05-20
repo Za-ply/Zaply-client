@@ -3,10 +3,8 @@
 import { Button } from "@/components";
 import SocialCard from "./SocialCard";
 import useUserStore from "@/stores/userStore";
-import useFetchMemberInfo from "@/app/(main)/main/_components/hooks/useFetchMemberInfo";
 
 export const MyPageHeader = () => {
-  useFetchMemberInfo();
   const { email, name } = useUserStore(state => state.userInfo ?? { email: "", name: "" });
 
   return (

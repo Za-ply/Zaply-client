@@ -30,9 +30,9 @@ export const SocialLogin = () => {
 
   const handleLoginClick = async () => {
     if (selectedSns?.name === "Thread") {
-      window.location.href = `${process.env.NEXT_PUBLIC_OAUTH_URL_THREAD}`;
+      await accountService.threads();
     } else if (selectedSns?.name === "Facebook") {
-      window.location.href = `${process.env.NEXT_PUBLIC_OAUTH_URL_FACEBOOK}`;
+      await accountService.facebook();
     }
   };
 

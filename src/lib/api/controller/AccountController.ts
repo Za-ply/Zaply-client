@@ -1,4 +1,4 @@
-import { SnsType, UnlinkResponse } from "../model/account";
+import { SnsType, UnlinkResponse } from "../model";
 import { apiClient } from "../axios/instance";
 import useUserStore from "@/stores/userStore";
 
