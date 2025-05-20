@@ -1,4 +1,5 @@
 import { apiClient } from "../axios/instance";
+import { tokenManager } from "../axios/tokenManager";
 import {
   ApiResponse,
   LoginData,
@@ -6,22 +7,19 @@ import {
   SignUpData,
   SignUpRequest,
   AccountsResponse,
+  LoginResponse,
 } from "../model";
 
 const authController = {
-  login: async (data: LoginRequest): Promise<ApiResponse<LoginData>> => {
-    const response = await apiClient.post<ApiResponse<LoginData>>("/auth/sign-in", data);
-
-    const memberId = response.data.data.memberId;
-    localStorage.setItem("memberId", memberId.toString());
-
+  login: async (data: LoginRequest): Promise<ApiResponse<LoginResponse>> => {
+    const response = await apiClient.post<ApiResponse<LoginResponse>>("/auth/sign-in", data);
     return response.data;
   },
 
   logout: async (): Promise<void> => {
     const response = await apiClient.post("/auth/sign-out");
 
-    localStorage.removeItem("memberId");
+    tokenManager.removeTokens();
 
     return response.data;
   },

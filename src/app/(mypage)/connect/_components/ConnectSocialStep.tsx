@@ -36,7 +36,7 @@ export const ConnectSocialStep = () => {
   useEffect(() => {
     const handler = (event: MessageEvent) => {
       if (event.data.status === "success") {
-        setLinked(Platforms.THREADS, true);
+        setLinked(Platforms.THREADS, "연결된 계정");
         window.location.href = "/connect-complete?status=success";
       } else if (event.data.status === "error") {
         window.location.href = "/connect-complete?status=error";
@@ -54,7 +54,7 @@ export const ConnectSocialStep = () => {
     try {
       if (selectedSns?.name) {
         const key = selectedSns.name.toLowerCase() as SocialPlatform;
-        setLinked(key, true);
+        setLinked(key, "연결 중...");
       }
 
       if (selectedSns?.name === "Thread") {

@@ -1,5 +1,6 @@
 import { SnsType, UnlinkResponse } from "../model/account";
 import { apiClient } from "../axios/instance";
+import useUserStore from "@/stores/userStore";
 
 const FACEBOOK_CLIENT_ID = process.env.NEXT_PUBLIC_FACEBOOK_CLIENT_ID!;
 const FACEBOOK_REDIRECT_URI = "https://api.zapply.site/v1/account/facebook/link";
@@ -11,7 +12,7 @@ const accountController = {
   threads: async (): Promise<void> => {
     if (typeof window === "undefined") return;
 
-    const memberId = localStorage.getItem("memberId");
+    const memberId = useUserStore.getState().userInfo?.memberId;
     if (!memberId) {
       throw new Error("로그인 후 시도해주세요 (memberId 없음)");
     }
@@ -40,7 +41,7 @@ const accountController = {
   facebook: async (): Promise<void> => {
     if (typeof window === "undefined") return;
 
-    const memberId = localStorage.getItem("memberId");
+    const memberId = useUserStore.getState().userInfo?.memberId;
     if (!memberId) {
       throw new Error("로그인 후 시도해주세요 (memberId 없음)");
     }

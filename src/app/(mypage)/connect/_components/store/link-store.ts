@@ -23,14 +23,15 @@ const initialState = {
 
 export const useSnsLinkStore = create<SnsLinkState>(set => ({
   ...initialState,
-  setLinked: (platform, accountName) => ({
-    linkedStatus: {
-      ...initialState.linkedStatus,
-      [platform]: true,
-    },
-    accountInfo: {
-      ...initialState.accountInfo,
-      [platform]: accountName,
-    },
-  }),
+  setLinked: (platform, accountName) =>
+    set(state => ({
+      linkedStatus: {
+        ...state.linkedStatus,
+        [platform]: true,
+      },
+      accountInfo: {
+        ...state.accountInfo,
+        [platform]: accountName,
+      },
+    })),
 }));

@@ -33,3 +33,19 @@ export interface AccountsResponse {
   totalCount: number;
   accounts: Account[];
 }
+
+export interface UserInfo {
+  memberId: number;
+  name: string | null;
+  email: string;
+  phoneNumber: string;
+}
+
+export interface LoginResponse {
+  tokenResponse: {
+    accessToken: string;
+    refreshToken: string;
+  };
+  memberResponse: UserInfo;
+  accountsInfoResponse: AccountsResponse;
+}

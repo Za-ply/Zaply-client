@@ -7,7 +7,7 @@ import SnsProfile from "./SnsProfile";
 import { useSnsLinkStore } from "../../connect/_components/store/link-store";
 import Link from "next/link";
 import { Platforms } from "@/types/platform";
-import { useEffect, useMemo } from "react";
+import { useEffect } from "react";
 import { useAccounts } from "../../connect/_components/hooks/useAccounts";
 import { SocialPlatform } from "@/app/(mypage)/_components/types/platform";
 
@@ -18,7 +18,7 @@ const platformMap: Record<string, SocialPlatform> = {
 };
 
 export const SocialCard = () => {
-  const { linkedStatus, setLinked } = useSnsLinkStore();
+  const { linkedStatus, accountInfo } = useSnsLinkStore();
   const { data } = useAccounts();
   const linkedCount = Object.values(linkedStatus).filter(Boolean).length;
   const router = useRouter();
@@ -27,23 +27,23 @@ export const SocialCard = () => {
     if (data) {
       Object.entries(data.linkedStatus).forEach(([platform, isLinked]) => {
         if (isLinked && platformMap[platform]) {
-          setLinked(platformMap[platform], data.accountInfo[platformMap[platform]]);
+          const platformType = platformMap[platform];
+          if (data.accountInfo[platformType]) {
+            useSnsLinkStore.getState().setLinked(platformType, data.accountInfo[platformType]);
+          }
         }
       });
     }
-  }, [data, setLinked]);
+  }, [data]);
 
   const handleConnectClick = () => router.push("/connect");
 
-  const platformProfiles = useMemo(
-    () => (
-      <div className="flex items-center justify-center gap-3">
-        <SnsProfile type={Platforms.INSTAGRAM} />
-        <SnsProfile type={Platforms.THREADS} />
-        <SnsProfile type={Platforms.FACEBOOK} />
-      </div>
-    ),
-    []
+  const platformProfiles = (
+    <div className="flex items-center justify-center gap-3">
+      <SnsProfile type={Platforms.INSTAGRAM} />
+      <SnsProfile type={Platforms.THREADS} />
+      <SnsProfile type={Platforms.FACEBOOK} />
+    </div>
   );
 
   return (

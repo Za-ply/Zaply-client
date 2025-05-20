@@ -7,14 +7,21 @@ import {
   SignUpData,
   SignUpRequest,
   AccountsResponse,
+  LoginResponse,
 } from "../model";
+import useUserStore from "../../../stores/userStore";
 
 const authService = {
-  login: async (data: LoginRequest): Promise<ApiResponse<LoginData>> => {
+  login: async (data: LoginRequest): Promise<ApiResponse<LoginResponse>> => {
     try {
       const response = await authController.login(data);
+      const { tokenResponse, memberResponse, accountsInfoResponse } = response.data;
 
-      tokenManager.setTokens(response.data.accessToken, response.data.refreshToken);
+      tokenManager.setTokens(tokenResponse.accessToken, tokenResponse.refreshToken);
+
+      useUserStore.getState().setUserInfo(memberResponse);
+      useUserStore.getState().setAccounts(accountsInfoResponse.accounts);
+
       return response;
     } catch (error) {
       console.error("Login failed:", error);
@@ -27,6 +34,8 @@ const authService = {
       const response = await authController.logout();
 
       tokenManager.removeTokens();
+      useUserStore.getState().clearUserInfo();
+
       return response;
     } catch (error) {
       console.error("Logout failed:", error);

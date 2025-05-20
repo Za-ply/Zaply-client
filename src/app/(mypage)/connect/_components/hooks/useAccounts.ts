@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import authService from "@/lib/api/service/AuthService";
 import { Platforms } from "@/types/platform";
 import { SocialPlatform } from "@/app/(mypage)/_components/types/platform";
+import { useSnsLinkStore } from "../store/link-store";
 
 export const ACCOUNTS_QUERY_KEY = ["accounts"] as const;
 
@@ -12,6 +13,8 @@ const snsTypeToPlatform: Record<string, SocialPlatform> = {
 };
 
 export const useAccounts = () => {
+  const setLinked = useSnsLinkStore(state => state.setLinked);
+
   return useQuery({
     queryKey: ACCOUNTS_QUERY_KEY,
     queryFn: async () => {
@@ -33,6 +36,7 @@ export const useAccounts = () => {
           if (platform) {
             newStatus[platform] = true;
             newAccountInfo[platform] = account.accountName;
+            setLinked(platform, account.accountName);
           }
         });
 

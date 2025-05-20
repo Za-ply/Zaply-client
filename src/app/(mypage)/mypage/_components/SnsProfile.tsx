@@ -30,9 +30,11 @@ const snsMap: Record<SocialPlatform, { linked: StaticImageData; unlinked: Static
 };
 
 export const SnsProfile = ({ type, className }: { type: SocialPlatform; className?: string }) => {
-  const isLinked = useSnsLinkStore(state => state.linkedStatus[type]);
+  const { linkedStatus, accountInfo } = useSnsLinkStore();
   const { selected } = useSelectedSocialStore();
   const icon = snsMap[type];
+  const isLinked = linkedStatus[type];
+  const accountName = accountInfo[type];
 
   if (!icon) {
     console.error(`Invalid social platform type: ${type}`);
@@ -50,6 +52,11 @@ export const SnsProfile = ({ type, className }: { type: SocialPlatform; classNam
         alt={`${type} badge`}
         className="absolute bottom-[-1px] right-[-3px]"
       />
+      {accountName && (
+        <span className="absolute -bottom-6 left-1/2 -translate-x-1/2 text-xs text-grayscale-600 whitespace-nowrap">
+          {accountName}
+        </span>
+      )}
     </div>
   ) : (
     <Image src={icon.linked} width={48} height={48} alt={`${type} icon`} className="rounded-full" />
