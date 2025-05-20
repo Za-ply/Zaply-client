@@ -5,20 +5,33 @@ import { useSelectedSocialStore } from "../../connect/_components/store/social-s
 import SnsProfile from "../../mypage/_components/SnsProfile";
 import { ArrowIcon } from "@/components/icons/service";
 import { useRouter } from "next/navigation";
+import { Platforms } from "@/types/platform";
+import { useSnsLinkStore } from "../../connect/_components/store/link-store";
+import { useEffect } from "react";
 import { SocialPlatform } from "@/app/(mypage)/_components/types/platform";
+import { useUpdateLinkedStatus } from "../../connect/_components/store/link-store";
 
 export const CompleteContent = () => {
   const { selected } = useSelectedSocialStore();
   const router = useRouter();
+  const { accountInfo } = useSnsLinkStore();
+  const updateLinkedStatus = useUpdateLinkedStatus();
+
+  const platform = (selected?.toUpperCase() as keyof typeof Platforms) || "THREADS";
+  const currentPlatform = Platforms[platform] as SocialPlatform;
+  const accountName = accountInfo[currentPlatform];
+
+  useEffect(() => {
+    if (platform) {
+      updateLinkedStatus(currentPlatform, accountName);
+    }
+  }, [platform, updateLinkedStatus, currentPlatform, accountName]);
 
   return (
     <section className="pt-[194px] flex flex-col gap-5 items-center justify-center">
       <div className="flex flex-col items-center gap-1">
-        <SnsProfile
-          type={selected?.toLowerCase() as SocialPlatform}
-          className="border-[2.8px] border-blue-700"
-        />
-        <p className="italic text-blue-700 text-b2M creato-500">@username1</p>
+        <SnsProfile type={currentPlatform} className="border-[2.8px] border-blue-700" />
+        <p className="italic text-blue-700 text-b2M creato-500">@{accountName}</p>
       </div>
       <div className="flex flex-col items-center gap-2">
         <p className="text-h3 text-grayscale-900">계정이 연결되었어요!</p>

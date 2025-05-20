@@ -1,3 +1,6 @@
+import { SnsType } from "../model/account";
+import { apiClient } from "../axios/instance";
+
 const FACEBOOK_CLIENT_ID = process.env.NEXT_PUBLIC_FACEBOOK_CLIENT_ID!;
 const FACEBOOK_REDIRECT_URI = "https://api.zapply.site/v1/account/facebook/link";
 
@@ -51,6 +54,12 @@ const accountController = {
 
     const facebookUrl = `https://www.facebook.com/v22.0/dialog/oauth?${params.toString()}`;
     window.location.href = facebookUrl;
+  },
+
+  unlink: async (snsType: SnsType): Promise<void> => {
+    const response = await apiClient.get(`/auth/${snsType}/unlink`);
+
+    return response.data;
   },
 };
 
