@@ -4,7 +4,7 @@ import { Modal } from "@/components";
 import { DangerIcon } from "@/components/icons/service";
 import { useRouter, useSearchParams } from "next/navigation";
 import accountService from "@/lib/api/service/AccountService";
-import { SnsType } from "@/lib/api/model/account";
+import { SnsType } from "@/lib/api/model";
 import { SocialPlatform } from "@/app/(mypage)/_components/types/platform";
 import { useSnsLinkStore } from "@/app/(mypage)/connect/_components/store/link-store";
 
