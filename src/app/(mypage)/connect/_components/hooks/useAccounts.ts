@@ -1,9 +1,8 @@
-import { useQuery } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
 import { Platforms } from "@/types/platform";
 import { SocialPlatform } from "@/app/(mypage)/_components/types/platform";
 import { useSnsLinkStore } from "../store/link-store";
 import memberService from "@/lib/api/service/MemberService";
-export const ACCOUNTS_QUERY_KEY = ["accounts"] as const;
 
 const snsTypeToPlatform: Record<string, SocialPlatform> = {
   FACEBOOK: Platforms.FACEBOOK,
@@ -11,40 +10,41 @@ const snsTypeToPlatform: Record<string, SocialPlatform> = {
   INSTAGRAM: Platforms.INSTAGRAM,
 };
 
-export const useAccounts = () => {
+interface UseAccountsResult {
+  isLoading: boolean;
+  isError: boolean;
+}
+
+export const useAccounts = (): UseAccountsResult => {
   const setLinked = useSnsLinkStore(state => state.setLinked);
 
-  return useQuery({
-    queryKey: ACCOUNTS_QUERY_KEY,
-    queryFn: async () => {
-      const response = await memberService.getAccounts();
-      if (response.result === "SUCCESS") {
-        const newStatus = {
-          [Platforms.INSTAGRAM]: false,
-          [Platforms.THREADS]: false,
-          [Platforms.FACEBOOK]: false,
-        };
-        const newAccountInfo = {
-          [Platforms.INSTAGRAM]: "",
-          [Platforms.THREADS]: "",
-          [Platforms.FACEBOOK]: "",
-        };
+  const [isLoading, setIsLoading] = useState(true);
+  const [isError, setIsError] = useState(false);
 
-        response.data.accounts.forEach(account => {
-          const platform = snsTypeToPlatform[account.snsType];
-          if (platform) {
-            newStatus[platform] = true;
-            newAccountInfo[platform] = account.accountName;
-            setLinked(platform, account.accountName);
-          }
-        });
-
-        return {
-          linkedStatus: newStatus,
-          accountInfo: newAccountInfo,
-        };
+  useEffect(() => {
+    const fetchAccounts = async () => {
+      try {
+        const response = await memberService.getAccounts();
+        if (response.result === "SUCCESS") {
+          response.data.accounts.forEach(account => {
+            const platform = snsTypeToPlatform[account.snsType];
+            if (platform) {
+              setLinked(platform, account.accountName);
+            }
+          });
+          setIsLoading(false);
+        } else {
+          throw new Error("Account fetch failed");
+        }
+      } catch (err) {
+        console.error("Failed to fetch accounts", err);
+        setIsError(true);
+        setIsLoading(false);
       }
-      throw new Error("Failed to fetch accounts");
-    },
-  });
+    };
+
+    fetchAccounts();
+  }, [setLinked]);
+
+  return { isLoading, isError };
 };

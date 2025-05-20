@@ -1,6 +1,7 @@
 import { Platforms } from "@/types/platform";
 import { create } from "zustand";
 import { SocialPlatform } from "@/app/(mypage)/_components/types/platform";
+import { persist } from "zustand/middleware";
 
 interface SnsLinkState {
   linkedStatus: Record<SocialPlatform, boolean>;
@@ -21,17 +22,24 @@ const initialState = {
   },
 };
 
-export const useSnsLinkStore = create<SnsLinkState>(set => ({
-  ...initialState,
-  setLinked: (platform, accountName) =>
-    set(state => ({
-      linkedStatus: {
-        ...state.linkedStatus,
-        [platform]: true,
-      },
-      accountInfo: {
-        ...state.accountInfo,
-        [platform]: accountName,
-      },
-    })),
-}));
+export const useSnsLinkStore = create<SnsLinkState>()(
+  persist(
+    set => ({
+      ...initialState,
+      setLinked: (platform, accountName) =>
+        set(state => ({
+          linkedStatus: {
+            ...state.linkedStatus,
+            [platform]: !!accountName,
+          },
+          accountInfo: {
+            ...state.accountInfo,
+            [platform]: accountName,
+          },
+        })),
+    }),
+    {
+      name: "sns-link-storage",
+    }
+  )
+);

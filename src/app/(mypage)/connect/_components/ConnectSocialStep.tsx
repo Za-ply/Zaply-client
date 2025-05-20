@@ -52,16 +52,14 @@ export const ConnectSocialStep = () => {
     setStep(2);
 
     try {
-      if (selectedSns?.name) {
-        const key = selectedSns.name.toLowerCase() as SocialPlatform;
-        setLinked(key, "연결 중...");
-      }
-
       if (selectedSns?.name === "Thread") {
+        setLinked(Platforms.THREADS, "연결 중...");
         await accountService.threads();
       } else if (selectedSns?.name === "Facebook") {
+        setLinked(Platforms.FACEBOOK, "연결 중...");
         await accountService.facebook();
       } else if (selectedSns?.name === "Instagram") {
+        setLinked(Platforms.INSTAGRAM, "연결 중...");
         console.log("Instagram login not implemented yet");
       }
     } catch (err) {

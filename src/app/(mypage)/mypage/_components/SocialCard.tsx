@@ -5,36 +5,12 @@ import { Button } from "@/components";
 import { ArrowIcon, ChevronIcon } from "@/components/icons";
 import SnsProfile from "./SnsProfile";
 import { useSnsLinkStore } from "../../connect/_components/store/link-store";
-import Link from "next/link";
 import { Platforms } from "@/types/platform";
-import { useEffect } from "react";
-import { useAccounts } from "../../connect/_components/hooks/useAccounts";
-import { SocialPlatform } from "@/app/(mypage)/_components/types/platform";
-
-const platformMap: Record<string, SocialPlatform> = {
-  instagram: Platforms.INSTAGRAM,
-  threads: Platforms.THREADS,
-  facebook: Platforms.FACEBOOK,
-};
 
 export const SocialCard = () => {
-  const { linkedStatus, accountInfo } = useSnsLinkStore();
-  const { data } = useAccounts();
+  const { linkedStatus } = useSnsLinkStore();
   const linkedCount = Object.values(linkedStatus).filter(Boolean).length;
   const router = useRouter();
-
-  useEffect(() => {
-    if (data) {
-      Object.entries(data.linkedStatus).forEach(([platform, isLinked]) => {
-        if (isLinked && platformMap[platform]) {
-          const platformType = platformMap[platform];
-          if (data.accountInfo[platformType]) {
-            useSnsLinkStore.getState().setLinked(platformType, data.accountInfo[platformType]);
-          }
-        }
-      });
-    }
-  }, [data]);
 
   const handleConnectClick = () => router.push("/connect");
 
@@ -52,12 +28,11 @@ export const SocialCard = () => {
         <p className="text-b2M text-grayscale-900">
           연동된 계정 <span className="text-blue-700">{linkedCount}</span>
         </p>
-        <div className="flex items-center gap-[2px] cursor-pointer">
-          <Link className="text-b3M text-grayscale-600" href={"/socials"}>
-            전체 보기
-          </Link>
-          <ChevronIcon type="right" className="w-[20px] h-[20px] text-grayscale-800" />
-        </div>
+        <ChevronIcon
+          type="right"
+          className="w-6 h-6 text-grayscale-800 cursor-pointer"
+          onClick={() => router.push("/socials")}
+        />
       </div>
 
       {platformProfiles}

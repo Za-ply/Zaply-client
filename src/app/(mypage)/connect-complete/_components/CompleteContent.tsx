@@ -8,14 +8,33 @@ import { useRouter } from "next/navigation";
 import { Platforms } from "@/types/platform";
 import { useSnsLinkStore } from "../../connect/_components/store/link-store";
 import { SocialPlatform } from "@/app/(mypage)/_components/types/platform";
+import { useAccounts } from "../../connect/_components/hooks/useAccounts";
 
 export const CompleteContent = () => {
   const { selected } = useSelectedSocialStore();
   const router = useRouter();
-  const { accountInfo } = useSnsLinkStore();
+  const { linkedStatus, accountInfo } = useSnsLinkStore();
+
+  const { isLoading, isError } = useAccounts();
 
   const platform = (selected?.toUpperCase() as keyof typeof Platforms) || "THREADS";
   const currentPlatform = Platforms[platform] as SocialPlatform;
+
+  if (isLoading) {
+    return (
+      <section className="flex justify-center items-center min-h-screen">
+        <p className="text-b2R text-grayscale-700">연동 정보를 불러오고 있어요...</p>
+      </section>
+    );
+  }
+
+  if (isError || !linkedStatus[currentPlatform]) {
+    return (
+      <section className="flex justify-center items-center min-h-screen">
+        <p className="text-b2R text-red-600">연동 정보를 불러오지 못했어요. 다시 시도해 주세요.</p>
+      </section>
+    );
+  }
 
   return (
     <section className="pt-[194px] flex flex-col gap-5 items-center justify-center">

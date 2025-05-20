@@ -7,11 +7,22 @@ import accountService from "@/lib/api/service/AccountService";
 import { SnsType } from "@/lib/api/model";
 import { SocialPlatform } from "@/app/(mypage)/_components/types/platform";
 import { useSnsLinkStore } from "@/app/(mypage)/connect/_components/store/link-store";
+import { Platforms } from "@/types/platform";
+
+const platformToSnsTypeMap: Record<SocialPlatform, SnsType> = {
+  [Platforms.THREADS]: "THREADS",
+  [Platforms.INSTAGRAM]: "INSTAGRAM",
+  [Platforms.FACEBOOK]: "FACEBOOK",
+};
 
 const UnLinkWarning = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const platform = searchParams.get("platform") as SocialPlatform;
+  const param = searchParams.get("platform");
+
+  const platform = Platforms[param?.toUpperCase() as keyof typeof Platforms] as SocialPlatform;
+  console.log(platform);
+
   const { setLinked } = useSnsLinkStore();
 
   const handleStop = () => {
@@ -24,7 +35,7 @@ const UnLinkWarning = () => {
 
   const handleUnlink = async () => {
     try {
-      const snsType = platform.toUpperCase() as SnsType;
+      const snsType = platformToSnsTypeMap[platform];
       const response = await accountService.unlink(snsType);
 
       if (response.result === "SUCCESS") {
