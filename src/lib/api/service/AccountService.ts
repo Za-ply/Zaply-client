@@ -1,5 +1,5 @@
 import accountController from "../controller/AccountController";
-import { SnsType, UnlinkResponse } from "../model/account";
+import { SnsType, UnlinkResponse } from "../model";
 
 const accountService = {
   threads: async (): Promise<void> => {
@@ -23,6 +23,7 @@ const accountService = {
       throw new Error(error as string);
     }
   },
+
   unlink: async (snsType: SnsType): Promise<UnlinkResponse> => {
     try {
       const response = await accountController.unlink(snsType);

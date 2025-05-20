@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { UserInfo, Account } from "../lib/api/model/auth";
+import { Account, UserInfo } from "@/lib/api/model";
 
 interface UserState {
   userInfo: UserInfo | null;

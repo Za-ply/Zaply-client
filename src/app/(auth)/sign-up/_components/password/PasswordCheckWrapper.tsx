@@ -27,12 +27,10 @@ const PasswordCheckWrapper = () => {
   const password = watch("password");
   const validation = getPasswordValidationErrors(password);
 
-  const handleSubmit = () => {
-    formMethods.handleSubmit(data => {
-      useSignUpStore.getState().setPassword(data.password);
-      router.push("/sign-up?state=USER_INFO");
-    })();
-  };
+  const handleSubmit = formMethods.handleSubmit(data => {
+    useSignUpStore.getState().setPassword(data.password);
+    router.push("/sign-up?state=USER_INFO");
+  });
 
   return (
     <article className="flex flex-col justify-between min-h-real-screen pb-[56px]">

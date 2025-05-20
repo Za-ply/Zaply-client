@@ -21,11 +21,13 @@ const PolicyContainer = () => {
   const setAgreements = useSignUpStore(state => state.setAgreements);
 
   const handleNext = () => {
-    setAgreements({
+    const newAgreements = {
       termsOfServiceAgreed: requiredChecks[0],
       privacyPolicyAgreed: requiredChecks[1],
       marketingAgreed: optionalChecked,
-    });
+    };
+
+    setAgreements(newAgreements);
 
     router.push("/sign-up?state=EMAIL");
   };

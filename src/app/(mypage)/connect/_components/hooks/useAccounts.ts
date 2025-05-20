@@ -1,9 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
-import authService from "@/lib/api/service/AuthService";
 import { Platforms } from "@/types/platform";
 import { SocialPlatform } from "@/app/(mypage)/_components/types/platform";
 import { useSnsLinkStore } from "../store/link-store";
-
+import memberService from "@/lib/api/service/MemberService";
 export const ACCOUNTS_QUERY_KEY = ["accounts"] as const;
 
 const snsTypeToPlatform: Record<string, SocialPlatform> = {
@@ -18,7 +17,7 @@ export const useAccounts = () => {
   return useQuery({
     queryKey: ACCOUNTS_QUERY_KEY,
     queryFn: async () => {
-      const response = await authService.getAccounts();
+      const response = await memberService.getAccounts();
       if (response.result === "SUCCESS") {
         const newStatus = {
           [Platforms.INSTAGRAM]: false,

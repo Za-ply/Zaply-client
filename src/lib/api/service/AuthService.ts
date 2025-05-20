@@ -6,7 +6,6 @@ import {
   LoginRequest,
   SignUpData,
   SignUpRequest,
-  AccountsResponse,
   LoginResponse,
 } from "../model";
 import useUserStore from "../../../stores/userStore";
@@ -71,16 +70,6 @@ const authService = {
       return response;
     } catch (error) {
       console.error("Token refresh failed:", error);
-      throw new Error(error as string);
-    }
-  },
-
-  getAccounts: async (): Promise<ApiResponse<AccountsResponse>> => {
-    try {
-      const response = await authController.getAccounts();
-      return response;
-    } catch (error) {
-      console.error("Get accounts failed:", error);
       throw new Error(error as string);
     }
   },

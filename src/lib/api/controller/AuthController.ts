@@ -6,7 +6,6 @@ import {
   LoginRequest,
   SignUpData,
   SignUpRequest,
-  AccountsResponse,
   LoginResponse,
 } from "../model";
 
@@ -38,11 +37,6 @@ const authController = {
 
   refreshToken: async (): Promise<ApiResponse<LoginData>> => {
     const response = await apiClient.post<ApiResponse<LoginData>>("/auth/recreate");
-    return response.data;
-  },
-
-  getAccounts: async (): Promise<ApiResponse<AccountsResponse>> => {
-    const response = await apiClient.get<ApiResponse<AccountsResponse>>("/auth/accounts");
     return response.data;
   },
 };

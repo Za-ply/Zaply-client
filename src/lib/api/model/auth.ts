@@ -1,3 +1,5 @@
+import { AccountResponse } from "./member";
+
 export interface LoginRequest {
   email: string;
   password: string;
@@ -17,21 +19,14 @@ export interface LoginData {
 }
 
 export interface SignUpData {
-  id: number;
   email: string;
   phoneNumber: string;
-}
-
-export type SnsType = "FACEBOOK" | "THREADS" | "INSTAGRAM";
-
-export interface Account {
-  snsType: SnsType;
-  accountName: string;
-}
-
-export interface AccountsResponse {
-  totalCount: number;
-  accounts: Account[];
+  name: string;
+  residentNumber: string;
+  password: string;
+  termsOfServiceAgreed: boolean;
+  privacyPolicyAgreed: boolean;
+  marketingAgreed: boolean;
 }
 
 export interface UserInfo {
@@ -47,5 +42,5 @@ export interface LoginResponse {
     refreshToken: string;
   };
   memberResponse: UserInfo;
-  accountsInfoResponse: AccountsResponse;
+  accountsInfoResponse: AccountResponse;
 }
