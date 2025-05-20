@@ -9,17 +9,15 @@ interface TimePickerProps {
 export const TimePicker: React.FC<TimePickerProps> = ({ onChange }) => {
   const ITEM_HEIGHT = 40;
 
-  // 정적 배열은 useMemo로 메모이제이션
   const { hours, minutes, periods } = useMemo(
     () => ({
-      hours: ["12", ...Array.from({ length: 11 }, (_, i) => String(i + 1).padStart(2, "0"))],
+      hours: Array.from({ length: 12 }, (_, i) => String(i + 1).padStart(2, "0")),
       minutes: Array.from({ length: 60 }, (_, i) => String(i).padStart(2, "0")),
       periods: ["오전", "오후"],
     }),
     []
   );
 
-  // 초기값 계산도 useMemo로 메모이제이션
   const { initialPeriod, initialHour, initialMinute, initialIndices } = useMemo(() => {
     const now = new Date();
     const currentHour = now.getHours();
@@ -51,7 +49,6 @@ export const TimePicker: React.FC<TimePickerProps> = ({ onChange }) => {
   const hourRef = useRef<HTMLDivElement>(null);
   const minuteRef = useRef<HTMLDivElement>(null);
 
-  // 스타일 계산 함수 메모이제이션
   const getItemStyle = useCallback((index: number, centerIndex: number) => {
     const diff = Math.abs(index - centerIndex);
     if (diff >= 3) return "invisible opacity-0";
@@ -60,7 +57,6 @@ export const TimePicker: React.FC<TimePickerProps> = ({ onChange }) => {
     return "text-grayscale-900 scale-100 font-[400]";
   }, []);
 
-  // 스크롤 핸들러 메모이제이션
   const handlePeriodScroll = useCallback(
     (element: HTMLDivElement) => {
       const scrollTop = element.scrollTop;
@@ -112,7 +108,6 @@ export const TimePicker: React.FC<TimePickerProps> = ({ onChange }) => {
     [period, selectedHour, selectedMinute, onChange]
   );
 
-  // 초기 스크롤 위치 설정
   useEffect(() => {
     if (hourRef.current && minuteRef.current && periodRef.current) {
       periodRef.current.scrollTop = initialIndices.period * ITEM_HEIGHT;
