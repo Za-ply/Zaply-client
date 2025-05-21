@@ -54,7 +54,7 @@ const accountController = {
     });
 
     const facebookUrl = `https://www.facebook.com/v22.0/dialog/oauth?${params.toString()}`;
-    window.location.href = facebookUrl;
+    window.open(facebookUrl, "_blank", "width=600,height=800");
   },
 
   unlink: async (snsType: SnsType): Promise<UnlinkResponse> => {

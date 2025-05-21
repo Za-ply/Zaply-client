@@ -24,6 +24,20 @@ const snsList = [
   },
 ];
 
+const nameToPlatformMap: Record<string, SocialPlatform> = {
+  Thread: Platforms.THREADS,
+  Facebook: Platforms.FACEBOOK,
+  Instagram: Platforms.INSTAGRAM,
+};
+
+const serviceMap: Record<string, () => Promise<void>> = {
+  Thread: accountService.threads,
+  Facebook: accountService.facebook,
+  Instagram: async () => {
+    console.log("Instagram login not implemented yet");
+  },
+};
+
 export const ConnectSocialStep = () => {
   const { selected } = useSelectedSocialStore();
   const { toast } = useToast();
@@ -48,25 +62,22 @@ export const ConnectSocialStep = () => {
   }, [setLinked]);
 
   const handleClick = async () => {
+    if (!selectedSns?.name) return;
+    const platform = nameToPlatformMap[selectedSns.name];
+    const service = serviceMap[selectedSns.name];
+
     setIsOpen(true);
     setStep(2);
 
     try {
-      if (selectedSns?.name === "Thread") {
-        setLinked(Platforms.THREADS, "연결 중...");
-        await accountService.threads();
-      } else if (selectedSns?.name === "Facebook") {
-        setLinked(Platforms.FACEBOOK, "연결 중...");
-        await accountService.facebook();
-      } else if (selectedSns?.name === "Instagram") {
-        setLinked(Platforms.INSTAGRAM, "연결 중...");
-        console.log("Instagram login not implemented yet");
-      }
+      setLinked(platform, "");
+      await service();
     } catch (err) {
       toast({
         variant: "error",
         description: `${selectedSns?.name} 로그인에 실패했습니다.`,
       });
+      setLinked(platform, "");
     }
   };
 
