@@ -1,7 +1,9 @@
+"use client";
+
 import { ArrowIcon, Button } from "@/components";
 import { Calendar } from "@/components/common/calendar";
 import { useState } from "react";
-import { TimePickerBottomContent } from "./TimePickerBottomContent";
+import TimePickerBottomContent from "./TimePickerBottomContent";
 
 export const CalendarBottomContent = () => {
   const [date, setDate] = useState<Date | undefined>();

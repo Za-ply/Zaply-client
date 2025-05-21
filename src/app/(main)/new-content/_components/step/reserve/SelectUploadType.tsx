@@ -10,6 +10,10 @@ export const SelectUploadType = () => {
   const [selected, setSelected] = useState<"now" | "reserve" | null>(null);
   const showSchedule = selected === "reserve";
 
+  const handleSelect = (type: "now" | "reserve") => {
+    setSelected(type);
+  };
+
   return (
     <>
       <div className="w-full flex flex-col gap-10 mt-10">
@@ -28,7 +32,7 @@ export const SelectUploadType = () => {
             return (
               <div
                 key={option.key}
-                onClick={() => setSelected(option.key as "now" | "reserve")}
+                onClick={() => handleSelect(option.key as "now" | "reserve")}
                 className={`flex items-center justify-between px-5 py-4 border rounded-[12px] cursor-pointer transition-all duration-300 transform ${
                   isSelected ? "bg-blue-100 border-blue-100" : "border-grayscale-300"
                 }`}>

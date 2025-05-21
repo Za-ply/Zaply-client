@@ -1,3 +1,5 @@
+"use client";
+
 import { Button, ChevronIcon } from "@/components";
 import TimePicker from "@/components/common/timePicker";
 import { format } from "date-fns";

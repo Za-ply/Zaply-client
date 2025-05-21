@@ -58,7 +58,7 @@ export const SnsProfile = ({ type, className }: { type: SocialPlatform; classNam
         width={20}
         height={20}
         alt={`${type} badge`}
-        className="absolute bottom-[-1px] right-[-3px]"
+        className="absolute bottom-[1px] right-[-3px]"
       />
     </div>
   ) : (

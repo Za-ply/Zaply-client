@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import SnsProfile from "@/app/(mypage)/mypage/_components/SnsProfile";
 import { CircleCheckBoldIcon, CircleCheckIcon } from "@/components";
@@ -8,6 +7,7 @@ import useUserStore from "@/stores/userStore";
 import { Platforms } from "@/types/platform";
 import { SocialPlatform } from "@/app/(mypage)/_components/types/platform";
 import ScheduleBlock from "./ScheduleBlock";
+import { useReserveStore } from "../../store/reserve-store";
 
 const snsTypeToPlatform: Record<string, SocialPlatform> = {
   FACEBOOK: Platforms.FACEBOOK,
@@ -17,7 +17,7 @@ const snsTypeToPlatform: Record<string, SocialPlatform> = {
 
 export const ScheduleSelector = () => {
   const accounts = useUserStore(state => state.accounts);
-  const [isAll, setIsAll] = useState(true);
+  const { isAll, setIsAll } = useReserveStore();
 
   const linkedPlatforms = accounts
     .map(account => snsTypeToPlatform[account.snsType])
@@ -38,7 +38,7 @@ export const ScheduleSelector = () => {
         <div className="flex items-center justify-between">
           <div className="w-[70px]" />
           <div className="flex items-center gap-2">
-            <ScheduleBlock date="25/05/06(화)" time="오전 09:30" />
+            <ScheduleBlock />
           </div>
         </div>
 
@@ -57,7 +57,7 @@ export const ScheduleSelector = () => {
                     <SnsProfile type={platform} />
                   </div>
                   <div className="flex items-center gap-2">
-                    <ScheduleBlock date="25/05/06(화)" time="오전 09:30" />
+                    <ScheduleBlock platform={platform} isLinked={true} />
                   </div>
                 </div>
               ))}
