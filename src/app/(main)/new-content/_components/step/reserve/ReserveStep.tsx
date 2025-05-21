@@ -1,9 +1,9 @@
-import { TimePicker } from "@/components/common/timePicker";
+import { SelectUploadType } from "./SelectUploadType";
 
 const ReserveStep = () => {
   return (
     <>
-      <TimePicker />
+      <SelectUploadType />
     </>
   );
 };

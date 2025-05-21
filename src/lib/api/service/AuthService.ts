@@ -9,6 +9,7 @@ import {
   LoginResponse,
 } from "../model";
 import useUserStore from "../../../stores/userStore";
+import { useSnsLinkStore } from "@/app/(mypage)/connect/_components/store/link-store";
 
 const authService = {
   login: async (data: LoginRequest): Promise<ApiResponse<LoginResponse>> => {
@@ -34,6 +35,7 @@ const authService = {
 
       tokenManager.removeTokens();
       useUserStore.getState().clearUserInfo();
+      useSnsLinkStore.getState().clearLink();
 
       return response;
     } catch (error) {

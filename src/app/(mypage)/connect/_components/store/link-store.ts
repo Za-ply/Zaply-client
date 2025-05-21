@@ -7,6 +7,7 @@ interface SnsLinkState {
   linkedStatus: Record<SocialPlatform, boolean>;
   accountInfo: Record<SocialPlatform, string>;
   setLinked: (platform: SocialPlatform, accountName: string) => void;
+  clearLink: () => void;
 }
 
 const initialState = {
@@ -37,6 +38,7 @@ export const useSnsLinkStore = create<SnsLinkState>()(
             [platform]: accountName,
           },
         })),
+      clearLink: () => set(initialState),
     }),
     {
       name: "sns-link-storage",
