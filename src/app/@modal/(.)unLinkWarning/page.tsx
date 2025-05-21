@@ -23,7 +23,6 @@ const UnLinkWarning = () => {
   const param = searchParams.get("platform");
 
   const platform = Platforms[param?.toUpperCase() as keyof typeof Platforms] as SocialPlatform;
-  console.log(platform);
 
   const { setLinked } = useSnsLinkStore();
 

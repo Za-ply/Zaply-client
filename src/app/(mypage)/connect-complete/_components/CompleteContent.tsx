@@ -1,24 +1,33 @@
 "use client";
 
 import { Button } from "@/components";
-import { useSelectedSocialStore } from "../../connect/_components/store/social-store";
 import SnsProfile from "../../mypage/_components/SnsProfile";
 import { ArrowIcon } from "@/components/icons/service";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Platforms } from "@/types/platform";
 import { useSnsLinkStore } from "../../connect/_components/store/link-store";
 import { SocialPlatform } from "@/app/(mypage)/_components/types/platform";
 import { useAccounts } from "../../connect/_components/hooks/useAccounts";
 
 export const CompleteContent = () => {
-  const { selected } = useSelectedSocialStore();
   const router = useRouter();
+  const searchParams = useSearchParams();
   const { linkedStatus, accountInfo } = useSnsLinkStore();
-
   const { isLoading, isError } = useAccounts();
 
-  const platform = (selected?.toUpperCase() as keyof typeof Platforms) || "THREADS";
-  const currentPlatform = Platforms[platform] as SocialPlatform;
+  const platformParam = searchParams.get("platform")?.toUpperCase() as
+    | keyof typeof Platforms
+    | undefined;
+
+  if (!platformParam || !Platforms[platformParam]) {
+    return (
+      <section className="flex justify-center items-center min-h-screen">
+        <p className="text-b2R text-red-600">플랫폼 정보를 찾을 수 없습니다.</p>
+      </section>
+    );
+  }
+
+  const currentPlatform = Platforms[platformParam] as SocialPlatform;
 
   if (isLoading) {
     return (
