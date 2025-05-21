@@ -3,10 +3,10 @@ import { apiClient } from "../axios/instance";
 import useUserStore from "@/stores/userStore";
 
 const FACEBOOK_CLIENT_ID = process.env.NEXT_PUBLIC_FACEBOOK_CLIENT_ID!;
-const FACEBOOK_REDIRECT_URI = "https://api.zapply.site/v1/account/facebook/link";
+const FACEBOOK_REDIRECT_URI = process.env.NEXT_PUBLIC_FACEBOOK_REDIRECT_URI!;
 
 const THREADS_CLIENT_ID = process.env.NEXT_PUBLIC_THREADS_CLIENT_ID!;
-const THREADS_REDIRECT_URI = "https://api.zapply.site/v1/account/threads/link";
+const THREADS_REDIRECT_URI = process.env.NEXT_PUBLIC_THREADS_REDIRECT_URI!;
 
 const accountController = {
   threads: async (): Promise<void> => {

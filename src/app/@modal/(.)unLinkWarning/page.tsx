@@ -8,6 +8,7 @@ import { SnsType } from "@/lib/api/model";
 import { SocialPlatform } from "@/app/(mypage)/_components/types/platform";
 import { useSnsLinkStore } from "@/app/(mypage)/connect/_components/store/link-store";
 import { Platforms } from "@/types/platform";
+import { useAccounts } from "@/app/(mypage)/connect/_components/hooks/useAccounts";
 
 const platformToSnsTypeMap: Record<SocialPlatform, SnsType> = {
   [Platforms.THREADS]: "THREADS",
@@ -16,6 +17,7 @@ const platformToSnsTypeMap: Record<SocialPlatform, SnsType> = {
 };
 
 const UnLinkWarning = () => {
+  const { refetch } = useAccounts();
   const router = useRouter();
   const searchParams = useSearchParams();
   const param = searchParams.get("platform");
@@ -40,6 +42,8 @@ const UnLinkWarning = () => {
 
       if (response.result === "SUCCESS") {
         setLinked(platform, "");
+        await refetch();
+
         router.back();
         router.back();
         router.refresh();
