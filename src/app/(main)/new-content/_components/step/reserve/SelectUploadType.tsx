@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { CheckIcon } from "@/components";
 import ScheduleSelector from "./ScheduleSelector";
+import { DrawerSheet } from "@/components/drawer";
+import { CalendarBottomContent } from "./CalendarBottomContent";
 
 export const SelectUploadType = () => {
   const [selected, setSelected] = useState<"now" | "reserve" | null>(null);
@@ -53,6 +55,8 @@ export const SelectUploadType = () => {
         }`}>
         <ScheduleSelector />
       </div>
+
+      <DrawerSheet contentProps={<CalendarBottomContent />} showCloseButton={false} />
     </>
   );
 };
