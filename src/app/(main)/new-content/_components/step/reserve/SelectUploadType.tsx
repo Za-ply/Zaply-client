@@ -1,21 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { CheckIcon } from "@/components";
-import { useUploadScheduleStore } from "@/app/(main)/new-content/_components/store/showScheduler";
 import ScheduleSelector from "./ScheduleSelector";
 
 export const SelectUploadType = () => {
   const [selected, setSelected] = useState<"now" | "reserve" | null>(null);
-  const { isVisible, show, hide } = useUploadScheduleStore();
-
-  useEffect(() => {
-    if (selected === "reserve") {
-      show();
-    } else {
-      hide();
-    }
-  }, [selected, show, hide]);
+  const showSchedule = selected === "reserve";
 
   return (
     <>
@@ -55,9 +46,10 @@ export const SelectUploadType = () => {
           })}
         </div>
       </div>
+
       <div
         className={`transition-all duration-500 overflow-hidden ${
-          isVisible ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"
+          showSchedule ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"
         }`}>
         <ScheduleSelector />
       </div>
