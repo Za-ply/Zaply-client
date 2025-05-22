@@ -38,7 +38,7 @@ apiClient.interceptors.response.use(
   async error => {
     const originalRequest = error.config;
 
-    if (error.response?.data.error.code === "TOKEN_INVALID" && !originalRequest._retry) {
+    if (error.response?.data.error.code === "INVALID_TOKEN" && !originalRequest._retry) {
       // 토큰 갱신 중복 요청 방지
       originalRequest._retry = true;
 

@@ -5,7 +5,9 @@ import SocialCard from "./SocialCard";
 import useUserStore from "@/stores/userStore";
 
 export const MyPageHeader = () => {
-  const { email, name } = useUserStore(state => state.userInfo ?? { email: "", name: "" });
+  const userInfo = useUserStore(state => state.userInfo);
+  const email = userInfo?.email ?? "";
+  const name = userInfo?.name ?? "";
 
   return (
     <header className="mt-[45px] w-full flex flex-col gap-7">

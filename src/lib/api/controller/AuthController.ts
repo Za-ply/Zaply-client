@@ -17,9 +17,6 @@ const authController = {
 
   logout: async (): Promise<void> => {
     const response = await apiClient.post("/auth/sign-out");
-
-    tokenManager.removeTokens();
-
     return response.data;
   },
 

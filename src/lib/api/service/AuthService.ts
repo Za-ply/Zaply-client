@@ -1,13 +1,6 @@
 import { authController } from "../controller";
 import { tokenManager } from "../axios/tokenManager";
-import {
-  ApiResponse,
-  LoginData,
-  LoginRequest,
-  SignUpData,
-  SignUpRequest,
-  LoginResponse,
-} from "../model";
+import { ApiResponse, LoginRequest, SignUpData, SignUpRequest, LoginResponse } from "../model";
 import useUserStore from "../../../stores/userStore";
 
 const authService = {

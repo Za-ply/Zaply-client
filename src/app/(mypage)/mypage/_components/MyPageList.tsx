@@ -8,9 +8,7 @@ import {
   SupportIcon,
   ZaplyGrayLogoIcon,
 } from "@/components/icons";
-import { tokenManager } from "@/lib/api/axios/tokenManager";
-import authService from "@/lib/api/service/AuthService";
-import { useToast } from "@/utils/useToast";
+import { useUserLogout } from "@/hooks/mutation";
 import { useRouter } from "next/navigation";
 
 type ListItem = {
@@ -21,16 +19,19 @@ type ListItem = {
 
 export const MyPageList = () => {
   const router = useRouter();
-  // const { toast } = useToast();
+  const { mutate: logout } = useUserLogout();
 
-  const handleLogout = async () => {
-    try {
-      await authService.logout();
-      tokenManager.removeTokens();
-      router.push("/sign-in");
-    } catch (error) {
-      console.error("로그아웃 실패:", error);
-    }
+  // const handleLogout = async () => {
+  //   try {
+  //     await authService.logout();
+  //     tokenManager.removeTokens();
+  //     router.push("/sign-in");
+  //   } catch (error) {
+  //     console.error("로그아웃 실패:", error);
+  //   }
+  // };
+  const handleLogout = () => {
+    logout();
   };
 
   const listItems: ListItem[] = [
