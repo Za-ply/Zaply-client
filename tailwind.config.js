@@ -105,6 +105,9 @@ module.exports = {
           "linear-gradient(272deg, var(--main-blue-700-primary-grd, #22C7FA) 70.08%, var(--main-green-700-secondary, #1FEAAB) 97.13%)",
         "background-default": "url('/assets/images/background_default.webp')",
         "background-blue-green": "url('/assets/images/background_blue_green.webp')",
+        "background-green": "url('/assets/images/background_green.webp')",
+        "background-yellow": "url('/assets/images/background_yellow.webp')",
+        "background-pink": "url('/assets/images/background_pink.webp')",
       },
       keyframes: {
         "toast-pop-in": {

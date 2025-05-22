@@ -3,9 +3,10 @@
 import { Button } from "@/components";
 import { useContentMakeStore } from "../../store/content-make-store";
 import { useEffect, useMemo } from "react";
-
+import { useRouter } from "next/navigation";
 const CreatePost = () => {
   const { postData } = useContentMakeStore();
+  const router = useRouter();
 
   useEffect(() => {
     console.log(postData);
@@ -24,6 +25,7 @@ const CreatePost = () => {
       <Button
         variant={isDisabled ? "deactive" : "active"}
         className="w-[350px] mx-auto mb-[60px]"
+        onClick={() => router.push("/transform-loading")}
         disabled={isDisabled}>
         다음
       </Button>
