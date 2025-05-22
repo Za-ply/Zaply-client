@@ -1,9 +1,10 @@
-import { Button, DownLoadPageIcon } from "@/components";
+import { Button } from "@/components";
 import Bedge from "./Bedge";
-import UploadFile from "./UploadFile";
+import UploadFile from "./Upload/UploadFile";
+import UploadLocation from "./Upload/UploadLocation";
 import WriteContent from "./WriteContent";
-import UploadLocation from "./UploadLocation";
 
+import LoadContent from "./LoadContent/LoadContent";
 const ContentMakeStep = () => {
   return (
     <div className="flex flex-col justify-between h-full pt-10 overflow-y-auto scrollbar-hide">
@@ -18,12 +19,7 @@ const ContentMakeStep = () => {
           <WriteContent />
 
           {/* 계정에서 콘텐츠 내용 불러오기*/}
-          <div className="mx-auto w-[216px] flex items-center gap-1 px-3 py-2 border rounded-lg border-grayscale-300">
-            <DownLoadPageIcon className="text-grayscale-600" />
-            <p className="text-grayscale-600 text-b3M whitespace-nowrap">
-              계정에서 콘텐츠 내용 불러오기
-            </p>
-          </div>
+          <LoadContent />
 
           <span className="w-full my-3 border-t border-grayscale-300" />
 

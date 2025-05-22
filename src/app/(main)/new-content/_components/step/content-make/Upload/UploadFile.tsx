@@ -1,12 +1,12 @@
 "use client";
 
-import { useFilePreview } from "../../hooks/useFilePreview";
+import Image from "next/image";
 import { cn } from "@/utils";
 import { AddIcon, CancelSolidIcon, Input } from "@/components";
-import { usePlatformStore } from "../../store";
-import { policyConfig } from "../../config/constraint-config";
-import Image from "next/image";
 import { useToast } from "@/utils/useToast";
+import { usePlatformStore } from "../../../store";
+import { useFilePreview } from "../../../hooks/useFilePreview";
+import { policyConfig } from "../../../config/constraint-config";
 
 const UploadFile = () => {
   const { selectedPlatform } = usePlatformStore();
@@ -58,7 +58,9 @@ const UploadFile = () => {
         <AddIcon className="text-grayscale-600" />
         <p className="text-grayscale-600 text-b2M">
           {`${previewUrls.length > 0 ? "" : "사진 혹은 동영상 추가"}`} ({previewUrls.length}/
-          {maxImageCount === 50 ? <span className="text-b4M">제한 없음</span> : maxImageCount})
+          {maxImageCount})
+          {/* {maxImageCount === 50 ? <span className="text-b4M">제한 없음</span> : maxImageCount}) */}
+          {/* 페이스북은 이미지 제한 50개 임의 설정 */}
         </p>
         <Input
           type="file"

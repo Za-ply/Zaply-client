@@ -1,5 +1,5 @@
 import { Platforms } from "@/types/platform";
-import PlatformButton from "./PlatfomButton";
+import PlatformButton from "../PlatfomButton";
 
 const UploadLocation = () => {
   const mockData = [
