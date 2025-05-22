@@ -1,10 +1,13 @@
 "use client";
 
 import { HelpIcon } from "@/components";
-import { useSheetStore } from "../../store";
+
+import { selectSheetStore } from "../../store/select-sheet-store";
+import { SheetOptions } from "@/constants/sheet-options";
 
 const HeaderContent = () => {
-  const { setIsOpen } = useSheetStore();
+  const store = selectSheetStore[SheetOptions.MAIN_PLATFORM];
+  const { setIsOpen } = store();
 
   return (
     <div className="space-y-[14px]">
@@ -12,7 +15,7 @@ const HeaderContent = () => {
       <div className="flex items-center gap-1">
         <p className="text-b3M text-grayscale-700">메인 플랫폼</p>
         <HelpIcon
-          className="w-4 h-4 cursor-pointer text-grayscale-500"
+          className="w-5 h-5 cursor-pointer text-grayscale-500"
           onClick={() => setIsOpen(true)}
         />
       </div>

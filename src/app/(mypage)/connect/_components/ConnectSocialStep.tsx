@@ -8,7 +8,6 @@ import { useSelectedSocialStore } from "./store/social-store";
 import { useToast } from "@/utils/useToast";
 import { useSnsLinkStore } from "./store/link-store";
 import accountService from "@/lib/api/service/AccountService";
-import { useSheetStore } from "@/app/(main)/new-content/_components/store/sheet-store";
 import { SocialPlatform } from "../../_components/types/platform";
 import { Platforms } from "@/types/platform";
 
@@ -42,7 +41,6 @@ export const ConnectSocialStep = () => {
   const { selected } = useSelectedSocialStore();
   const { toast } = useToast();
   const [step, setStep] = useState<1 | 2>(1);
-  const { setIsOpen } = useSheetStore();
   const { setLinked } = useSnsLinkStore();
 
   const selectedSns = snsList.find(sns => sns.name === selected);
@@ -66,7 +64,6 @@ export const ConnectSocialStep = () => {
     const platform = nameToPlatformMap[selectedSns.name];
     const service = serviceMap[selectedSns.name];
 
-    setIsOpen(true);
     setStep(2);
 
     try {

@@ -6,6 +6,8 @@ import { usePlatformStore } from "../../store";
 import { InfoMainPlatform } from "../../content";
 import { Button } from "@/components";
 import { DrawerSheet } from "@/components/drawer";
+import { selectSheetStore } from "../../store/select-sheet-store";
+import { SheetOptions } from "@/constants/sheet-options";
 
 const BottomContent = () => {
   const router = useRouter();
@@ -19,7 +21,11 @@ const BottomContent = () => {
         onClick={() => router.push("/new-content?step=2")}>
         다음
       </Button>
-      <DrawerSheet contentProps={<InfoMainPlatform />} showCloseButton={true} />
+      <DrawerSheet
+        contentProps={<InfoMainPlatform />}
+        showCloseButton={true}
+        store={selectSheetStore[SheetOptions.MAIN_PLATFORM]}
+      />
     </Fragment>
   );
 };
