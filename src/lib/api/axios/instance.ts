@@ -38,7 +38,7 @@ apiClient.interceptors.response.use(
   async error => {
     const originalRequest = error.config;
 
-    if (error.response?.code === "TOKEN_INVALID" && !originalRequest._retry) {
+    if (error.response?.data.error.code === "TOKEN_INVALID" && !originalRequest._retry) {
       // 토큰 갱신 중복 요청 방지
       originalRequest._retry = true;
 
@@ -49,17 +49,14 @@ apiClient.interceptors.response.use(
         }
 
         // 토큰 갱신 요청
-        const response = await axios.post(
-          `${baseURL}/auth/recreate`,
-          {},
-          {
-            headers: {
-              Authorization: `Bearer ${refreshToken}`,
-            },
-          }
-        );
+        const response = await axios.get(`${baseURL}/auth/recreate`, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${refreshToken}`,
+          },
+        });
 
-        const { accessToken, refreshToken: newRefreshToken } = response.data;
+        const { accessToken, refreshToken: newRefreshToken } = response.data.data;
 
         // 새 토큰 저장
         tokenManager.setTokens(accessToken, newRefreshToken);
