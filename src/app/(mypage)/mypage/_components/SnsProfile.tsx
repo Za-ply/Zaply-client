@@ -2,7 +2,6 @@ import Image, { StaticImageData } from "next/image";
 
 import { cn } from "@/utils";
 import { useSnsLinkStore } from "../../connect/_components/store/link-store";
-import { useSelectedSocialStore } from "../../connect/_components/store/social-store";
 import { Platforms } from "@/types/platform";
 import {
   facebookCircle,
@@ -30,11 +29,16 @@ const snsMap: Record<SocialPlatform, { linked: StaticImageData; unlinked: Static
 };
 
 export const SnsProfile = ({ type, className }: { type: SocialPlatform; className?: string }) => {
-  const isLinked = useSnsLinkStore(state => state.linkedStatus[type]);
-  const { selected } = useSelectedSocialStore();
+  const { linkedStatus } = useSnsLinkStore();
   const icon = snsMap[type];
+  const isLinked = linkedStatus[type];
 
-  const shouldShowFullProfile = isLinked || selected === type;
+  if (!icon) {
+    console.error(`Invalid social platform type: ${type}`);
+    return null;
+  }
+
+  const shouldShowFullProfile = isLinked;
 
   return shouldShowFullProfile ? (
     <div className={cn("relative w-[48px] h-[48px] bg-grayscale-400 rounded-full", className)}>

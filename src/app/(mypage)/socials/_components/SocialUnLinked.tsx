@@ -5,6 +5,7 @@ import SnsProfile from "../../mypage/_components/SnsProfile";
 import { Platforms } from "@/types/platform";
 import { useCallback } from "react";
 import { SocialPlatform } from "../../_components/types/platform";
+import { useSnsLinkStore } from "../../connect/_components/store/link-store";
 
 const platformAliasMap: Record<string, SocialPlatform> = {
   insta: Platforms.INSTAGRAM,
@@ -17,13 +18,18 @@ const platformAliasMap: Record<string, SocialPlatform> = {
 const SocialUnLinked = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { accountInfo } = useSnsLinkStore();
   const platformParam = searchParams.get("platform")?.toLowerCase();
 
   const platformKey = platformAliasMap[platformParam ?? ""];
 
   const handleUnlink = useCallback(() => {
-    router.push("/unLinkWarning");
-  }, [router]);
+    if (platformKey === Platforms.THREADS) {
+      router.push(`/unLinkWarning?platform=THREADS`);
+    } else {
+      router.push(`/unLinkWarning?platform=${platformKey}`);
+    }
+  }, [router, platformKey]);
 
   if (!platformKey) {
     return <div className="text-center text-red-500 text-b3M mt-10"></div>;
@@ -34,7 +40,7 @@ const SocialUnLinked = () => {
       <div className="flex gap-3">
         <SnsProfile type={platformKey} />
         <div className="flex flex-col gap-[2px]">
-          <p className="text-b2M text-grayscale-900">@username</p>
+          <p className="text-b2M text-grayscale-900">@{accountInfo[platformKey]}</p>
           <p className={"text-b4R text-grayscale-600"}>비즈니스 계정</p>
         </div>
       </div>

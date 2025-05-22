@@ -2,10 +2,29 @@
 
 import { Modal } from "@/components";
 import { DangerIcon } from "@/components/icons/service";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
+import accountService from "@/lib/api/service/AccountService";
+import { SnsType } from "@/lib/api/model";
+import { SocialPlatform } from "@/app/(mypage)/_components/types/platform";
+import { useSnsLinkStore } from "@/app/(mypage)/connect/_components/store/link-store";
+import { Platforms } from "@/types/platform";
+import { useAccounts } from "@/app/(mypage)/connect/_components/hooks/useAccounts";
+
+const platformToSnsTypeMap: Record<SocialPlatform, SnsType> = {
+  [Platforms.THREADS]: "THREADS",
+  [Platforms.INSTAGRAM]: "INSTAGRAM",
+  [Platforms.FACEBOOK]: "FACEBOOK",
+};
 
 const UnLinkWarning = () => {
+  const { refetch } = useAccounts();
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const param = searchParams.get("platform");
+
+  const platform = Platforms[param?.toUpperCase() as keyof typeof Platforms] as SocialPlatform;
+
+  const { setLinked } = useSnsLinkStore();
 
   const handleStop = () => {
     router.back();
@@ -15,14 +34,32 @@ const UnLinkWarning = () => {
     }, 10);
   };
 
-  // 연결 끊기는 api 연결
+  const handleUnlink = async () => {
+    try {
+      const snsType = platformToSnsTypeMap[platform];
+      const response = await accountService.unlink(snsType);
+
+      if (response.result === "SUCCESS") {
+        setLinked(platform, "");
+        await refetch();
+
+        router.back();
+        router.back();
+        router.refresh();
+        router.push("/mypage");
+      }
+    } catch (error) {
+      console.error("Failed to unlink account:", error);
+    }
+  };
+
   return (
     <Modal
       isOpen={true}
       title=""
       description=""
       onCloseIconClick={() => router.back()}
-      onLeftButtonClick={() => null}
+      onLeftButtonClick={handleUnlink}
       onRightButtonClick={handleStop}
       buttonType="multi"
       leftText="연결 끊기"

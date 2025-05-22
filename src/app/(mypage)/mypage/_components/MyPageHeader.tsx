@@ -1,15 +1,18 @@
+"use client";
+
 import { Button } from "@/components";
 import SocialCard from "./SocialCard";
+import useUserStore from "@/stores/userStore";
 
 export const MyPageHeader = () => {
+  const { email, name } = useUserStore(state => state.userInfo ?? { email: "", name: "" });
+
   return (
     <header className="mt-[45px] w-full flex flex-col gap-7">
       <div className="flex items-center justify-between px-3">
         <div className="flex flex-col">
-          <p className="text-t1 text-grayscale-900">박민영님</p>
-          <p className="italic text-blue-900 text-b4M creato-500">
-            zaplyservice.official@gmail.com
-          </p>
+          <p className="text-t1 text-grayscale-900">{name}님</p>
+          <p className="italic text-blue-900 text-b4M creato-500">{email}</p>
         </div>
         <Button
           variant="subAction"

@@ -10,17 +10,14 @@ const snsList = [
   {
     name: "Instagram",
     icon: instagramCircle,
-    url: process.env.NEXT_PUBLIC_OAUTH_URL_INSTAGRAM,
   },
   {
     name: "Thread",
     icon: threadCircle,
-    url: process.env.NEXT_PUBLIC_OAUTH_URL_THREAD,
   },
   {
     name: "Facebook",
     icon: facebookCircle,
-    url: process.env.NEXT_PUBLIC_OAUTH_URL_FACEBOOK,
   },
 ];
 

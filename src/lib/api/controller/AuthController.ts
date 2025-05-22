@@ -1,14 +1,25 @@
 import { apiClient } from "../axios/instance";
-import { ApiResponse, LoginData, LoginRequest, SignUpData, SignUpRequest } from "../model";
+import { tokenManager } from "../axios/tokenManager";
+import {
+  ApiResponse,
+  LoginData,
+  LoginRequest,
+  SignUpData,
+  SignUpRequest,
+  LoginResponse,
+} from "../model";
 
 const authController = {
-  login: async (data: LoginRequest): Promise<ApiResponse<LoginData>> => {
-    const response = await apiClient.post<ApiResponse<LoginData>>("/auth/sign-in", data);
+  login: async (data: LoginRequest): Promise<ApiResponse<LoginResponse>> => {
+    const response = await apiClient.post<ApiResponse<LoginResponse>>("/auth/sign-in", data);
     return response.data;
   },
 
   logout: async (): Promise<void> => {
     const response = await apiClient.post("/auth/sign-out");
+
+    tokenManager.removeTokens();
+
     return response.data;
   },
 
@@ -25,7 +36,7 @@ const authController = {
   },
 
   refreshToken: async (): Promise<ApiResponse<LoginData>> => {
-    const response = await apiClient.get<ApiResponse<LoginData>>("/auth/recreate");
+    const response = await apiClient.post<ApiResponse<LoginData>>("/auth/recreate");
     return response.data;
   },
 };

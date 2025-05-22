@@ -25,6 +25,7 @@ const snsList = [
 const SocialList = () => {
   const router = useRouter();
   const linkedStatus = useSnsLinkStore(state => state.linkedStatus);
+  const accountInfo = useSnsLinkStore(state => state.accountInfo);
 
   const handleClick = useCallback(
     (isLinked: boolean, type: Platforms) => {
@@ -52,7 +53,9 @@ const SocialList = () => {
             <div className="flex gap-3">
               <SnsProfile type={type} />
               <div className="flex flex-col gap-[2px]">
-                <p className="text-b2M text-grayscale-900">{isLinked ? "@username" : name}</p>
+                <p className="text-b2M text-grayscale-900">
+                  {isLinked ? `@${accountInfo[type]}` : name}
+                </p>
                 <p className={`text-b4R ${isLinked ? "text-grayscale-600" : "text-blue-700"}`}>
                   {isLinked ? "비즈니스 계정" : "연결 필요"}
                 </p>

@@ -1,5 +1,11 @@
+import { TimePicker } from "@/components/common/timePicker";
+
 const ReserveStep = () => {
-  return <></>;
+  return (
+    <>
+      <TimePicker />
+    </>
+  );
 };
 
 export default ReserveStep;

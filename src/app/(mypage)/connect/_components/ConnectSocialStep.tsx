@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components";
 import SocialSelect from "./SocialSelect";
 import SocialLogin from "./SocialLogin";
@@ -10,6 +10,7 @@ import { useSnsLinkStore } from "./store/link-store";
 import accountService from "@/lib/api/service/AccountService";
 import { useSheetStore } from "@/app/(main)/new-content/_components/store/sheet-store";
 import { SocialPlatform } from "../../_components/types/platform";
+import { Platforms } from "@/types/platform";
 
 const snsList = [
   {
@@ -23,6 +24,20 @@ const snsList = [
   },
 ];
 
+const nameToPlatformMap: Record<string, SocialPlatform> = {
+  Thread: Platforms.THREADS,
+  Facebook: Platforms.FACEBOOK,
+  Instagram: Platforms.INSTAGRAM,
+};
+
+const serviceMap: Record<string, () => Promise<void>> = {
+  Thread: accountService.threads,
+  Facebook: accountService.facebook,
+  Instagram: async () => {
+    console.log("Instagram login not implemented yet");
+  },
+};
+
 export const ConnectSocialStep = () => {
   const { selected } = useSelectedSocialStore();
   const { toast } = useToast();
@@ -32,29 +47,37 @@ export const ConnectSocialStep = () => {
 
   const selectedSns = snsList.find(sns => sns.name === selected);
 
+  useEffect(() => {
+    const handler = (event: MessageEvent) => {
+      if (event.data.status === "success") {
+        setLinked(Platforms.THREADS, "연결된 계정");
+        window.location.href = "/connect-complete?status=success";
+      } else if (event.data.status === "error") {
+        window.location.href = "/connect-complete?status=error";
+      }
+    };
+
+    window.addEventListener("message", handler);
+    return () => window.removeEventListener("message", handler);
+  }, [setLinked]);
+
   const handleClick = async () => {
+    if (!selectedSns?.name) return;
+    const platform = nameToPlatformMap[selectedSns.name];
+    const service = serviceMap[selectedSns.name];
+
     setIsOpen(true);
     setStep(2);
 
-    // api는 배포돼야 확인이 가능해서 머지되고 되는지 볼게요
     try {
-      if (selectedSns?.name) {
-        const key = selectedSns.name.toLowerCase() as SocialPlatform;
-        setLinked(key, true);
-      }
-
-      if (selectedSns?.name === "Thread") {
-        await accountService.threads();
-      } else if (selectedSns?.name === "Facebook") {
-        await accountService.facebook();
-      } else if (selectedSns?.name === "Instagram") {
-        console.log("Instagram login not implemented yet");
-      }
+      setLinked(platform, "");
+      await service();
     } catch (err) {
       toast({
         variant: "error",
         description: `${selectedSns?.name} 로그인에 실패했습니다.`,
       });
+      setLinked(platform, "");
     }
   };
 
