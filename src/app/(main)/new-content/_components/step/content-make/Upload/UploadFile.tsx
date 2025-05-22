@@ -7,11 +7,14 @@ import { useToast } from "@/utils/useToast";
 import { usePlatformStore } from "../../../store";
 import { useFilePreview } from "../../../hooks/useFilePreview";
 import { policyConfig } from "../../../config/constraint-config";
+import { useEffect } from "react";
+import { useContentMakeStore } from "../../../store/content-make-store";
 
 const UploadFile = () => {
   const { selectedPlatform } = usePlatformStore();
-  const { previewUrls, handleFileChange, removeFile } = useFilePreview();
+  const { previewUrls, handleFileChange, removeFile, getFormData } = useFilePreview();
   const { toast } = useToast();
+  const { setFiles } = useContentMakeStore();
 
   const { maxImageCount } =
     selectedPlatform !== null ? policyConfig[selectedPlatform] : { maxImageCount: 0 };
@@ -44,7 +47,15 @@ const UploadFile = () => {
     }
 
     handleFileChange(e);
+    setFiles(files);
   };
+
+  // const formData = getFormData();
+  // useEffect(() => {
+  //   formData.forEach((value, key) => {
+  //     console.log(key, value);
+  //   });
+  // }, [formData]);
 
   return (
     <div

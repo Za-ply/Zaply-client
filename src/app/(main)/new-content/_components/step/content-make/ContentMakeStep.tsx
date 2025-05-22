@@ -1,10 +1,10 @@
-import { Button } from "@/components";
 import Bedge from "./Bedge";
 import UploadFile from "./Upload/UploadFile";
 import UploadLocation from "./Upload/UploadLocation";
 import WriteContent from "./WriteContent";
-
 import LoadContent from "./LoadContent/LoadContent";
+import CreatePost from "./CreatePost";
+
 const ContentMakeStep = () => {
   return (
     <div className="flex flex-col justify-between h-full pt-10 overflow-y-auto scrollbar-hide">
@@ -28,12 +28,7 @@ const ContentMakeStep = () => {
           <UploadLocation />
         </div>
       </div>
-
-      <div className="max-w-[440px] border-t border-grayscale-200 mx-auto pt-2 fixed bottom-0 left-0 right-0 z-10 shadow-drop bg-grayscale-100">
-        <Button variant="active" className="w-[350px] mx-auto mb-[60px]">
-          다음
-        </Button>
-      </div>
+      <CreatePost />
     </div>
   );
 };

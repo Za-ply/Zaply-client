@@ -8,6 +8,7 @@ import { useProfileImage } from "@/app/(main)/new-content/_components/hooks/useP
 
 import profile1 from "@public/assets/images/profile1.webp";
 import { platformConfig } from "../../config/platform-config";
+import { useContentMakeStore } from "../../store/content-make-store";
 
 interface PlatformButtonProps {
   isAccountConnected: boolean;
@@ -17,12 +18,21 @@ interface PlatformButtonProps {
 
 const PlatformButton = ({ isAccountConnected, platform, hadProfileImage }: PlatformButtonProps) => {
   const [isChecked, setIsChecked] = useState(false);
+  const { postData, setUploadPlatforms } = useContentMakeStore();
   const displayImage = useProfileImage(platform);
 
   return (
     <div className="relative w-12 h-12">
       <div className="flex flex-col items-center justify-center gap-2">
-        <div onClick={() => setIsChecked(!isChecked)}>
+        <div
+          onClick={() => {
+            if (!isChecked) {
+              setUploadPlatforms([...postData.uploadPlatforms, platform]);
+            } else {
+              setUploadPlatforms(postData.uploadPlatforms.filter(p => p !== platform));
+            }
+            setIsChecked(!isChecked);
+          }}>
           {!isAccountConnected ? (
             <Image
               src={isChecked ? platformConfig[platform].icon : displayImage}

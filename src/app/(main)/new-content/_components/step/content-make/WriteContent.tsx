@@ -6,23 +6,28 @@ import { usePlatformStore } from "../../store";
 import { policyConfig } from "../../config/constraint-config";
 import { cn } from "@/utils";
 import { Textarea } from "@/components";
+import { useContentMakeStore } from "../../store/content-make-store";
+import { useDebounce } from "@/hooks";
 
 const WriteContent = () => {
   const ref = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
-
   const isFocused = useFocus(ref);
   const [contentLength, setContentLength] = useState(0);
-
   const { selectedPlatform } = usePlatformStore();
+  const { setContent } = useContentMakeStore();
+  const debouncedSetContent = useDebounce(setContent, 1000);
+
   const { maxContentLength } =
     selectedPlatform !== null ? policyConfig[selectedPlatform] : { maxContentLength: 0 };
 
   const handleInput = () => {
     if (textareaRef.current) {
       setContentLength(textareaRef.current.value.length);
+      debouncedSetContent(textareaRef.current.value);
     }
   };
+
   return (
     <div
       ref={ref}

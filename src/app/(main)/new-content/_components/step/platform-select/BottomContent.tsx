@@ -18,7 +18,8 @@ const BottomContent = () => {
       <Button
         variant={selectedPlatform && selectedCategory ? "active" : "deactive"}
         className="mb-[60px]"
-        onClick={() => router.push("/new-content?step=2")}>
+        onClick={() => router.push("/new-content?step=2")}
+        disabled={!selectedPlatform || !selectedCategory}>
         다음
       </Button>
       <DrawerSheet
