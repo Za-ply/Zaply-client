@@ -7,11 +7,11 @@ import { useContentStore } from "@/stores/useContentStore";
 import Chips from "./Chips";
 import ContentButton from "./ContentButton";
 import { useRouter } from "next/navigation";
-
+import useUserStore from "@/stores/userStore";
 const MainSection = ({ state }: { state: string }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [username, setUsername] = useState("민영");
   const router = useRouter();
+  const { name } = useUserStore(state => state.userInfo ?? { name: "" });
 
   const { counts } = useContentStore();
 
@@ -52,13 +52,13 @@ const MainSection = ({ state }: { state: string }) => {
 
       {isEmpty ? (
         <p className="text-center text-t3 text-grayscale-900">
-          {username}님의 콘텐츠를
+          {name}님의 콘텐츠를
           <br />
           재플리와 함께 성장시켜 보세요!
         </p>
       ) : (
         <p className="text-center text-t3 text-grayscale-900">
-          {username}님의 콘텐츠가
+          {name}님의 콘텐츠가
           <br />
           재플리와 함께 성장하고 있어요
         </p>

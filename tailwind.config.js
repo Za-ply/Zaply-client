@@ -91,6 +91,12 @@ module.exports = {
         "b500-y300": "linear-gradient(180deg, #93E6FF 0%, #FEFEFE 49%, #FFFCE6 100%)",
         "b300-g100": "linear-gradient(to bottom, #D8F5FF 0%, #FEFEFE 41%, #E9FDF7 100%)",
         "b300-g100-mypage": "linear-gradient(to bottom, #D8F5FF 0%, #FEFEFE 41%)",
+        "b500-g100":
+          "radial-gradient(100% 100% at 50% 0%, var(--Main-Blue-500, #93E6FF) 0%, var(--Grayscale-100, #FEFEFE) 49.04%, var(--Main-Green-100, #E9FDF7) 100%)",
+        "b500-p300":
+          "radial-gradient(100% 100% at 50% 0%, var(--Main-Blue-500, #93E6FF) 0%, var(--Grayscale-100, #FEFEFE) 49.04%, var(--pastel-pink-300-grd, #FFF1FF) 100%)",
+        "b500-y300-connect":
+          "radial-gradient(100% 100% at 50% 0%, var(--Main-Blue-500, #93E6FF) 0%, var(--Grayscale-100, #FEFEFE) 49.04%, var(--pastel-yellow-300-grd, #FFFCE6) 100%)",
         "gradation-btn":
           "linear-gradient(180deg, var(--main-blue-700-primary-grd, #22C7FA) 8.84%, var(--main-green-700-secondary, #1FEAAB) 98.01%)",
         "gradation-border":

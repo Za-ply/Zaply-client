@@ -1,13 +1,26 @@
 import { authController } from "../controller";
 import { tokenManager } from "../axios/tokenManager";
-import { ApiResponse, LoginData, LoginRequest, SignUpData, SignUpRequest } from "../model";
+import {
+  ApiResponse,
+  LoginData,
+  LoginRequest,
+  SignUpData,
+  SignUpRequest,
+  LoginResponse,
+} from "../model";
+import useUserStore from "../../../stores/userStore";
 
 const authService = {
-  login: async (data: LoginRequest): Promise<ApiResponse<LoginData>> => {
+  login: async (data: LoginRequest): Promise<ApiResponse<LoginResponse>> => {
     try {
       const response = await authController.login(data);
+      const { tokenResponse, memberResponse, accountsInfoResponse } = response.data;
 
-      tokenManager.setTokens(response.data.accessToken, response.data.refreshToken);
+      tokenManager.setTokens(tokenResponse.accessToken, tokenResponse.refreshToken);
+
+      useUserStore.getState().setUserInfo(memberResponse);
+      useUserStore.getState().setAccounts(accountsInfoResponse.accounts);
+
       return response;
     } catch (error) {
       console.error("Login failed:", error);
@@ -19,8 +32,9 @@ const authService = {
     try {
       const response = await authController.logout();
 
-      // service 객체에서 토큰 삭제 처리가 아닌 logout 훅에서 onSuccess, onError 처리하도록 변경
-      // tokenManager.removeTokens();
+      tokenManager.removeTokens();
+      useUserStore.getState().clearUserInfo();
+
       return response;
     } catch (error) {
       console.error("Logout failed:", error);

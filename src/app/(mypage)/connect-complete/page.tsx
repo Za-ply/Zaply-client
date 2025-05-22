@@ -8,17 +8,15 @@ interface ConnectCompleteProps {
 }
 
 export default function ConnectComplete({ searchParams }: ConnectCompleteProps) {
-  const isSuccess = searchParams.success === "true";
+  const isSuccess = searchParams.status === "success";
 
   return (
-    <>
-      <Container
-        className={cn(
-          isSuccess ? "bg-backgroundLine-yellow" : "bg-backgroundLine-pink",
-          "min-h-real-screen bg-cover bg-center"
-        )}>
-        {isSuccess ? <CompleteContent /> : <ErrorContent />}
-      </Container>
-    </>
+    <Container
+      className={cn(
+        isSuccess ? "bg-b500-y300-connect" : "bg-b500-p300",
+        "min-h-real-screen bg-cover bg-center"
+      )}>
+      {isSuccess ? <CompleteContent /> : <ErrorContent />}
+    </Container>
   );
 }

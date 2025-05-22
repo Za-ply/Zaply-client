@@ -11,6 +11,7 @@ import { useState } from "react";
 import { useSelectedSocialStore } from "../../connect/_components/store/social-store";
 import SocialLogin from "../../connect/_components/SocialLogin";
 import { SocialPlatform } from "@/app/(mypage)/_components/types/platform";
+import accountService from "@/lib/api/service/AccountService";
 
 const InfoCard = () => {
   const [step, setStep] = useState<1 | 2>(1);
@@ -36,9 +37,24 @@ const InfoCard = () => {
     );
   }
 
-  const handleClick = () => {
-    setSelected(platformKey);
-    setStep(2);
+  const handleClick = async () => {
+    try {
+      switch (platformKey) {
+        case Platforms.THREADS:
+          await accountService.threads();
+          break;
+        case Platforms.FACEBOOK:
+          await accountService.facebook();
+          break;
+        case Platforms.INSTAGRAM:
+          // Instagram 연결 로직이 필요한 경우 여기에 추가
+          break;
+        default:
+          console.error("지원하지 않는 플랫폼입니다.");
+      }
+    } catch (error) {
+      console.error("계정 연결 실패:", error);
+    }
   };
 
   if (step === 2) {

@@ -34,6 +34,7 @@ const UserInfoWrapper = () => {
 
         const requestBody = {
           email,
+          name: data.name,
           password,
           phoneNumber: data.phoneNumber,
           residentNumber: `${data.frontRRN}-${data.backRRN}`,

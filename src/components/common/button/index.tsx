@@ -9,6 +9,9 @@ export const buttonVariants = cva("h-[50px] flex items-center justify-center gap
       active: "bg-blue-blueblack text-grayscale-100",
       deactive: "bg-grayscale-400 text-grayscale-100",
       subAction: "bg-grayscale-100 text-blue-700 border-grayscale-300 border border-grayscale-300",
+      outline:
+        "border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground",
+      ghost: "hover:bg-accent hover:text-accent-foreground",
     },
     size: {
       default: "w-full py-3 px-2 rounded-full",
