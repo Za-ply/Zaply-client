@@ -11,12 +11,9 @@ const InfoMainPlatform = () => {
       <p className="mb-6 text-b2R text-grayscale-600">
         메인 플랫폼은&nbsp;
         <span className="text-b2M text-grayscale-800">
-          내가 작성할 콘텐츠의 기준이 되는 대표 SNS 채널
+          내가 작성할 콘텐츠의 기준이 되는 대표 SNS 플랫폼
         </span>
-        을 말해요. 이를 기준으로 문구나 스타일이 자동으로 다른 플랫폼에 맞게 특화되어 변환될 거예요.{" "}
-        <br />
-        <br />
-        여러 플랫폼을 운영 중이라면 그중 가장 주력으로 활용할 채널을 선택해주세요.
+        을 말해요. 이를 기준으로 문구나 스타일이 자동으로 다른 플랫폼에 맞게 특화되어 변환될 거예요.
       </p>
       <Button variant="active" className="w-full" onClick={() => setIsOpen(false)}>
         확인
