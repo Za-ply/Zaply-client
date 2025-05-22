@@ -3,7 +3,7 @@
 import { Fragment } from "react";
 import { useRouter } from "next/navigation";
 import { usePlatformStore } from "../../store";
-import { InfoMainPlatform } from "../../common";
+import { InfoMainPlatform } from "../../content";
 import { Button } from "@/components";
 import { DrawerSheet } from "@/components/drawer";
 
