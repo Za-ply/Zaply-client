@@ -8,11 +8,13 @@ interface ReserveTime {
 }
 
 interface ReserveState {
+  isReserve: boolean | null;
   selectedDate: Date | null;
   selectedTime: string | null;
   isAll: boolean;
   platformReserves: Record<SocialPlatform, ReserveTime>;
   currentPlatform: SocialPlatform | null;
+  setIsReserve: (isReserve: boolean) => void;
   setSelectedDate: (date: Date | null) => void;
   setSelectedTime: (time: string | null) => void;
   setIsAll: (isAll: boolean) => void;
@@ -28,11 +30,13 @@ const initialPlatformReserves: Record<SocialPlatform, ReserveTime> = {
 };
 
 export const useReserveStore = create<ReserveState>(set => ({
+  isReserve: null,
   selectedDate: null,
   selectedTime: null,
   isAll: true,
   platformReserves: initialPlatformReserves,
   currentPlatform: null,
+  setIsReserve: isReserve => set({ isReserve }),
   setSelectedDate: date => set({ selectedDate: date }),
   setSelectedTime: time => set({ selectedTime: time }),
   setIsAll: isAll => set({ isAll }),

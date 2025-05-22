@@ -51,6 +51,7 @@ export const ScheduleSelector = () => {
               transition={{ duration: 0.3 }}
               className="overflow-hidden flex flex-col gap-2">
               <div className="w-full h-[1px] bg-grayscale-200 my-2" />
+              {/* 아마 이게 Step2에 어디에 업로드할까요? 이거랑 연결되어 있는 것 같아서 나중에 여기에 불러오기 */}
               {linkedPlatforms.map(platform => (
                 <div key={platform} className="flex items-center justify-between">
                   <div className="w-[70px]">

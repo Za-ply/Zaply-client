@@ -2,14 +2,18 @@ import { EllipseIcon } from "@/components";
 
 import { Dialog, DialogContent } from "@/components/common/dialog";
 
-export const Loading = () => {
+export const Loading = ({ searchParams }: { searchParams: { isReserve?: string } }) => {
+  const isReserve = searchParams.isReserve === "true";
+
   return (
     <Dialog open>
       <DialogContent
         showCloseIcon={false}
         className="flex flex-col items-center justify-cente py-[178px] pb-8 bg-b300-g100-loading shadow-xl rounded-[20px] w-[350px]">
         <div className="flex flex-col items-center justify-center gap-1 w-full">
-          <p className="text-h3 text-blue-blueblack font-bold">콘텐츠를 업로드하고 있어요.</p>
+          <p className="text-h3 text-blue-blueblack font-bold">
+            {isReserve ? "콘텐츠를 예약하고 있어요." : "콘텐츠를 업로드하고 있어요."}
+          </p>
           <p className="text-b2M text-grayscale-600">잠시만 기다려주세요!</p>
         </div>
         <div className="flex items-center gap-2">

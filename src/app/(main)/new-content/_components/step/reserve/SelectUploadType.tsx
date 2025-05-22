@@ -1,17 +1,17 @@
 "use client";
 
-import { useState } from "react";
 import { CheckIcon } from "@/components";
 import ScheduleSelector from "./ScheduleSelector";
 import { DrawerSheet } from "@/components/drawer";
 import { CalendarBottomContent } from "./CalendarBottomContent";
+import { useReserveStore } from "../../store/reserve-store";
 
 export const SelectUploadType = () => {
-  const [selected, setSelected] = useState<"now" | "reserve" | null>(null);
-  const showSchedule = selected === "reserve";
+  const { isReserve, setIsReserve } = useReserveStore();
+  const showSchedule = isReserve;
 
-  const handleSelect = (type: "now" | "reserve") => {
-    setSelected(type);
+  const handleSelect = (isReserve: boolean) => {
+    setIsReserve(isReserve);
   };
 
   return (
@@ -25,14 +25,14 @@ export const SelectUploadType = () => {
 
         <div className="w-full flex flex-col gap-3">
           {[
-            { key: "now", label: "지금 바로 업로드하기" },
-            { key: "reserve", label: "업로드 예약하기" },
+            { key: false, label: "지금 바로 업로드하기" },
+            { key: true, label: "업로드 예약하기" },
           ].map(option => {
-            const isSelected = selected === option.key;
+            const isSelected = isReserve === option.key;
             return (
               <div
-                key={option.key}
-                onClick={() => handleSelect(option.key as "now" | "reserve")}
+                key={option.label}
+                onClick={() => handleSelect(option.key)}
                 className={`flex items-center justify-between px-5 py-4 border rounded-[12px] cursor-pointer transition-all duration-300 transform ${
                   isSelected ? "bg-blue-100 border-blue-100" : "border-grayscale-300"
                 }`}>

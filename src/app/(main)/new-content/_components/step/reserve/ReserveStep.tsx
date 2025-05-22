@@ -3,17 +3,18 @@
 import { Button, CheckIcon } from "@/components";
 import { SelectUploadType } from "./SelectUploadType";
 import { useRouter } from "next/navigation";
+import { useReserveStore } from "../../store/reserve-store";
 
 const ReserveStep = () => {
   const router = useRouter();
+  const { isReserve } = useReserveStore();
 
   const handleComplete = () => {
-    // /loading?modal=true로 push (병렬라우팅)
-    router.push("/loading?modal=true");
+    // 나중에 api 연결하고 로딩 상태일 때 ....
+    router.push(`/loading?isReserve=${isReserve}`);
 
     setTimeout(() => {
-      // 모달 닫기 (뒤로가기)
-      router.back();
+      router.replace("/upload?success=true");
     }, 3000);
   };
 
