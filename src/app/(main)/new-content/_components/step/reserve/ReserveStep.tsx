@@ -14,7 +14,9 @@ const ReserveStep = () => {
     router.push(`/loading?isReserve=${isReserve}`);
 
     setTimeout(() => {
-      router.replace("/upload?success=true");
+      // 일단 로딩되는 거 보여주려고 넣었는데 여기로 넘어가도 모달이 계속 뜨고 잇어요....... 한 시간동안 하다가 일단 포기
+      // 루트 레이아웃에서 모달 관리하는 거를 사용하는 폴더 레이아웃에서 모달을 관리하게 해야할지 고민스
+      router.push("/upload?success=true");
     }, 3000);
   };
 
