@@ -6,15 +6,21 @@ interface DrawerSheetProps {
   contentProps: React.ReactNode;
   showCloseButton?: boolean;
   buttonText?: string;
+  className?: string;
 }
 
-export function DrawerSheet({ contentProps, showCloseButton = true }: DrawerSheetProps) {
+export function DrawerSheet({ contentProps, showCloseButton = true, className }: DrawerSheetProps) {
   const { isOpen, setIsOpen } = useSheetStore();
 
   return (
     <Drawer open={isOpen} onOpenChange={setIsOpen}>
       <DrawerTitle className="hidden" />
-      <DrawerContent showCloseIcon={showCloseButton}>{contentProps}</DrawerContent>
+      <DrawerContent
+        showCloseIcon={showCloseButton}
+        className={className}
+        onClick={() => setIsOpen(false)}>
+        {contentProps}
+      </DrawerContent>
     </Drawer>
   );
 }

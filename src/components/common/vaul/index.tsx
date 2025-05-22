@@ -47,7 +47,7 @@ const DrawerContent = React.forwardRef<
       )}
       {...props}>
       {showCloseIcon ? (
-        <DrawerClose asChild className="absolute top-[32.5px] right-5">
+        <DrawerClose className="absolute top-[32.5px] right-5 z-[10]">
           <XIcon className="w-6 h-6 text-grayscale-500" />
         </DrawerClose>
       ) : (
