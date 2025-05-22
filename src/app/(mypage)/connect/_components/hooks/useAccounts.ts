@@ -1,17 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
-import { Platforms } from "@/types/platform";
-import { SocialPlatform } from "@/app/(mypage)/_components/types/platform";
 import memberService from "@/lib/api/service/MemberService";
 import useUserStore from "@/stores/userStore";
-import { SnsType } from "@/lib/api/model/member";
 
 export const ACCOUNTS_QUERY_KEY = ["accounts"] as const;
-
-const snsTypeToPlatform: Record<SnsType, SocialPlatform> = {
-  FACEBOOK: Platforms.FACEBOOK,
-  THREADS: Platforms.THREADS,
-  INSTAGRAM: Platforms.INSTAGRAM,
-};
 
 export const useAccounts = () => {
   const setAccounts = useUserStore(state => state.setAccounts);

@@ -7,6 +7,7 @@ import { ko } from "date-fns/locale";
 import { useState } from "react";
 import { useReserveStore } from "../../store/reserve-store";
 import { useSheetStore } from "../../store/sheet-store";
+import Bedge from "../content-make/Bedge";
 
 interface TimePickerBottomContentProps {
   selectedDate: Date;
@@ -21,6 +22,7 @@ export const TimePickerBottomContent = ({ selectedDate, onBack }: TimePickerBott
   } | null>(null);
   const { setSelectedDate, setSelectedTime: setStoreTime } = useReserveStore();
   const { setIsOpen } = useSheetStore();
+  const { currentPlatform } = useReserveStore();
   const formattedDate = format(selectedDate, "yy/MM/dd(EEE)", { locale: ko });
 
   const handleConfirm = () => {
@@ -35,7 +37,14 @@ export const TimePickerBottomContent = ({ selectedDate, onBack }: TimePickerBott
       <div className="w-full pb-4 border-b border-grayscale-200 text-t4 text-blue-blueblack flex items-center justify-between">
         <div className="flex items-center gap-1">
           <ChevronIcon type="left" className="text-grayscale-900 cursor-pointer" onClick={onBack} />
-          공통 예약 일정
+          {currentPlatform ? (
+            <div className="flex items-center gap-2">
+              <Bedge />
+              <p className="text-t4 text-blue-blueblack">예약 일정</p>
+            </div>
+          ) : (
+            "공통 예약 일정"
+          )}
         </div>
         <p className="text-b1R text-blue-700">{formattedDate}</p>
       </div>

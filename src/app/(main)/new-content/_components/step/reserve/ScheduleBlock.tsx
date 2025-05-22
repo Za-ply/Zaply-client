@@ -13,7 +13,8 @@ interface ScheduleBlockProps {
 }
 
 export const ScheduleBlock = ({ platform, isLinked = false }: ScheduleBlockProps) => {
-  const { selectedDate, selectedTime, isAll, setPlatformReserve } = useReserveStore();
+  const { selectedDate, selectedTime, isAll, setPlatformReserve, setCurrentPlatform } =
+    useReserveStore();
   const { setIsOpen } = useSheetStore();
 
   useEffect(() => {
@@ -30,6 +31,13 @@ export const ScheduleBlock = ({ platform, isLinked = false }: ScheduleBlockProps
     ? selectedTime.replace("AM", "오전").replace("PM", "오후")
     : format(new Date(), "a hh:mm", { locale: ko }).replace("am", "오전").replace("pm", "오후");
 
+  const handleClick = () => {
+    if (platform) {
+      setCurrentPlatform(platform);
+    }
+    setIsOpen(true);
+  };
+
   return (
     <div className="flex items-center gap-2">
       <div
@@ -40,7 +48,7 @@ export const ScheduleBlock = ({ platform, isLinked = false }: ScheduleBlockProps
               ? "bg-grayscale-100 text-blue-blueblack"
               : "bg-grayscale-100 text-grayscale-500"
         }`}
-        onClick={() => setIsOpen(true)}>
+        onClick={handleClick}>
         {formattedDate}
       </div>
       <div
@@ -51,7 +59,7 @@ export const ScheduleBlock = ({ platform, isLinked = false }: ScheduleBlockProps
               ? "bg-grayscale-100 text-blue-blueblack"
               : "bg-grayscale-100 text-grayscale-500"
         }`}
-        onClick={() => setIsOpen(true)}>
+        onClick={handleClick}>
         {formattedTime}
       </div>
     </div>

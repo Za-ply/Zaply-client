@@ -4,10 +4,13 @@ import { ArrowIcon, Button } from "@/components";
 import { Calendar } from "@/components/common/calendar";
 import { useState } from "react";
 import TimePickerBottomContent from "./TimePickerBottomContent";
+import { useReserveStore } from "../../store/reserve-store";
+import Bedge from "../content-make/Bedge";
 
 export const CalendarBottomContent = () => {
   const [date, setDate] = useState<Date | undefined>();
   const [showTimePicker, setShowTimePicker] = useState(false);
+  const { currentPlatform } = useReserveStore();
 
   const handleNext = () => {
     if (!date) return;
@@ -25,7 +28,14 @@ export const CalendarBottomContent = () => {
   return (
     <div className="flex flex-col">
       <div className="w-full pb-4 border-b border-grayscale-200 text-t4 text-blue-blueblack ">
-        공통 예약 일정
+        {currentPlatform ? (
+          <div className="flex items-center gap-2">
+            <Bedge />
+            <p className="text-t4 text-blue-blueblack">예약 일정</p>
+          </div>
+        ) : (
+          "공통 예약 일정"
+        )}
       </div>
       <Calendar selected={date} onSelect={setDate} mode="single" />
       <Button
