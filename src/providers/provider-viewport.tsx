@@ -1,6 +1,6 @@
 "use client";
 
-import { useVh } from "@/utils";
+import useVh from "@/hooks/useVh";
 import { ReactNode } from "react";
 
 interface ViewportProviderProps {
