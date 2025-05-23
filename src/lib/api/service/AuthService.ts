@@ -1,13 +1,6 @@
 import { authController } from "../controller";
 import { tokenManager } from "../axios/tokenManager";
-import {
-  ApiResponse,
-  LoginData,
-  LoginRequest,
-  SignUpData,
-  SignUpRequest,
-  LoginResponse,
-} from "../model";
+import { ApiResponse, LoginRequest, SignUpData, SignUpRequest, LoginResponse } from "../model";
 import useUserStore from "../../../stores/userStore";
 
 const authService = {
@@ -58,18 +51,6 @@ const authService = {
       return response.data;
     } catch (error) {
       console.error("Email duplicate check failed:", error);
-      throw new Error(error as string);
-    }
-  },
-
-  refreshToken: async (): Promise<ApiResponse<LoginData>> => {
-    try {
-      const response = await authController.refreshToken();
-
-      tokenManager.setTokens(response.data.accessToken, response.data.refreshToken);
-      return response;
-    } catch (error) {
-      console.error("Token refresh failed:", error);
       throw new Error(error as string);
     }
   },
