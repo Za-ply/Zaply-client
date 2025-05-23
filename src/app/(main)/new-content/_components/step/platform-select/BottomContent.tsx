@@ -17,8 +17,8 @@ const BottomContent = () => {
     <Fragment>
       <Button
         variant={selectedPlatform && selectedCategory ? "active" : "deactive"}
-        className="mb-[60px]"
         onClick={() => router.push("/new-content?step=2")}
+        className="absolute bottom-[60px] left-0 right-0 max-w-[calc(100%-40px)] mx-auto"
         disabled={!selectedPlatform || !selectedCategory}>
         다음
       </Button>

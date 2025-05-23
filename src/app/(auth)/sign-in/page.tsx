@@ -5,7 +5,7 @@ import SignInHeader from "@/app/(auth)/sign-in/_components/SignInHeader";
 
 export default function SignIn() {
   return (
-    <Container className="min-h-real-screen relative bg-center bg-cover bg-background-default flex flex-col justify-between">
+    <Container className="min-h-real-screen pt-[54px] pb-[68px] relative bg-center bg-cover bg-background-default flex flex-col justify-between">
       <SignInHeader />
       <SignInForm />
       <SignInFooter />
