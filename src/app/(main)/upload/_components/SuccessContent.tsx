@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { SocialPlatform } from "@/app/(mypage)/_components/types/platform";
 import SnsProfile from "@/app/(mypage)/mypage/_components/SnsProfile";
 import { ArrowIcon, Button, CircleCheckIcon } from "@/components";
@@ -13,6 +14,7 @@ const snsTypeToPlatform: Record<string, SocialPlatform> = {
 } as const;
 
 export const SuccessContent = () => {
+  const router = useRouter();
   const accounts = useUserStore(state => state.accounts);
   const linkedPlatforms = accounts
     .map(account => snsTypeToPlatform[account.snsType])
@@ -40,7 +42,10 @@ export const SuccessContent = () => {
           rightIcon={<ArrowIcon type="right" />}>
           업로드 확인하기
         </Button>
-        <Button variant="subAction" className="w-full text-button1 text-blue-700">
+        <Button
+          variant="subAction"
+          className="w-full text-button1 text-blue-700"
+          onClick={() => router.push("/main")}>
           HOME으로
         </Button>
       </div>

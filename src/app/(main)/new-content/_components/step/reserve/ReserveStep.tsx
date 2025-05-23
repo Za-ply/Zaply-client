@@ -9,13 +9,14 @@ import LoadingModal from "./LoadingModal";
 
 const ReserveStep = () => {
   const router = useRouter();
-  const { isReserve } = useReserveStore();
+  const { isReserve, clearReserve } = useReserveStore();
   const [isLoading, setIsLoading] = useState(false);
 
   const handleComplete = () => {
+    // 나중에 api 연결하고 로딩 상태일 때 ....
+    clearReserve();
     setIsLoading(true);
 
-    // 나중에 api 연결하고 로딩 상태일 때 ....
     setTimeout(() => {
       setIsLoading(false);
       router.push("/upload?success=true");
