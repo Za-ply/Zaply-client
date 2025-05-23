@@ -1,11 +1,12 @@
 "use client";
 
 import { useEffect } from "react";
-import { useSheetStore } from "../../store";
 import { useReserveStore } from "../../store/reserve-store";
 import { format } from "date-fns";
 import { ko } from "date-fns/locale";
 import { SocialPlatform } from "@/app/(mypage)/_components/types/platform";
+import { selectSheetStore } from "../../store/select-sheet-store";
+import { SheetOptions } from "@/constants/sheet-options";
 
 interface ScheduleBlockProps {
   platform?: SocialPlatform;
@@ -15,7 +16,8 @@ interface ScheduleBlockProps {
 export const ScheduleBlock = ({ platform, isLinked = false }: ScheduleBlockProps) => {
   const { selectedDate, selectedTime, isAll, setPlatformReserve, setCurrentPlatform } =
     useReserveStore();
-  const { setIsOpen } = useSheetStore();
+  const store = selectSheetStore[SheetOptions.CALENDAR];
+  const { setIsOpen } = store();
 
   useEffect(() => {
     if (selectedDate && selectedTime && isAll) {

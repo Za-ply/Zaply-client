@@ -1,12 +1,14 @@
+import { Dialog, DialogContent } from "@/components/common/dialog";
 import { EllipseIcon } from "@/components";
 
-import { Dialog, DialogContent } from "@/components/common/dialog";
+interface LoadingModalProps {
+  isOpen: boolean;
+  isReserve?: boolean;
+}
 
-export const Loading = ({ searchParams }: { searchParams: { isReserve?: string } }) => {
-  const isReserve = searchParams.isReserve === "true";
-
+const LoadingModal = ({ isOpen, isReserve = false }: LoadingModalProps) => {
   return (
-    <Dialog open>
+    <Dialog open={isOpen}>
       <DialogContent
         showCloseIcon={false}
         className="flex flex-col items-center justify-cente py-[178px] pb-8 bg-b300-g100-loading shadow-xl rounded-[20px] w-[350px]">
@@ -27,4 +29,4 @@ export const Loading = ({ searchParams }: { searchParams: { isReserve?: string }
   );
 };
 
-export default Loading;
+export default LoadingModal;

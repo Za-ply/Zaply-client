@@ -5,6 +5,8 @@ import ScheduleSelector from "./ScheduleSelector";
 import { DrawerSheet } from "@/components/drawer";
 import { CalendarBottomContent } from "./CalendarBottomContent";
 import { useReserveStore } from "../../store/reserve-store";
+import { SheetOptions } from "@/constants/sheet-options";
+import { selectSheetStore } from "../../store/select-sheet-store";
 
 export const SelectUploadType = () => {
   const { isReserve, setIsReserve } = useReserveStore();
@@ -60,7 +62,12 @@ export const SelectUploadType = () => {
         <ScheduleSelector />
       </div>
 
-      <DrawerSheet contentProps={<CalendarBottomContent />} showCloseButton={false} />
+      <DrawerSheet
+        store={selectSheetStore[SheetOptions.CALENDAR]}
+        contentProps={<CalendarBottomContent />}
+        showCloseButton={false}
+        onClick={() => {}}
+      />
     </>
   );
 };

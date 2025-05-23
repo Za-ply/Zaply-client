@@ -6,8 +6,9 @@ import { format } from "date-fns";
 import { ko } from "date-fns/locale";
 import { useState } from "react";
 import { useReserveStore } from "../../store/reserve-store";
-import { useSheetStore } from "../../store/sheet-store";
 import Bedge from "../content-make/Bedge";
+import { selectSheetStore } from "../../store/select-sheet-store";
+import { SheetOptions } from "@/constants/sheet-options";
 
 interface TimePickerBottomContentProps {
   selectedDate: Date;
@@ -21,7 +22,8 @@ export const TimePickerBottomContent = ({ selectedDate, onBack }: TimePickerBott
     minute: string;
   } | null>(null);
   const { setSelectedDate, setSelectedTime: setStoreTime } = useReserveStore();
-  const { setIsOpen } = useSheetStore();
+  const store = selectSheetStore[SheetOptions.CALENDAR];
+  const { setIsOpen } = store();
   const { currentPlatform } = useReserveStore();
   const formattedDate = format(selectedDate, "yy/MM/dd(EEE)", { locale: ko });
 
