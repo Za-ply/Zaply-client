@@ -5,7 +5,7 @@ import { Calendar } from "@/components/common/calendar";
 import { useState } from "react";
 import TimePickerBottomContent from "./TimePickerBottomContent";
 import { useReserveStore } from "../../store/reserve-store";
-import Bedge from "../content-make/Bedge";
+import Badge from "./Badge";
 
 export const CalendarBottomContent = () => {
   const [date, setDate] = useState<Date | undefined>();
@@ -30,7 +30,7 @@ export const CalendarBottomContent = () => {
       <div className="w-full pb-4 border-b border-grayscale-200 text-t4 text-blue-blueblack ">
         {currentPlatform ? (
           <div className="flex items-center gap-2">
-            <Bedge />
+            <Badge platform={currentPlatform} />
             <p className="text-t4 text-blue-blueblack">예약 일정</p>
           </div>
         ) : (

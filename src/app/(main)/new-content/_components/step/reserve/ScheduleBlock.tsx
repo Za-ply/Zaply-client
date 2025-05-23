@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { memo, useMemo } from "react";
 import { useReserveStore } from "../../store/reserve-store";
 import { format } from "date-fns";
 import { ko } from "date-fns/locale";
@@ -13,25 +13,29 @@ interface ScheduleBlockProps {
   isLinked?: boolean;
 }
 
-export const ScheduleBlock = ({ platform, isLinked = false }: ScheduleBlockProps) => {
-  const { selectedDate, selectedTime, isAll, setPlatformReserve, setCurrentPlatform } =
+const ScheduleBlock = memo(({ platform, isLinked = false }: ScheduleBlockProps) => {
+  const { isAll, platformReserves, setCurrentPlatform, selectedDate, selectedTime } =
     useReserveStore();
   const store = selectSheetStore[SheetOptions.CALENDAR];
   const { setIsOpen } = store();
 
-  useEffect(() => {
-    if (selectedDate && selectedTime && isAll) {
-      setPlatformReserve(platform as SocialPlatform, {
-        date: selectedDate,
-        time: selectedTime,
-      });
-    }
-  }, [selectedDate, selectedTime, isAll, platform, setPlatformReserve]);
+  const platformReserve = platform ? platformReserves[platform] : null;
 
-  const formattedDate = format(selectedDate || new Date(), "yy/MM/dd(EEE)", { locale: ko });
-  const formattedTime = selectedTime
-    ? selectedTime.replace("AM", "오전").replace("PM", "오후")
-    : format(new Date(), "a hh:mm", { locale: ko }).replace("am", "오전").replace("pm", "오후");
+  const { formattedDate, formattedTime } = useMemo(() => {
+    const date = isAll
+      ? format(selectedDate || new Date(), "yy/MM/dd(EEE)", { locale: ko })
+      : format(platformReserve?.date || new Date(), "yy/MM/dd(EEE)", { locale: ko });
+
+    const time = isAll
+      ? selectedTime
+        ? selectedTime.replace("AM", "오전").replace("PM", "오후")
+        : format(new Date(), "a hh:mm", { locale: ko }).replace("am", "오전").replace("pm", "오후")
+      : platformReserve?.time
+        ? platformReserve.time.replace("AM", "오전").replace("PM", "오후")
+        : format(new Date(), "a hh:mm", { locale: ko }).replace("am", "오전").replace("pm", "오후");
+
+    return { formattedDate: date, formattedTime: time };
+  }, [isAll, selectedDate, selectedTime, platformReserve]);
 
   const handleClick = () => {
     if (platform) {
@@ -40,32 +44,46 @@ export const ScheduleBlock = ({ platform, isLinked = false }: ScheduleBlockProps
     setIsOpen(true);
   };
 
+  const dateClassName = useMemo(() => {
+    return `w-[116px] px-4 py-2 border border-grayscale-300 rounded-[8px] text-b3M text-center cursor-pointer ${
+      !isAll && !isLinked
+        ? "bg-grayscale-300 text-grayscale-500"
+        : isAll
+          ? selectedDate
+            ? "bg-grayscale-100 text-blue-blueblack"
+            : "bg-grayscale-100 text-grayscale-500"
+          : platformReserve?.date
+            ? "bg-grayscale-100 text-blue-blueblack"
+            : "bg-grayscale-100 text-grayscale-500"
+    }`;
+  }, [isAll, isLinked, selectedDate, platformReserve?.date]);
+
+  const timeClassName = useMemo(() => {
+    return `w-[116px] px-4 py-2 border border-grayscale-300 rounded-[8px] text-b3M text-center cursor-pointer ${
+      !isAll && !isLinked
+        ? "bg-grayscale-300 text-grayscale-500"
+        : isAll
+          ? selectedTime
+            ? "bg-grayscale-100 text-blue-blueblack"
+            : "bg-grayscale-100 text-grayscale-500"
+          : platformReserve?.time
+            ? "bg-grayscale-100 text-blue-blueblack"
+            : "bg-grayscale-100 text-grayscale-500"
+    }`;
+  }, [isAll, isLinked, selectedTime, platformReserve?.time]);
+
   return (
     <div className="flex items-center gap-2">
-      <div
-        className={`w-[116px] px-4 py-2 border border-grayscale-300 rounded-[8px] text-b3M text-center cursor-pointer ${
-          !isAll && !isLinked
-            ? "bg-grayscale-300 text-grayscale-500"
-            : selectedDate
-              ? "bg-grayscale-100 text-blue-blueblack"
-              : "bg-grayscale-100 text-grayscale-500"
-        }`}
-        onClick={handleClick}>
+      <div className={dateClassName} onClick={handleClick}>
         {formattedDate}
       </div>
-      <div
-        className={`w-[116px] px-4 py-2 border border-grayscale-300 rounded-[8px] text-b3M text-center cursor-pointer ${
-          !isAll && !isLinked
-            ? "bg-grayscale-300 text-grayscale-500"
-            : selectedTime
-              ? "bg-grayscale-100 text-blue-blueblack"
-              : "bg-grayscale-100 text-grayscale-500"
-        }`}
-        onClick={handleClick}>
+      <div className={timeClassName} onClick={handleClick}>
         {formattedTime}
       </div>
     </div>
   );
-};
+});
+
+ScheduleBlock.displayName = "ScheduleBlock";
 
 export default ScheduleBlock;
