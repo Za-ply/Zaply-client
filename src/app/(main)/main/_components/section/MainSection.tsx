@@ -12,7 +12,7 @@ import useRouterPrefetch from "@/utils/useRouterPrefetch";
 const MainSection = ({ state }: { state: string }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const router = useRouter();
-  const { name } = useUserStore(state => state.userInfo ?? { name: "" });
+  const { userInfo } = useUserStore();
 
   const { counts } = useContentStore();
 
@@ -57,13 +57,13 @@ const MainSection = ({ state }: { state: string }) => {
 
       {isEmpty ? (
         <p className="text-center text-t3 text-grayscale-900">
-          {name}님의 콘텐츠를
+          {userInfo?.name}님의 콘텐츠를
           <br />
           재플리와 함께 성장시켜 보세요!
         </p>
       ) : (
         <p className="text-center text-t3 text-grayscale-900">
-          {name}님의 콘텐츠가
+          {userInfo?.name}님의 콘텐츠가
           <br />
           재플리와 함께 성장하고 있어요
         </p>
