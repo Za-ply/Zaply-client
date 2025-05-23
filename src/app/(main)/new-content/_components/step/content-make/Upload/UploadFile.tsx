@@ -7,14 +7,20 @@ import { useToast } from "@/utils/useToast";
 import { usePlatformStore } from "../../../store";
 import { useFilePreview } from "../../../hooks/useFilePreview";
 import { policyConfig } from "../../../config/constraint-config";
-import { useEffect } from "react";
 import { useContentMakeStore } from "../../../store/content-make-store";
 
 const UploadFile = () => {
   const { selectedPlatform } = usePlatformStore();
-  const { previewUrls, handleFileChange, removeFile, getFormData } = useFilePreview();
+  const { previewUrls, handleFileChange, removeFile } = useFilePreview();
   const { toast } = useToast();
-  const { setFiles } = useContentMakeStore();
+  const { setFiles, postData } = useContentMakeStore();
+
+  const handleRemoveFile = (index: number) => {
+    removeFile(index);
+    const newFiles = [...postData.files];
+    newFiles.splice(index, 1);
+    setFiles(newFiles);
+  };
 
   const { maxImageCount } =
     selectedPlatform !== null ? policyConfig[selectedPlatform] : { maxImageCount: 0 };
@@ -86,7 +92,7 @@ const UploadFile = () => {
         <div key={index} className="relative aspect-square">
           <CancelSolidIcon
             className="rounded-full bg-grayscale-100 text-grayscale-800 absolute -top-[10px] -right-[10px] shadow-cancel z-10 cursor-pointer"
-            onClick={() => removeFile(index)}
+            onClick={() => handleRemoveFile(index)}
           />
           <Image
             src={url}
