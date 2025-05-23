@@ -5,10 +5,15 @@ import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { fadeUpVariants, transition } from "./animation";
 import { ONBOARDING_CONTENTS } from "@/app/(auth)/sign-in/_components/constants/onboardingContents";
+import useRouterPrefetch from "@/utils/useRouterPrefetch";
 
 const OnBoardingContent = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const scrollRef = useRef<HTMLDivElement>(null);
+
+  useRouterPrefetch({
+    path: ["/sign-in", "/link", "/main"],
+  });
 
   useEffect(() => {
     const handleScroll = () => {
@@ -27,7 +32,7 @@ const OnBoardingContent = () => {
     <section className="mt-[180px] flex flex-col items-center justify-center gap-10 w-full">
       <div
         ref={scrollRef}
-        className="flex gap-5 overflow-x-auto overflow-y-hidden scrollbar-hide w-full snap-x snap-mandatory"
+        className="flex w-full gap-5 overflow-x-auto overflow-y-hidden scrollbar-hide snap-x snap-mandatory"
         style={{
           WebkitOverflowScrolling: "touch",
           scrollBehavior: "smooth",
@@ -35,12 +40,12 @@ const OnBoardingContent = () => {
         {ONBOARDING_CONTENTS.map((item, index) => (
           <motion.div
             key={item.id}
-            className="w-full flex-shrink-0 snap-start flex flex-col items-center justify-center gap-12"
+            className="flex flex-col items-center justify-center flex-shrink-0 w-full gap-12 snap-start"
             initial="hidden"
             animate={currentIndex === index ? "visible" : "hidden"}
             variants={fadeUpVariants}
             transition={transition}>
-            <p className="text-blue-blueblack text-h2 text-center whitespace-pre-line">
+            <p className="text-center whitespace-pre-line text-blue-blueblack text-h2">
               {item.title}
             </p>
             <div className="w-full h-[115px] flex items-center justify-center">{item.gui}</div>
