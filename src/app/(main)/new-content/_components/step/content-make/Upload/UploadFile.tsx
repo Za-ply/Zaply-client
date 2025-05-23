@@ -1,17 +1,20 @@
 "use client";
 
-import { useFilePreview } from "../../hooks/useFilePreview";
+import Image from "next/image";
 import { cn } from "@/utils";
 import { AddIcon, CancelSolidIcon, Input } from "@/components";
-import { usePlatformStore } from "../../store";
-import { policyConfig } from "../../config/constraint-config";
-import Image from "next/image";
 import { useToast } from "@/utils/useToast";
+import { usePlatformStore } from "../../../store";
+import { useFilePreview } from "../../../hooks/useFilePreview";
+import { policyConfig } from "../../../config/constraint-config";
+import { useEffect } from "react";
+import { useContentMakeStore } from "../../../store/content-make-store";
 
 const UploadFile = () => {
   const { selectedPlatform } = usePlatformStore();
-  const { previewUrls, handleFileChange, removeFile } = useFilePreview();
+  const { previewUrls, handleFileChange, removeFile, getFormData } = useFilePreview();
   const { toast } = useToast();
+  const { setFiles } = useContentMakeStore();
 
   const { maxImageCount } =
     selectedPlatform !== null ? policyConfig[selectedPlatform] : { maxImageCount: 0 };
@@ -44,7 +47,15 @@ const UploadFile = () => {
     }
 
     handleFileChange(e);
+    setFiles(files);
   };
+
+  // const formData = getFormData();
+  // useEffect(() => {
+  //   formData.forEach((value, key) => {
+  //     console.log(key, value);
+  //   });
+  // }, [formData]);
 
   return (
     <div
@@ -57,8 +68,10 @@ const UploadFile = () => {
         className="flex flex-col items-center justify-center w-full col-span-1 gap-1 px-5 py-3 rounded-xl bg-grayscale-200">
         <AddIcon className="text-grayscale-600" />
         <p className="text-grayscale-600 text-b2M">
-          {`${previewUrls.length > 0 ? "" : "사진 혹은 동영상 추가"}`} ({previewUrls.length}/
-          {maxImageCount === 50 ? <span className="text-b4M">제한 없음</span> : maxImageCount})
+          {`${previewUrls.length > 0 ? "" : "사진/동영상 추가"}`} ({previewUrls.length}/
+          {maxImageCount})
+          {/* {maxImageCount === 50 ? <span className="text-b4M">제한 없음</span> : maxImageCount}) */}
+          {/* 페이스북은 이미지 제한 50개 임의 설정 */}
         </p>
         <Input
           type="file"

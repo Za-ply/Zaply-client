@@ -8,10 +8,10 @@ const PlatformSelectStep = () => {
     <div className="flex flex-col justify-between h-full gap-2 pt-10 overflow-y-auto scrollbar-hide">
       <div>
         <HeaderContent />
-        <div className="mt-[64px]">
+        <div className="mt-12">
           <PlatformList />
         </div>
-        <Continue />
+        {/* <Continue /> */}
       </div>
       <BottomContent />
     </div>
