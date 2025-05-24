@@ -2,11 +2,11 @@ import { Platforms } from "@/types/platform";
 
 export const policyConfig = {
   [Platforms.INSTAGRAM]: {
-    maxImageCount: 20,
+    maxImageCount: 10,
     maxContentLength: 2200,
   },
   [Platforms.THREADS]: {
-    maxImageCount: 10,
+    maxImageCount: 20,
     maxContentLength: 500,
   },
   [Platforms.FACEBOOK]: {

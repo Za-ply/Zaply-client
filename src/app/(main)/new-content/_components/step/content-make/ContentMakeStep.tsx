@@ -17,7 +17,7 @@ const ContentMakeStep = () => {
         </div>
         <div className="flex flex-col gap-3">
           {/* 내용 작성 영역 */}
-          <WriteContent />
+          <WriteContent type="upload" />
 
           {/* 사진 혹은 파일 업로드 영역 */}
           <UploadFile />

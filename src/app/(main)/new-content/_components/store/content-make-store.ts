@@ -9,9 +9,12 @@ interface ContentMakeState {
 
 interface ContentMakeStore {
   postData: ContentMakeState;
+  selectedContentPlatform: Platforms | null;
   setContent: (content: string) => void;
   setFiles: (files: File[]) => void;
   setUploadPlatforms: (platforms: Platforms[]) => void;
+  setSelectedContentPlatform: (platform: Platforms | null) => void;
+  resetSelections: () => void;
   resetPostData: () => void;
 }
 
@@ -23,17 +26,40 @@ const initialState: ContentMakeState = {
 
 export const useContentMakeStore = create<ContentMakeStore>(set => ({
   postData: initialState,
+  selectedContentPlatform: null,
+
   setContent: (content: string) =>
     set(state => ({
       postData: { ...state.postData, content },
     })),
+
   setFiles: (files: File[]) =>
     set(state => ({
       postData: { ...state.postData, files },
     })),
+
   setUploadPlatforms: (platforms: Platforms[]) =>
     set(state => ({
       postData: { ...state.postData, uploadPlatforms: platforms },
     })),
-  resetPostData: () => set({ postData: initialState }),
+
+  setSelectedContentPlatform: (platform: Platforms | null) =>
+    set(() => ({
+      selectedContentPlatform: platform,
+    })),
+
+  resetSelections: () =>
+    set(state => ({
+      postData: {
+        ...state.postData,
+        uploadPlatforms: [],
+      },
+      selectedContentPlatform: null,
+    })),
+
+  resetPostData: () =>
+    set({
+      postData: initialState,
+      selectedContentPlatform: null,
+    }),
 }));

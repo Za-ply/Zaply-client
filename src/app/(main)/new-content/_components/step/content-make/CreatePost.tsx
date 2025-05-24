@@ -2,15 +2,11 @@
 
 import { Button } from "@/components";
 import { useContentMakeStore } from "../../store/content-make-store";
-import { useEffect, useMemo } from "react";
+import { useMemo } from "react";
 import { useRouter } from "next/navigation";
 const CreatePost = () => {
   const { postData } = useContentMakeStore();
   const router = useRouter();
-
-  useEffect(() => {
-    console.log(postData);
-  }, [postData]);
 
   const isDisabled = useMemo(() => {
     return (

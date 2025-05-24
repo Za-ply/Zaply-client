@@ -56,13 +56,6 @@ const UploadFile = () => {
     setFiles(files);
   };
 
-  // const formData = getFormData();
-  // useEffect(() => {
-  //   formData.forEach((value, key) => {
-  //     console.log(key, value);
-  //   });
-  // }, [formData]);
-
   return (
     <div
       className={cn({
@@ -76,8 +69,6 @@ const UploadFile = () => {
         <p className="text-grayscale-600 text-b2M">
           {`${previewUrls.length > 0 ? "" : "사진/동영상 추가"}`} ({previewUrls.length}/
           {maxImageCount})
-          {/* {maxImageCount === 50 ? <span className="text-b4M">제한 없음</span> : maxImageCount}) */}
-          {/* 페이스북은 이미지 제한 50개 임의 설정 */}
         </p>
         <Input
           type="file"

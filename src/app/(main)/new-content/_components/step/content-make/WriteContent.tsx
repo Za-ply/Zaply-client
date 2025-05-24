@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import useFocus from "../../hooks/useFocus";
 import { usePlatformStore } from "../../store";
 import { policyConfig } from "../../config/constraint-config";
@@ -9,13 +9,14 @@ import { Textarea } from "@/components";
 import { useContentMakeStore } from "../../store/content-make-store";
 import { useDebounce } from "@/hooks";
 
-const WriteContent = () => {
+const WriteContent = ({ type }: { type: "upload" | "content" }) => {
+  const { selectedPlatform } = usePlatformStore();
+  const { postData, setContent } = useContentMakeStore();
+  const [contentLength, setContentLength] = useState<number>(0);
+
   const ref = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const isFocused = useFocus(ref);
-  const [contentLength, setContentLength] = useState(0);
-  const { selectedPlatform } = usePlatformStore();
-  const { setContent } = useContentMakeStore();
   const debouncedSetContent = useDebounce(setContent, 1000);
 
   const { maxContentLength } =
@@ -27,6 +28,12 @@ const WriteContent = () => {
       debouncedSetContent(textareaRef.current.value);
     }
   };
+
+  useEffect(() => {
+    if (type === "upload") {
+      setContentLength(postData.content.length);
+    }
+  }, []);
 
   return (
     <div
@@ -40,11 +47,12 @@ const WriteContent = () => {
       <Textarea
         ref={textareaRef}
         maxLength={maxContentLength}
+        defaultValue={type === "upload" ? postData.content : ""}
         placeholder={`내용을 작성해주세요. 이 내용을 기준으로 다른 플랫폼에\n 올라갈 콘텐츠가 자동으로 변환됩니다.`}
         className="min-h-[147px] resize-none placeholder:whitespace-pre-line pr-1 mb-[23px]"
         onInput={handleInput}
       />
-      <span className="absolute bottom-[10px] right-4">
+      <span className="absolute bottom-[10px] right-4 text-b4M text-grayscale-600">
         {contentLength.toLocaleString("ko-KR")}/{maxContentLength.toLocaleString("ko-KR")}
       </span>
     </div>

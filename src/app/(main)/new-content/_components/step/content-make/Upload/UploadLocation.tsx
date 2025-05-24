@@ -26,9 +26,10 @@ const UploadLocation = () => {
           {mockData.map((pl, index) => (
             <PlatformButton
               key={index}
+              type="upload"
               isAccountConnected={pl.isAccountConnected}
               platform={pl.platform}
-              hadProfileImage={pl.hadProfileImage}
+              hasProfileImage={pl.hasProfileImage}
             />
           ))}
         </div>
@@ -52,26 +53,26 @@ export const mockData = [
   {
     isAccountConnected: true,
     platform: Platforms.INSTAGRAM,
-    hadProfileImage: true,
+    hasProfileImage: true,
   },
   {
     isAccountConnected: true,
     platform: Platforms.THREADS,
-    hadProfileImage: true,
+    hasProfileImage: true,
   },
   {
     isAccountConnected: true,
     platform: Platforms.FACEBOOK,
-    hadProfileImage: false,
+    hasProfileImage: false,
   },
   {
     isAccountConnected: false,
     platform: Platforms.X,
-    hadProfileImage: false,
+    hasProfileImage: false,
   },
   {
     isAccountConnected: false,
     platform: Platforms.LINKEDIN,
-    hadProfileImage: false,
+    hasProfileImage: false,
   },
 ];

@@ -1,4 +1,5 @@
-import { useState, ChangeEvent } from "react";
+import { ChangeEvent } from "react";
+import useFilePreviewStore from "../store/preview-store";
 
 interface FileWithPreview {
   file: File;
@@ -7,6 +8,7 @@ interface FileWithPreview {
 
 interface UseFilePreviewReturn {
   files: FileWithPreview[];
+  setFiles: (files: FileWithPreview[]) => void;
   previewUrls: string[];
   handleFileChange: (e: ChangeEvent<HTMLInputElement>) => void;
   removeFile: (index: number) => void;
@@ -14,7 +16,7 @@ interface UseFilePreviewReturn {
 }
 
 export const useFilePreview = (): UseFilePreviewReturn => {
-  const [files, setFiles] = useState<FileWithPreview[]>([]);
+  const { files, setFiles } = useFilePreviewStore();
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const newFiles = e.target.files;
@@ -25,7 +27,8 @@ export const useFilePreview = (): UseFilePreviewReturn => {
       reader.onloadend = () => {
         const result = reader.result;
         if (typeof result === "string") {
-          setFiles(prev => [...prev, { file, previewUrl: result }]);
+          const currentFiles = useFilePreviewStore.getState().files;
+          setFiles([...currentFiles, { file, previewUrl: result }]);
         }
       };
       reader.readAsDataURL(file);
@@ -33,7 +36,8 @@ export const useFilePreview = (): UseFilePreviewReturn => {
   };
 
   const removeFile = (index: number) => {
-    setFiles(prev => prev.filter((_, i) => i !== index));
+    const currentFiles = useFilePreviewStore.getState().files;
+    setFiles(currentFiles.filter((_, i) => i !== index));
   };
 
   const getFormData = () => {
@@ -46,6 +50,7 @@ export const useFilePreview = (): UseFilePreviewReturn => {
 
   return {
     files,
+    setFiles,
     previewUrls: files.map(f => f.previewUrl),
     handleFileChange,
     removeFile,

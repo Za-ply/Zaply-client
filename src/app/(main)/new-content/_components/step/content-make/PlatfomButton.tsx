@@ -1,54 +1,90 @@
 "use client";
 
 import Image from "next/image";
+import profile1 from "@public/assets/images/profile1.webp";
 import { CircleCheckBoldIcon, CircleCheckIcon, DefaultProfileIcon } from "@/components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Platforms } from "@/types/platform";
 import { useProfileImage } from "@/app/(main)/new-content/_components/hooks/useProfileImage";
-
-import profile1 from "@public/assets/images/profile1.webp";
 import { platformConfig } from "../../config/platform-config";
 import { useContentMakeStore } from "../../store/content-make-store";
 
 interface PlatformButtonProps {
   isAccountConnected: boolean;
   platform: Platforms;
-  hadProfileImage: boolean;
+  hasProfileImage: boolean;
+  type: "upload" | "content";
+  isDisabled?: boolean;
+  isFirst?: boolean;
 }
 
-const PlatformButton = ({ isAccountConnected, platform, hadProfileImage }: PlatformButtonProps) => {
+const PlatformButton = ({
+  isAccountConnected,
+  platform,
+  hasProfileImage,
+  type,
+  isDisabled = false,
+  isFirst = false,
+}: PlatformButtonProps) => {
   const [isChecked, setIsChecked] = useState(false);
-  const { postData, setUploadPlatforms } = useContentMakeStore();
+  const { postData, selectedContentPlatform, setUploadPlatforms, setSelectedContentPlatform } =
+    useContentMakeStore();
   const displayImage = useProfileImage(platform);
 
+  useEffect(() => {
+    if (type === "content" && isFirst) {
+      setIsChecked(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (type === "upload") {
+      setIsChecked(postData.uploadPlatforms.includes(platform));
+    } else if (type === "content") {
+      setIsChecked(selectedContentPlatform === platform);
+    }
+  }, [postData.uploadPlatforms, selectedContentPlatform, platform, type]);
+
+  const handleClick = () => {
+    if (isDisabled) return;
+
+    if (type === "upload") {
+      // 여러 개 선택 가능
+      if (!isChecked) {
+        setUploadPlatforms([...postData.uploadPlatforms, platform]);
+      } else {
+        setUploadPlatforms(postData.uploadPlatforms.filter(p => p !== platform));
+      }
+    } else if (type === "content") {
+      // 한 개만 선택 가능
+      if (selectedContentPlatform === platform) {
+        // 이미 선택된 플랫폼을 다시 클릭하면 선택 해제
+        setSelectedContentPlatform(null);
+      } else {
+        // 새로운 플랫폼 선택 (기존 선택은 자동으로 해제됨)
+        setSelectedContentPlatform(platform);
+      }
+    }
+  };
+
   return (
-    <div className="relative w-12 h-12">
+    <button type="button" disabled={isDisabled} className="relative w-12 h-12">
       <div className="flex flex-col items-center justify-center gap-2">
         <div
-          onClick={() => {
-            if (!isChecked) {
-              setUploadPlatforms([...postData.uploadPlatforms, platform]);
-            } else {
-              setUploadPlatforms(postData.uploadPlatforms.filter(p => p !== platform));
-            }
-            setIsChecked(!isChecked);
-          }}>
+          onClick={handleClick}
+          className={`${
+            type === "content" && isChecked ? "border-2 border-blue-700 rounded-full" : ""
+          } cursor-pointer transition-all duration-200`}>
           {!isAccountConnected ? (
             <Image
-              src={isChecked ? platformConfig[platform].icon : displayImage}
-              alt="upload location"
+              src={isChecked || type === "content" ? platformConfig[platform].icon : displayImage}
+              alt={`${platform} platform`}
               width={48}
               height={48}
               className="rounded-full"
             />
-          ) : hadProfileImage ? (
-            <Image
-              src={profile1}
-              alt="upload location"
-              width={48}
-              height={48}
-              className="rounded-full"
-            />
+          ) : hasProfileImage ? (
+            <Image src={profile1} alt="profile" width={48} height={48} className="rounded-full" />
           ) : (
             <div className="flex items-center justify-center w-12 h-12 p-2 rounded-full bg-grayscale-400">
               <DefaultProfileIcon className="text-grayscale-100" />
@@ -57,20 +93,39 @@ const PlatformButton = ({ isAccountConnected, platform, hadProfileImage }: Platf
           {isAccountConnected && (
             <Image
               src={displayImage}
-              alt="upload location"
+              alt={`${platform} icon`}
               width={20}
               height={20}
               className="absolute bottom-0 right-0 rounded-full"
             />
           )}
         </div>
-        {isChecked ? (
-          <CircleCheckBoldIcon className="text-blue-700" onClick={() => setIsChecked(false)} />
-        ) : (
-          <CircleCheckIcon className="text-grayscale-500" onClick={() => setIsChecked(true)} />
+
+        {/* content 타입일 때 선택 표시줄 */}
+        {type === "content" && (
+          <div className="relative w-10 h-[3px]">
+            <div
+              className={`absolute w-10 h-[3px] bg-blue-700 rounded-full transition-all duration-300 ease-in-out ${
+                selectedContentPlatform === platform
+                  ? "opacity-100 transform translate-y-0"
+                  : "opacity-0 transform translate-y-1"
+              }`}
+            />
+          </div>
+        )}
+
+        {/* upload 타입일 때 체크 아이콘 */}
+        {type === "upload" && (
+          <div onClick={handleClick} className="cursor-pointer">
+            {isChecked ? (
+              <CircleCheckBoldIcon className="text-blue-700 transition-all duration-200" />
+            ) : (
+              <CircleCheckIcon className="transition-all duration-200 text-grayscale-500 hover:text-grayscale-700" />
+            )}
+          </div>
         )}
       </div>
-    </div>
+    </button>
   );
 };
 

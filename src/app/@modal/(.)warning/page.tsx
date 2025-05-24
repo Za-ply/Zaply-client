@@ -1,6 +1,8 @@
 "use client";
 
+import { useContentMakeStore } from "@/app/(main)/new-content/_components/store/content-make-store";
 import { usePlatformStore } from "@/app/(main)/new-content/_components/store/platform-store";
+import useFilePreviewStore from "@/app/(main)/new-content/_components/store/preview-store";
 import { Modal } from "@/components";
 import { DangerIcon } from "@/components/icons";
 import { useRouter } from "next/navigation";
@@ -8,9 +10,13 @@ import { useRouter } from "next/navigation";
 const WarningModal = () => {
   const router = useRouter();
   const { reset } = usePlatformStore();
+  const { resetPostData } = useContentMakeStore();
+  const { resetFiles } = useFilePreviewStore();
 
   const handleStop = () => {
     reset();
+    resetPostData();
+    resetFiles();
     router.back();
     setTimeout(() => {
       router.push("/main");
