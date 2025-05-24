@@ -31,9 +31,7 @@ const nameToPlatformMap: Record<string, SocialPlatform> = {
 const serviceMap: Record<string, () => Promise<void>> = {
   Thread: accountService.threads,
   Facebook: accountService.facebook,
-  Instagram: async () => {
-    console.log("Instagram login not implemented yet");
-  },
+  Instagram: accountService.instagram,
 };
 
 export const ConnectSocialStep = () => {
@@ -45,6 +43,8 @@ export const ConnectSocialStep = () => {
 
   useEffect(() => {
     const handler = (event: MessageEvent) => {
+      if (selected === "Instagram") return;
+
       if (event.data.status === "success") {
         window.location.href = "/connect-complete?status=success";
       } else if (event.data.status === "error") {
@@ -54,11 +54,11 @@ export const ConnectSocialStep = () => {
 
     window.addEventListener("message", handler);
     return () => window.removeEventListener("message", handler);
-  }, []);
+  }, [selected]);
 
   const handleClick = async () => {
     if (!selectedSns?.name) return;
-    const platform = nameToPlatformMap[selectedSns.name];
+
     const service = serviceMap[selectedSns.name];
 
     setStep(2);

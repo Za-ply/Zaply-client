@@ -47,7 +47,7 @@ const InfoCard = () => {
           await accountService.facebook();
           break;
         case Platforms.INSTAGRAM:
-          // Instagram 연결 로직이 필요한 경우 여기에 추가
+          await accountService.instagram();
           break;
         default:
           console.error("지원하지 않는 플랫폼입니다.");

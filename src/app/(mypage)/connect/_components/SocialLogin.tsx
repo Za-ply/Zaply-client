@@ -33,6 +33,8 @@ export const SocialLogin = () => {
       await accountService.threads();
     } else if (selectedSns?.name === "Facebook") {
       await accountService.facebook();
+    } else {
+      await accountService.instagram();
     }
   };
 
