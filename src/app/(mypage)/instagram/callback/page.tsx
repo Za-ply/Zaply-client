@@ -3,15 +3,15 @@
 import { useEffect } from "react";
 import Image from "next/image";
 import { instagramCircle } from "@public/assets/images/sns";
+import { useRouter } from "next/navigation";
 
 export default function InstagramCallback() {
+  const router = useRouter();
+
   useEffect(() => {
-    if (window.opener) {
-      window.opener.location.href = "/connect-complete?status=success&platform=instagram";
-      setTimeout(() => {
-        window.close();
-      }, 100);
-    }
+    setTimeout(() => {
+      router.push("/connect-complete?status=success&platform=instagram");
+    }, 100);
   }, []);
 
   return (

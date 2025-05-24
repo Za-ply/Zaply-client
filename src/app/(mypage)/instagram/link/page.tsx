@@ -25,7 +25,7 @@ export default function InstagramCallback() {
   const handleLink = async () => {
     try {
       await accountController.instagramLink({ access_token: accessToken });
-      window.location.href = "/instagram/callback";
+      router.push("/instagram/callback");
     } catch (error) {
       console.error("인스타그램 연동 실패:", error);
     }
