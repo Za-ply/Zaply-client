@@ -5,7 +5,8 @@ import SnsProfile from "../../mypage/_components/SnsProfile";
 import { Platforms } from "@/types/platform";
 import { useCallback } from "react";
 import { SocialPlatform } from "../../_components/types/platform";
-import { useSnsLinkStore } from "../../connect/_components/store/link-store";
+import useUserStore from "@/stores/userStore";
+import { SnsType } from "@/lib/api/model/member";
 
 const platformAliasMap: Record<string, SocialPlatform> = {
   insta: Platforms.INSTAGRAM,
@@ -15,13 +16,20 @@ const platformAliasMap: Record<string, SocialPlatform> = {
   threads: Platforms.THREADS,
 };
 
+const platformToSnsType: Record<SocialPlatform, SnsType> = {
+  [Platforms.INSTAGRAM]: "INSTAGRAM",
+  [Platforms.THREADS]: "THREADS",
+  [Platforms.FACEBOOK]: "FACEBOOK",
+};
+
 const SocialUnLinked = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const { accountInfo } = useSnsLinkStore();
+  const accounts = useUserStore(state => state.accounts);
   const platformParam = searchParams.get("platform")?.toLowerCase();
 
   const platformKey = platformAliasMap[platformParam ?? ""];
+  const account = accounts.find(acc => acc.snsType === platformToSnsType[platformKey]);
 
   const handleUnlink = useCallback(() => {
     if (platformKey === Platforms.THREADS) {
@@ -40,7 +48,7 @@ const SocialUnLinked = () => {
       <div className="flex gap-3">
         <SnsProfile type={platformKey} />
         <div className="flex flex-col gap-[2px]">
-          <p className="text-b2M text-grayscale-900">@{accountInfo[platformKey]}</p>
+          <p className="text-b2M text-grayscale-900">@{account?.accountName}</p>
           <p className={"text-b4R text-grayscale-600"}>비즈니스 계정</p>
         </div>
       </div>

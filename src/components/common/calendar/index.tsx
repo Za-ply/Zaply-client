@@ -59,8 +59,8 @@ function Calendar({ className, classNames, showOutsideDays = true, ...props }: C
         day_selected: "bg-blue-700 !text-grayscale-100",
         day_today: "!text-blue-700 [&[aria-selected]]:!text-grayscale-100",
         day_outside:
-          "!text-grayscale-500 aria-selected:bg-accent/50 aria-selected:text-grayscale-500",
-        day_disabled: "text-muted-foreground opacity-50",
+          "!text-grayscale-500 aria-selected:bg-accent/50 aria-selected:text-grayscale-500 opacity-80",
+        day_disabled: "text-muted-foreground",
         day_range_middle: "aria-selected:bg-accent aria-selected:text-accent-foreground",
         day_hidden: "invisible",
         ...classNames,

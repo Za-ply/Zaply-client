@@ -6,9 +6,9 @@ import { useRouter, useSearchParams } from "next/navigation";
 import accountService from "@/lib/api/service/AccountService";
 import { SnsType } from "@/lib/api/model";
 import { SocialPlatform } from "@/app/(mypage)/_components/types/platform";
-import { useSnsLinkStore } from "@/app/(mypage)/connect/_components/store/link-store";
 import { Platforms } from "@/types/platform";
 import { useAccounts } from "@/app/(mypage)/connect/_components/hooks/useAccounts";
+import useUserStore from "@/stores/userStore";
 
 const platformToSnsTypeMap: Record<SocialPlatform, SnsType> = {
   [Platforms.THREADS]: "THREADS",
@@ -21,10 +21,9 @@ const UnLinkWarning = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const param = searchParams.get("platform");
+  const setAccounts = useUserStore(state => state.setAccounts);
 
   const platform = Platforms[param?.toUpperCase() as keyof typeof Platforms] as SocialPlatform;
-
-  const { setLinked } = useSnsLinkStore();
 
   const handleStop = () => {
     router.back();
@@ -40,7 +39,9 @@ const UnLinkWarning = () => {
       const response = await accountService.unlink(snsType);
 
       if (response.result === "SUCCESS") {
-        setLinked(platform, "");
+        const currentAccounts = useUserStore.getState().accounts;
+        const updatedAccounts = currentAccounts.filter(acc => acc.snsType !== snsType);
+        setAccounts(updatedAccounts);
         await refetch();
 
         router.back();

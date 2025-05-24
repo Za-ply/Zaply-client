@@ -1,7 +1,8 @@
-import Image, { StaticImageData } from "next/image";
+"use client";
 
+import Image, { StaticImageData } from "next/image";
 import { cn } from "@/utils";
-import { useSnsLinkStore } from "../../connect/_components/store/link-store";
+import useUserStore from "@/stores/userStore";
 import { Platforms } from "@/types/platform";
 import {
   facebookCircle,
@@ -28,10 +29,20 @@ const snsMap: Record<SocialPlatform, { linked: StaticImageData; unlinked: Static
   },
 };
 
+const snsTypeToPlatform: Record<string, SocialPlatform> = {
+  INSTAGRAM: Platforms.INSTAGRAM,
+  THREADS: Platforms.THREADS,
+  FACEBOOK: Platforms.FACEBOOK,
+};
+
 export const SnsProfile = ({ type, className }: { type: SocialPlatform; className?: string }) => {
-  const { linkedStatus } = useSnsLinkStore();
+  const accounts = useUserStore(state => state.accounts);
   const icon = snsMap[type];
-  const isLinked = linkedStatus[type];
+
+  const isLinked = accounts.some(account => {
+    const platform = snsTypeToPlatform[account.snsType];
+    return platform === type && account.accountName !== "";
+  });
 
   if (!icon) {
     console.error(`Invalid social platform type: ${type}`);
@@ -47,7 +58,7 @@ export const SnsProfile = ({ type, className }: { type: SocialPlatform; classNam
         width={20}
         height={20}
         alt={`${type} badge`}
-        className="absolute bottom-[-1px] right-[-3px]"
+        className="absolute bottom-[1px] right-[-3px]"
       />
     </div>
   ) : (

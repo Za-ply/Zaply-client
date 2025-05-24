@@ -91,6 +91,7 @@ module.exports = {
         "b500-y300": "linear-gradient(180deg, #93E6FF 0%, #FEFEFE 49%, #FFFCE6 100%)",
         "b300-g100": "linear-gradient(to bottom, #D8F5FF 0%, #FEFEFE 41%, #E9FDF7 100%)",
         "b300-g100-mypage": "linear-gradient(to bottom, #D8F5FF 0%, #FEFEFE 41%)",
+        "b300-g100-loading": "linear-gradient(180deg, #D8F5FF 0%, #FEFEFE 100%)",
         "b500-g100":
           "radial-gradient(100% 100% at 50% 0%, var(--Main-Blue-500, #93E6FF) 0%, var(--Grayscale-100, #FEFEFE) 49.04%, var(--Main-Green-100, #E9FDF7) 100%)",
         "b500-p300":
@@ -174,6 +175,12 @@ module.exports = {
           "75%": { backgroundPosition: "50% 100%" },
           "100%": { backgroundPosition: "0% 50%" },
         },
+        colorChange: {
+          "0%, 100%": { color: "#D6DBE2" },
+          "25%": { color: "#BDC5D0" },
+          "50%": { color: "#22C7FA" },
+          "75%": { color: "#0A2838" },
+        },
       },
       animation: {
         "toast-pop-in": "toast-pop-in 0.5s ease-out",
@@ -191,6 +198,7 @@ module.exports = {
         "border-rotate": "border-rotate 2s ease-in-out infinite",
         in: "in 0.2s ease-out",
         out: "out 0.2s ease-in",
+        colorChange: "colorChange 1s infinite",
       },
       boxShadow: {
         drop: "0px 0px 50px 0px rgba(152, 167, 172, 0.10)",

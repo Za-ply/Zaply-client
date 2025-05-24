@@ -6,7 +6,6 @@ import SocialSelect from "./SocialSelect";
 import SocialLogin from "./SocialLogin";
 import { useSelectedSocialStore } from "./store/social-store";
 import { useToast } from "@/utils/useToast";
-import { useSnsLinkStore } from "./store/link-store";
 import accountService from "@/lib/api/service/AccountService";
 import { SocialPlatform } from "../../_components/types/platform";
 import { Platforms } from "@/types/platform";
@@ -32,23 +31,21 @@ const nameToPlatformMap: Record<string, SocialPlatform> = {
 const serviceMap: Record<string, () => Promise<void>> = {
   Thread: accountService.threads,
   Facebook: accountService.facebook,
-  Instagram: async () => {
-    console.log("Instagram login not implemented yet");
-  },
+  Instagram: accountService.instagram,
 };
 
 export const ConnectSocialStep = () => {
   const { selected } = useSelectedSocialStore();
   const { toast } = useToast();
   const [step, setStep] = useState<1 | 2>(1);
-  const { setLinked } = useSnsLinkStore();
 
   const selectedSns = snsList.find(sns => sns.name === selected);
 
   useEffect(() => {
     const handler = (event: MessageEvent) => {
+      if (selected === "Instagram") return;
+
       if (event.data.status === "success") {
-        setLinked(Platforms.THREADS, "연결된 계정");
         window.location.href = "/connect-complete?status=success";
       } else if (event.data.status === "error") {
         window.location.href = "/connect-complete?status=error";
@@ -57,24 +54,22 @@ export const ConnectSocialStep = () => {
 
     window.addEventListener("message", handler);
     return () => window.removeEventListener("message", handler);
-  }, [setLinked]);
+  }, [selected]);
 
   const handleClick = async () => {
     if (!selectedSns?.name) return;
-    const platform = nameToPlatformMap[selectedSns.name];
+
     const service = serviceMap[selectedSns.name];
 
     setStep(2);
 
     try {
-      setLinked(platform, "");
       await service();
     } catch (err) {
       toast({
         variant: "error",
         description: `${selectedSns?.name} 로그인에 실패했습니다.`,
       });
-      setLinked(platform, "");
     }
   };
 

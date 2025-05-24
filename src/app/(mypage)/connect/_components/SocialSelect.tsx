@@ -3,10 +3,11 @@ import { instagram, thread, facebook } from "@public/assets/images/sns";
 import { cn } from "@/utils";
 import { CheckIcon } from "@/components/icons";
 import { useSelectedSocialStore } from "./store/social-store";
-import { useSnsLinkStore } from "./store/link-store";
 import { useToast } from "@/utils/useToast";
 import { SocialPlatform } from "../../_components/types/platform";
 import { Platforms } from "@/types/platform";
+import useUserStore from "@/stores/userStore";
+import { SnsType } from "@/lib/api/model/member";
 
 const snsList: { name: string; icon: any; type: SocialPlatform; description?: string }[] = [
   {
@@ -28,15 +29,21 @@ const snsList: { name: string; icon: any; type: SocialPlatform; description?: st
   },
 ];
 
+const platformToSnsType: Record<SocialPlatform, SnsType> = {
+  [Platforms.INSTAGRAM]: "INSTAGRAM",
+  [Platforms.THREADS]: "THREADS",
+  [Platforms.FACEBOOK]: "FACEBOOK",
+};
+
 export const SocialSelect = () => {
   const { selected, setSelected } = useSelectedSocialStore();
-  const { linkedStatus } = useSnsLinkStore();
+  const accounts = useUserStore(state => state.accounts);
   const { toast } = useToast();
 
   return (
     <div className="w-full flex flex-col gap-4">
       {snsList.map(({ name, icon, type, description }) => {
-        const isLinked = linkedStatus[type];
+        const isLinked = accounts.some(acc => acc.snsType === platformToSnsType[type]);
 
         return isLinked ? (
           <div
