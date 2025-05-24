@@ -1,8 +1,13 @@
 import { AccountResponse } from "./member";
 
 export interface LoginRequest {
-  email: string;
-  password: string;
+  email?: string;
+  password?: string;
+  code?: string;
+}
+
+export interface GoogleLoginRequest {
+  code: string;
 }
 
 export interface SignUpRequest {

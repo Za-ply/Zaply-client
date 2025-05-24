@@ -1,4 +1,4 @@
-import { ApiResponse, InstagramRequest, SnsType, UnlinkResponse } from "../model";
+import { InstagramRequest, SnsType, UnlinkResponse } from "../model";
 import { apiClient } from "../axios/instance";
 import useUserStore from "@/stores/userStore";
 
@@ -61,7 +61,7 @@ const accountController = {
 
   instagram: async (): Promise<void> => {
     const instagramUrl = INSTAGRAM_REDIRECT_URI;
-    window.open(instagramUrl, "_blank", "width=600,height=800");
+    window.location.href = instagramUrl;
   },
 
   instagramLink: async (data: InstagramRequest): Promise<void> => {

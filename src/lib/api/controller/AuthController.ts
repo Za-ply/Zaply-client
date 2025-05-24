@@ -1,5 +1,4 @@
 import { apiClient } from "../axios/instance";
-import { tokenManager } from "../axios/tokenManager";
 import {
   ApiResponse,
   LoginData,
@@ -8,6 +7,8 @@ import {
   SignUpRequest,
   LoginResponse,
 } from "../model";
+
+const GOOGLE_REDIRECT_URI = process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URI!;
 
 const authController = {
   login: async (data: LoginRequest): Promise<ApiResponse<LoginResponse>> => {
@@ -23,6 +24,12 @@ const authController = {
   signUp: async (data: SignUpRequest): Promise<ApiResponse<SignUpData>> => {
     const response = await apiClient.post<ApiResponse<SignUpData>>("/auth/sign-up", data);
     return response.data;
+  },
+
+  googleLogin: async (): Promise<ApiResponse<LoginResponse>> => {
+    const googleUrl = GOOGLE_REDIRECT_URI;
+    window.location.href = googleUrl;
+    return {} as ApiResponse<LoginResponse>;
   },
 
   checkEmailDuplicate: async (email: string): Promise<ApiResponse<boolean>> => {

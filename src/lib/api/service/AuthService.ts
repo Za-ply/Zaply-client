@@ -45,6 +45,16 @@ const authService = {
     }
   },
 
+  googleLogin: async (): Promise<ApiResponse<LoginResponse>> => {
+    try {
+      const response = await authController.googleLogin();
+      return response;
+    } catch (error) {
+      console.error("Google login failed:", error);
+      throw new Error(error as string);
+    }
+  },
+
   checkEmailDuplicate: async (email: string): Promise<boolean> => {
     try {
       const response = await authController.checkEmailDuplicate(email);
