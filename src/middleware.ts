@@ -20,5 +20,11 @@ export async function middleware(request: NextRequest) {
 
 // 미들웨어가 실행될 경로 설정
 export const config = {
-  matcher: ["/main/:path*", "/new-content/:path*"],
+  matcher: [
+    "/main/:path*",
+    "/new-content/:path*",
+    "/mypage/:path*",
+    "/socials/:path*",
+    "/connect/:path*",
+  ],
 };
