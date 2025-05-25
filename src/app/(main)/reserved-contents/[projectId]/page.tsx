@@ -3,6 +3,7 @@
 import { ArrowIcon, Container, TopBar } from "@/components";
 import BNB from "@/components/common/bnb";
 import { useRouter } from "next/navigation";
+import UpdateReservationContent from "../_components/UpdateReservationContent";
 
 export default function ReservedContentDetailPage() {
   const router = useRouter();
@@ -14,7 +15,9 @@ export default function ReservedContentDetailPage() {
           center={<p className="text-t4 text-grayscale-900">업로드 예약</p>}
           right={<p className="text-button2 text-redscale-700 cursor-pointer">삭제</p>}
         />
-        <div className="flex flex-col"></div>
+        <div className="flex flex-col">
+          <UpdateReservationContent />
+        </div>
       </Container>
       <BNB />
     </div>
