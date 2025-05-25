@@ -7,5 +7,9 @@ export const useProjects = () => {
   return useQuery<ApiResponse<ProjectListResponse>>({
     queryKey: ["projectList"],
     queryFn: projectService.getProjectList,
+    refetchOnWindowFocus: true,
+    refetchOnMount: true,
+    staleTime: 0,
+    gcTime: 0,
   });
 };

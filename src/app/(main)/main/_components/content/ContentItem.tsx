@@ -3,6 +3,7 @@ import { useContentStore } from "@/stores/useContentStore";
 import { useDateLabel, useFormattedDateTime } from "../hooks/useFormatTime";
 import Platforms from "./Platforms";
 import { Platform } from "@/types/contentItem";
+import { ProjectList } from "@/lib/api/model/project";
 
 const PLATFORM_MAP: Record<string, Platform> = {
   FACEBOOK: "facebook",
@@ -10,26 +11,27 @@ const PLATFORM_MAP: Record<string, Platform> = {
   THREADS: "threads",
 };
 
+const PLATFORM_ORDER: Platform[] = ["instagram", "threads", "facebook"];
+
 interface ContentItemProps {
-  index: number;
+  project: ProjectList;
+  onClick?: (projectId: number) => void;
 }
 
-const ContentItem = ({ index }: ContentItemProps) => {
-  const projects = useContentStore(state => state.projects);
+const ContentItem = ({ project, onClick }: ContentItemProps) => {
   const toggleState = useContentStore(state => state.activeTab);
-
-  if (!projects || projects.length === 0) {
-    return null;
-  }
-
-  const project = projects[index];
-  if (!project) return null;
 
   const formatted = useFormattedDateTime(project.earliestScheduledAt);
   const label = useDateLabel(project.earliestScheduledAt);
 
+  const platforms = project.postingTypes
+    .map(type => PLATFORM_MAP[type] ?? "facebook")
+    .sort((a, b) => PLATFORM_ORDER.indexOf(a) - PLATFORM_ORDER.indexOf(b));
+
   return (
-    <article className="w-full h-[105px] p-4 flex flex-col gap-[10px] rounded-[12px] bg-white shadow-drop cursor-pointer">
+    <article
+      onClick={() => onClick?.(project.projectId)}
+      className={`w-full h-[105px] p-4 flex flex-col gap-[10px] rounded-[12px] bg-white shadow-drop ${onClick ? "cursor-pointer" : ""}`}>
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <div className="w-[48px] h-[26px] rounded-[4px] text-grayscale-600 text-b4M text-center border border-grayscale-300 bg-grayscale-100 flex items-center justify-center">
@@ -46,13 +48,13 @@ const ContentItem = ({ index }: ContentItemProps) => {
         ) : (
           <div className="flex items-center justify-center gap-2">
             <div className="flex items-center justify-center gap-1">
-              <TimeIcon className="text-blue-blueblack" />
-              <p className="text-t4 text-blue-blueblack">{label}</p>
+              <TimeIcon className="text-blue-700 w-5 h-5" />
+              <p className="text-t4 text-blue-700">{label}</p>
             </div>
             <p className="text-b3R text-grayscale-600">{formatted}</p>
           </div>
         )}
-        <Platforms platforms={project.postingTypes.map(type => PLATFORM_MAP[type] ?? "facebook")} />
+        <Platforms platforms={platforms} />
       </div>
     </article>
   );

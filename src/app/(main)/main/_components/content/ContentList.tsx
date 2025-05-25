@@ -4,8 +4,10 @@ import ContentItem from "./ContentItem";
 import { useContentStore } from "@/stores/useContentStore";
 import { useProjects } from "../hooks/useProjects";
 import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 const ContentList = () => {
+  const router = useRouter();
   const activeTab = useContentStore(state => state.activeTab);
   const setProjects = useContentStore(state => state.setProjects);
   const setCounts = useContentStore(state => state.setCounts);
@@ -21,6 +23,18 @@ const ContentList = () => {
       setCounts({ reserved, recent });
     }
   }, [data, setProjects, setCounts, now]);
+
+  const handleViewAll = () => {
+    if (activeTab === "reserved") {
+      router.push("/reserved-contents");
+    } else {
+      router.push("/recent-contents");
+    }
+  };
+
+  const handleItemClick = (projectId: number) => {
+    router.push(`/reserved-contents/${projectId}`);
+  };
 
   if (isLoading) {
     return (
@@ -57,11 +71,19 @@ const ContentList = () => {
           현재 콘텐츠가 없어요.
         </div>
       ) : (
-        projects.map((_, index) => <ContentItem key={index} index={index} />)
+        projects.map(project => (
+          <ContentItem
+            key={project.projectId}
+            project={project}
+            onClick={activeTab === "reserved" ? handleItemClick : undefined}
+          />
+        ))
       )}
       {projects.length > 0 && (
-        <button className="mt-2 w-[84px] h-[34px] text-center text-b3M text-grayscale-500 rounded-full bg-grayscale-100 shadow-drop">
-          전체보기
+        <button
+          onClick={handleViewAll}
+          className={`"mt-2 ${activeTab === "reserved" ? "w-[84px]" : "w-[123px]"} h-[34px] text-center text-b3M text-grayscale-500 rounded-full bg-grayscale-100 shadow-drop hover:bg-grayscale-200 transition-colors`}>
+          {activeTab === "reserved" ? "전체보기" : "인사이트 전체보기"}
         </button>
       )}
     </div>
