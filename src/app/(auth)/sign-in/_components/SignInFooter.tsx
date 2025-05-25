@@ -23,7 +23,7 @@ const SignInFooter = () => {
         </Link>
         <div
           className="w-[50px] h-[50px] flex items-center justify-center rounded-full bg-grayscale-100 border border-1-grayscale-300 cursor-pointer"
-          onClick={authService.googleLogin}>
+          onClick={authService.googleLink}>
           <Image src={"/assets/svgs/google-logo.svg"} alt="google-logo" width={24} height={24} />
         </div>
       </div>

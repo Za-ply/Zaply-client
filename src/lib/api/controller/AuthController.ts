@@ -26,10 +26,17 @@ const authController = {
     return response.data;
   },
 
-  googleLogin: async (): Promise<ApiResponse<LoginResponse>> => {
+  googleLink: async (): Promise<ApiResponse<LoginResponse>> => {
     const googleUrl = GOOGLE_REDIRECT_URI;
     window.location.href = googleUrl;
     return {} as ApiResponse<LoginResponse>;
+  },
+
+  googleLogin: async (code: string): Promise<ApiResponse<LoginResponse>> => {
+    const response = await apiClient.post<ApiResponse<LoginResponse>>("/auth/google/exchange", {
+      code,
+    });
+    return response.data;
   },
 
   checkEmailDuplicate: async (email: string): Promise<ApiResponse<boolean>> => {

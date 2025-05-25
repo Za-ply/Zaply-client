@@ -45,9 +45,26 @@ const authService = {
     }
   },
 
-  googleLogin: async (): Promise<ApiResponse<LoginResponse>> => {
+  googleLink: async (): Promise<ApiResponse<LoginResponse>> => {
     try {
-      const response = await authController.googleLogin();
+      const response = await authController.googleLink();
+      return response;
+    } catch (error) {
+      console.error("Google login failed:", error);
+      throw new Error(error as string);
+    }
+  },
+
+  googleLogin: async (code: string): Promise<ApiResponse<LoginResponse>> => {
+    try {
+      const response = await authController.googleLogin(code);
+      const { tokenResponse, memberResponse, accountsInfoResponse } = response.data;
+
+      tokenManager.setTokens(tokenResponse.accessToken, tokenResponse.refreshToken);
+
+      useUserStore.getState().setUserInfo(memberResponse);
+      useUserStore.getState().setAccounts(accountsInfoResponse.accounts);
+
       return response;
     } catch (error) {
       console.error("Google login failed:", error);
