@@ -1,10 +1,10 @@
 import { searchOptions } from "@/constants/search-options";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { ChevronIcon } from "../icons";
 import { instagramCircle, facebookCircle, threadCircle } from "@public/assets/images/sns";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { usePlatformStore } from "@/app/(main)/new-content/_components/store";
+import { usePlatformStore } from "@/app/(main)/[projectId]/new-content/_components/store";
 
 const Dropdown = () => {
   const [isOpen, setIsOpen] = useState(false);

@@ -4,7 +4,7 @@ import { cn } from "@/utils";
 const Container = forwardRef<HTMLElement, { children: React.ReactNode; className?: string }>(
   ({ children, className }, ref) => {
     return (
-      <main ref={ref} className={cn("px-5 w-full h-dvh", className)}>
+      <main ref={ref} className={cn("px-5 w-full", className)}>
         {children}
       </main>
     );

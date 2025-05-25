@@ -1,4 +1,7 @@
+"use client";
+
 import { EmailIcon } from "@/components/icons";
+import { authService } from "@/lib/api/service";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -18,7 +21,9 @@ const SignInFooter = () => {
           className="w-[50px] h-[50px] flex items-center justify-center rounded-full bg-blue-700 cursor-pointer">
           <EmailIcon stroke="#fefefe" className="w-[24px] h-[24px]" />
         </Link>
-        <div className="w-[50px] h-[50px] flex items-center justify-center rounded-full bg-grayscale-100 border border-1-grayscale-300 cursor-pointer">
+        <div
+          className="w-[50px] h-[50px] flex items-center justify-center rounded-full bg-grayscale-100 border border-1-grayscale-300 cursor-pointer"
+          onClick={authService.googleLink}>
           <Image src={"/assets/svgs/google-logo.svg"} alt="google-logo" width={24} height={24} />
         </div>
       </div>
