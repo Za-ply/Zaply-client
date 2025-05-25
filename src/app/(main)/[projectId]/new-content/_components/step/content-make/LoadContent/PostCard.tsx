@@ -33,6 +33,7 @@ const PostCard = ({ post, isSelected, onSelect, viewType }: PostCardProps) => {
           width={68}
           height={68}
           className="rounded-[2px] transition-transform duration-200 hover:scale-[1.02]"
+          placeholder="blur"
         />
         <p className="absolute top-2 right-[6px] px-[6px] rounded-[100px] bg-grayscale-700/60 text-b4R text-grayscale-100">
           +{post.imageData.length}
@@ -66,7 +67,12 @@ const PostCard = ({ post, isSelected, onSelect, viewType }: PostCardProps) => {
           onSelect(post);
         }
       }}>
-      <Image src={post.imageData[0].imageUrl} alt="post-image" className="w-full h-full" />
+      <Image
+        src={post.imageData[0].imageUrl}
+        alt="post-image"
+        className="w-full h-full"
+        placeholder="blur"
+      />
       <div className="absolute top-2 right-2">
         {isSelected ? (
           <CircleCheckBoldIcon className="text-blue-700" />

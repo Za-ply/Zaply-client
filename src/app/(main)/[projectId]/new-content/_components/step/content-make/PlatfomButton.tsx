@@ -49,19 +49,15 @@ const PlatformButton = ({
     if (isDisabled) return;
 
     if (type === "upload") {
-      // 여러 개 선택 가능
       if (!isChecked) {
         setUploadPlatforms([...postData.uploadPlatforms, platform]);
       } else {
         setUploadPlatforms(postData.uploadPlatforms.filter(p => p !== platform));
       }
     } else if (type === "content") {
-      // 한 개만 선택 가능
       if (selectedContentPlatform === platform) {
-        // 이미 선택된 플랫폼을 다시 클릭하면 선택 해제
         setSelectedContentPlatform(null);
       } else {
-        // 새로운 플랫폼 선택 (기존 선택은 자동으로 해제됨)
         setSelectedContentPlatform(platform);
       }
     }
@@ -82,9 +78,17 @@ const PlatformButton = ({
               width={48}
               height={48}
               className="rounded-full"
+              placeholder="blur"
             />
           ) : hasProfileImage ? (
-            <Image src={profile1} alt="profile" width={48} height={48} className="rounded-full" />
+            <Image
+              src={profile1}
+              alt="profile"
+              width={48}
+              height={48}
+              className="rounded-full"
+              placeholder="blur"
+            />
           ) : (
             <div className="flex items-center justify-center w-12 h-12 p-2 rounded-full bg-grayscale-400">
               <DefaultProfileIcon className="text-grayscale-100" />
@@ -97,6 +101,7 @@ const PlatformButton = ({
               width={20}
               height={20}
               className="absolute bottom-0 right-0 rounded-full"
+              placeholder="blur"
             />
           )}
         </div>

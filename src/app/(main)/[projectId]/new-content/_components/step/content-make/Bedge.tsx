@@ -26,6 +26,7 @@ const Bedge = () => {
         alt={`SNS-${selectedPlatform}`}
         width={20}
         height={20}
+        placeholder="blur"
       />
       <p className="text-b4M text-grayscale-600">
         {selectedCategory === Category.POST
