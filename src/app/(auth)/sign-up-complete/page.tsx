@@ -9,7 +9,7 @@ export default function SignInCompletePage() {
   const router = useRouter();
 
   return (
-    <Container className="bg-center bg-cover bg-backgroundLine-yellow">
+    <Container className="bg-center bg-cover bg-background-yellow">
       <div className="flex flex-col justify-between min-h-real-screen pb-[56px]">
         <motion.div
           variants={fadeUpVariants}
