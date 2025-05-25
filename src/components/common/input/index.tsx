@@ -14,6 +14,7 @@ const Input = React.forwardRef<
     timerText?: string;
     checkItems?: CheckItem[];
     inputSize?: "default" | "md" | "sm";
+    timerTextColor?: string;
   }
 >(
   (
@@ -25,6 +26,7 @@ const Input = React.forwardRef<
       placeholder,
       timerText,
       checkItems = [],
+      timerTextColor = "text-redscale-700",
       ...props
     },
     ref
@@ -50,7 +52,7 @@ const Input = React.forwardRef<
             {...props}
           />
           {type === "timer" && (
-            <div className="absolute -translate-y-1/2 right-5 top-1/2 text-b3M text-redscale-700">
+            <div className={`absolute -translate-y-1/2 right-5 top-1/2 text-b3M ${timerTextColor}`}>
               {timerText}
             </div>
           )}
