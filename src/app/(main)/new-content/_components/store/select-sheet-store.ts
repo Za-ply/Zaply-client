@@ -5,6 +5,5 @@ export const selectSheetStore = {
   [SheetOptions.MAIN_PLATFORM]: createSheetStore(),
   [SheetOptions.LOAD_POST]: createSheetStore(),
   [SheetOptions.UPLOAD_LOCATION]: createSheetStore(),
-  // [SheetOptions.TIME_PICKER]: createSheetStore(),
-  // [SheetOptions.CALENDAR]: createSheetStore(),
+  [SheetOptions.CALENDAR]: createSheetStore(),
 };

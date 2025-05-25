@@ -1,1 +1,1 @@
-export { default } from "../../@modal/(.)unLinkWarning/page";
+export { default } from "@/app/@modal/(.)unLinkWarning/page";

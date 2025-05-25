@@ -1,19 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
-import { Platforms } from "@/types/platform";
-import { SocialPlatform } from "@/app/(mypage)/_components/types/platform";
-import { useSnsLinkStore } from "../store/link-store";
 import memberService from "@/lib/api/service/MemberService";
+import useUserStore from "@/stores/userStore";
 
 export const ACCOUNTS_QUERY_KEY = ["accounts"] as const;
 
-const snsTypeToPlatform: Record<string, SocialPlatform> = {
-  FACEBOOK: Platforms.FACEBOOK,
-  THREADS: Platforms.THREADS,
-  INSTAGRAM: Platforms.INSTAGRAM,
-};
-
 export const useAccounts = () => {
-  const setLinked = useSnsLinkStore(state => state.setLinked);
+  const setAccounts = useUserStore(state => state.setAccounts);
 
   const query = useQuery({
     queryKey: ACCOUNTS_QUERY_KEY,
@@ -24,13 +16,7 @@ export const useAccounts = () => {
       }
 
       const accounts = response.data.accounts;
-
-      accounts.forEach(account => {
-        const platform = snsTypeToPlatform[account.snsType];
-        if (platform) {
-          setLinked(platform, account.accountName);
-        }
-      });
+      setAccounts(accounts);
 
       return accounts;
     },
