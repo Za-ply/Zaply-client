@@ -13,6 +13,7 @@ interface ScheduleBlockProps {
   isLinked?: boolean;
   selectedDate?: string | null;
   selectedTime?: string | null;
+  onClick?: () => void;
 }
 
 const ScheduleBlock = memo(
@@ -21,6 +22,7 @@ const ScheduleBlock = memo(
     isLinked = false,
     selectedDate: propSelectedDate,
     selectedTime: propSelectedTime,
+    onClick,
   }: ScheduleBlockProps) => {
     const {
       isAll,
@@ -67,7 +69,11 @@ const ScheduleBlock = memo(
       if (platform) {
         setCurrentPlatform(platform);
       }
-      setIsOpen(true);
+      if (onClick) {
+        onClick();
+      } else {
+        setIsOpen(true);
+      }
     };
 
     const dateClassName = useMemo(() => {

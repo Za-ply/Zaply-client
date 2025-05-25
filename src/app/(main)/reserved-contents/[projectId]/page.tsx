@@ -1,25 +1,32 @@
 "use client";
 
-import { ArrowIcon, Container, TopBar } from "@/components";
+import { ArrowIcon, TopBar } from "@/components";
 import BNB from "@/components/common/bnb";
 import { useRouter } from "next/navigation";
 import UpdateReservationContent from "../_components/UpdateReservationContent";
 
 export default function ReservedContentDetailPage() {
   const router = useRouter();
+
   return (
-    <div>
-      <Container className="bg-grayscale-100 flex flex-col min-h-real-screen">
-        <TopBar
-          left={<ArrowIcon type="left" className="cursor-pointer" onClick={() => router.back()} />}
-          center={<p className="text-t4 text-grayscale-900">업로드 예약</p>}
-          right={<p className="text-button2 text-redscale-700 cursor-pointer">삭제</p>}
-        />
-        <div className="flex flex-col">
+    <>
+      <div className="min-h-real-screen bg-grayscale-200 flex flex-col">
+        <div className="bg-grayscale-100">
+          <div className="px-5">
+            <TopBar
+              left={
+                <ArrowIcon type="left" className="cursor-pointer" onClick={() => router.back()} />
+              }
+              center={<p className="text-t4 text-grayscale-900">업로드 예약</p>}
+              right={<p className="text-button2 text-redscale-700 cursor-pointer">삭제</p>}
+            />
+          </div>
+        </div>
+        <div className="bg-grayscale-100">
           <UpdateReservationContent />
         </div>
-      </Container>
+      </div>
       <BNB />
-    </div>
+    </>
   );
 }

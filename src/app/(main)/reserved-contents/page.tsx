@@ -2,7 +2,7 @@
 
 import { ArrowIcon, Container, TopBar } from "@/components";
 import BNB from "@/components/common/bnb";
-import ReservedContents from "./_components/ReservedContents";
+import ReservedLists from "./_components/ReservedLists";
 import { useRouter } from "next/navigation";
 
 export default function ReservedContentsPage() {
@@ -16,7 +16,7 @@ export default function ReservedContentsPage() {
           center={<p className="text-t4 text-grayscale-900">예약된 콘텐츠</p>}
         />
         <div className="flex flex-col">
-          <ReservedContents />
+          <ReservedLists />
         </div>
       </Container>
       <BNB />

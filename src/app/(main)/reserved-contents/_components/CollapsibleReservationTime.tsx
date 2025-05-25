@@ -3,23 +3,14 @@
 import { useState } from "react";
 import { Button, ChevronIcon } from "@/components";
 import { usePostingInfo } from "./hooks/usePostingInfo";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import SnsProfile from "@/app/(mypage)/mypage/_components/SnsProfile";
 import { ScheduleBlock } from "../../[projectId]/new-content/_components/step";
 import { format } from "date-fns";
 import { Platforms } from "@/types/platform";
 import { SocialPlatform } from "@/app/(mypage)/_components/types/platform";
-
-interface Posting {
-  postingId: number;
-  postingTitle: string | null;
-  postingContent: string;
-  scheduledAt: string | null;
-  postingType: string;
-  postingState: string;
-  postingLink: string | null;
-  postingImages: string[];
-}
+import { Posting } from "./types/posting";
+import { motion, AnimatePresence } from "framer-motion";
 
 const snsTypeToPlatform: Record<string, SocialPlatform> = {
   INSTAGRAM: Platforms.INSTAGRAM,
@@ -28,13 +19,13 @@ const snsTypeToPlatform: Record<string, SocialPlatform> = {
 };
 
 export const CollapsibleReservationTime = () => {
+  const router = useRouter();
   const { projectId } = useParams();
   const { data: postingInfo } = usePostingInfo(Number(projectId));
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
 
   const parseScheduledAt = (scheduledAt: string | null) => {
     if (!scheduledAt) return { date: null, time: null };
-
     const date = new Date(scheduledAt);
     return {
       date: format(date, "yyyy-MM-dd"),
@@ -43,36 +34,50 @@ export const CollapsibleReservationTime = () => {
   };
 
   return (
-    <div className="flex flex-col gap-4 py-4">
+    <div className="flex flex-col gap-4 py-4 bg-grayscale-100 px-5">
       <div
         className="flex items-center justify-between cursor-pointer"
         onClick={() => setIsOpen(!isOpen)}>
         <p className="text-b2M text-grayscale-800">예약 시간</p>
         <ChevronIcon type={isOpen ? "up" : "down"} className="w-5 h-5 text-grayscale-500" />
       </div>
-      {isOpen && (
-        <div className="flex flex-col gap-5">
-          <div className="w-full h-[1px] bg-grayscale-200" />
-          <div className="flex flex-col gap-4">
-            {postingInfo?.data.map((posting: Posting) => {
-              const { date, time } = parseScheduledAt(posting.scheduledAt);
-              const platform = posting.postingType
-                ? snsTypeToPlatform[posting.postingType]
-                : undefined;
 
-              return (
-                <div key={posting.postingId} className="flex items-center justify-between">
-                  <div className="w-[70px]">{platform && <SnsProfile type={platform} />}</div>
-                  <ScheduleBlock platform={platform} selectedDate={date} selectedTime={time} />
-                </div>
-              );
-            })}
-          </div>
-          <Button variant="subAction" className="w-full">
-            예약 일정 수정하기
-          </Button>
-        </div>
-      )}
+      <AnimatePresence initial={false}>
+        {isOpen && (
+          <motion.div
+            key="content"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="overflow-hidden">
+            <div className="flex flex-col gap-5 pt-4">
+              <div className="w-full h-[1px] bg-grayscale-200" />
+              <div className="flex flex-col gap-4">
+                {postingInfo?.data.map((posting: Posting) => {
+                  const { date, time } = parseScheduledAt(posting.scheduledAt);
+                  const platform = posting.postingType
+                    ? snsTypeToPlatform[posting.postingType]
+                    : undefined;
+
+                  return (
+                    <div key={posting.postingId} className="flex items-center justify-between">
+                      <div className="w-[70px]">{platform && <SnsProfile type={platform} />}</div>
+                      <ScheduleBlock platform={platform} selectedDate={date} selectedTime={time} />
+                    </div>
+                  );
+                })}
+              </div>
+              <Button
+                variant="subAction"
+                className="w-full"
+                onClick={() => router.push(`/reserved-contents/${projectId}/update`)}>
+                예약 일정 수정하기
+              </Button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
