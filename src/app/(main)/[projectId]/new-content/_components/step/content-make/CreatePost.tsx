@@ -3,10 +3,12 @@
 import { Button } from "@/components";
 import { useContentMakeStore } from "../../store/content-make-store";
 import { useMemo } from "react";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
+
 const CreatePost = () => {
   const { postData } = useContentMakeStore();
   const router = useRouter();
+  const { projectId } = useParams();
 
   const isDisabled = useMemo(() => {
     return (
@@ -21,7 +23,7 @@ const CreatePost = () => {
       <Button
         variant={isDisabled ? "deactive" : "active"}
         className="w-[350px] mx-auto mb-[60px]"
-        onClick={() => router.push("/transform-loading")}
+        onClick={() => router.push(`/${projectId}/transform-loading`)}
         disabled={isDisabled}>
         다음
       </Button>

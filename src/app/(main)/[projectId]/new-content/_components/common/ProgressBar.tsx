@@ -2,15 +2,16 @@
 
 import { ArrowIcon } from "@/components";
 import { cn } from "@/utils";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 
 const ProgressBar = () => {
   const router = useRouter();
+  const { projectId } = useParams();
   const searchParams = useSearchParams();
   const step = searchParams.get("step");
 
   const handlePreviousStep = (currentStep: string) => {
-    router.push(`/new-content?step=${Number(currentStep) - 1}`);
+    router.push(`/${projectId}/new-content?step=${Number(currentStep) - 1}`);
   };
 
   const handleClose = (currentStep: string) => {

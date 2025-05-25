@@ -1,8 +1,8 @@
 "use client";
 
-import { useContentMakeStore } from "@/app/(main)/new-content/_components/store/content-make-store";
-import { usePlatformStore } from "@/app/(main)/new-content/_components/store/platform-store";
-import useFilePreviewStore from "@/app/(main)/new-content/_components/store/preview-store";
+import { usePlatformStore } from "@/app/(main)/[projectId]/new-content/_components/store";
+import { useContentMakeStore } from "@/app/(main)/[projectId]/new-content/_components/store/content-make-store";
+import useFilePreviewStore from "@/app/(main)/[projectId]/new-content/_components/store/preview-store";
 import { Modal } from "@/components";
 import { DangerIcon } from "@/components/icons";
 import { useRouter } from "next/navigation";

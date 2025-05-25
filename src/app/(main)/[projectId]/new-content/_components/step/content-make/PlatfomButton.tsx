@@ -5,9 +5,9 @@ import profile1 from "@public/assets/images/profile1.webp";
 import { CircleCheckBoldIcon, CircleCheckIcon, DefaultProfileIcon } from "@/components";
 import { useEffect, useState } from "react";
 import { Platforms } from "@/types/platform";
-import { useProfileImage } from "@/app/(main)/new-content/_components/hooks/useProfileImage";
 import { platformConfig } from "../../config/platform-config";
 import { useContentMakeStore } from "../../store/content-make-store";
+import { useProfileImage } from "../../hooks/useProfileImage";
 
 interface PlatformButtonProps {
   isAccountConnected: boolean;

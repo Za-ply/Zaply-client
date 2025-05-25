@@ -9,6 +9,7 @@ import ContentButton from "./ContentButton";
 import { useRouter } from "next/navigation";
 import useUserStore from "@/stores/userStore";
 import useRouterPrefetch from "@/utils/useRouterPrefetch";
+
 const MainSection = ({ state }: { state: string }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const router = useRouter();
