@@ -1,4 +1,4 @@
-import { SnsType, UnlinkResponse } from "../model";
+import { InstagramRequest, SnsType, UnlinkResponse } from "../model";
 import { apiClient } from "../axios/instance";
 import useUserStore from "@/stores/userStore";
 
@@ -7,6 +7,8 @@ const FACEBOOK_REDIRECT_URI = process.env.NEXT_PUBLIC_FACEBOOK_REDIRECT_URI!;
 
 const THREADS_CLIENT_ID = process.env.NEXT_PUBLIC_THREADS_CLIENT_ID!;
 const THREADS_REDIRECT_URI = process.env.NEXT_PUBLIC_THREADS_REDIRECT_URI!;
+
+const INSTAGRAM_REDIRECT_URI = process.env.NEXT_PUBLIC_INSTAGRAM_REDIRECT_URI!;
 
 const accountController = {
   threads: async (): Promise<void> => {
@@ -55,6 +57,16 @@ const accountController = {
 
     const facebookUrl = `https://www.facebook.com/v22.0/dialog/oauth?${params.toString()}`;
     window.open(facebookUrl, "_blank", "width=600,height=800");
+  },
+
+  instagram: async (): Promise<void> => {
+    const instagramUrl = INSTAGRAM_REDIRECT_URI;
+    window.location.href = instagramUrl;
+  },
+
+  instagramLink: async (data: InstagramRequest): Promise<void> => {
+    const response = await apiClient.get("/account/instagram/link", { params: data });
+    return response.data;
   },
 
   unlink: async (snsType: SnsType): Promise<UnlinkResponse> => {

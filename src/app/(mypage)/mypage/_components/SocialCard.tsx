@@ -4,12 +4,12 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components";
 import { ArrowIcon, ChevronIcon } from "@/components/icons";
 import SnsProfile from "./SnsProfile";
-import { useSnsLinkStore } from "../../connect/_components/store/link-store";
 import { Platforms } from "@/types/platform";
+import useUserStore from "@/stores/userStore";
 
 export const SocialCard = () => {
-  const { linkedStatus } = useSnsLinkStore();
-  const linkedCount = Object.values(linkedStatus).filter(Boolean).length;
+  const accounts = useUserStore(state => state.accounts);
+  const linkedCount = accounts.length;
   const router = useRouter();
 
   const handleConnectClick = () => router.push("/connect");

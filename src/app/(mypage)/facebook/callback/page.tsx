@@ -1,13 +1,10 @@
 "use client";
 
 import { useEffect } from "react";
-import { useSnsLinkStore } from "@/app/(mypage)/connect/_components/store/link-store";
 import Image from "next/image";
 import { facebookCircle } from "@public/assets/images/sns";
 
 export default function FacebookCallback() {
-  const { setLinked } = useSnsLinkStore();
-
   useEffect(() => {
     if (window.opener) {
       window.opener.location.href = "/connect-complete?status=success&platform=facebook";
@@ -15,7 +12,7 @@ export default function FacebookCallback() {
         window.close();
       }, 100);
     }
-  }, [setLinked]);
+  }, []);
 
   return (
     <div className="flex bg-b500-g100 items-center justify-center my-auto min-h-screen">
