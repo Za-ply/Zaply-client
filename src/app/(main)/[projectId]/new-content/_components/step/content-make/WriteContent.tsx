@@ -13,6 +13,7 @@ const WriteContent = ({ type }: { type: "upload" | "content" }) => {
   const { selectedPlatform } = usePlatformStore();
   const { postData, setContent } = useContentMakeStore();
   const [contentLength, setContentLength] = useState<number>(0);
+  const [content, setContentState] = useState(type === "upload" ? postData.content : "");
 
   const ref = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -22,18 +23,19 @@ const WriteContent = ({ type }: { type: "upload" | "content" }) => {
   const { maxContentLength } =
     selectedPlatform !== null ? policyConfig[selectedPlatform] : { maxContentLength: 0 };
 
-  const handleInput = () => {
-    if (textareaRef.current) {
-      setContentLength(textareaRef.current.value.length);
-      debouncedSetContent(textareaRef.current.value);
-    }
+  const handleInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const value = e.target.value;
+    setContentState(value);
+    setContentLength(value.length);
+    debouncedSetContent(value);
   };
 
   useEffect(() => {
     if (type === "upload") {
+      setContentState(postData.content);
       setContentLength(postData.content.length);
     }
-  }, []);
+  }, [postData.content]);
 
   return (
     <div
@@ -47,10 +49,10 @@ const WriteContent = ({ type }: { type: "upload" | "content" }) => {
       <Textarea
         ref={textareaRef}
         maxLength={maxContentLength}
-        defaultValue={type === "upload" ? postData.content : ""}
+        value={content}
+        onChange={handleInput}
         placeholder={`내용을 작성해주세요. 이 내용을 기준으로 다른 플랫폼에\n 올라갈 콘텐츠가 자동으로 변환됩니다.`}
         className="min-h-[147px] resize-none placeholder:whitespace-pre-line pr-1 mb-[23px]"
-        onInput={handleInput}
       />
       <span className="absolute bottom-[10px] right-4 text-b4M text-grayscale-600">
         {contentLength.toLocaleString("ko-KR")}/{maxContentLength.toLocaleString("ko-KR")}

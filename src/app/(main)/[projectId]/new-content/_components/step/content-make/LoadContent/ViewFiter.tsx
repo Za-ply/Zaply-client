@@ -1,9 +1,9 @@
 import { CircleCheckBoldIcon, CircleIcon, ViewGalleryIcon, ViewVerticalIcon } from "@/components";
 import { usePostStore } from "../../../store";
-import { useRouter, useSearchParams } from "next/navigation";
-import { mockPostList } from "../../../mocks";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
+import { SNSPostingResponse } from "@/lib/api/model/posting";
 
-const ViewFiter = () => {
+const ViewFiter = ({ data }: { data: SNSPostingResponse }) => {
   const {
     selectPostList,
     viewType,
@@ -15,13 +15,14 @@ const ViewFiter = () => {
 
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { projectId } = useParams();
   const postId = searchParams.get("postId");
 
   return (
     <div className={`flex items-center ${isShowDetail ? "justify-end" : "justify-between"}`}>
       {isShowDetail ? (
         <div className="flex items-center justify-center h-[56px] py-4 px-5">
-          {selectPostList?.id === Number(postId) ? (
+          {selectPostList?.postingId === postId ? (
             <CircleCheckBoldIcon
               className="text-blue-700"
               onClick={e => {
@@ -34,7 +35,10 @@ const ViewFiter = () => {
               className="text-grayscale-400"
               onClick={e => {
                 e.stopPropagation();
-                setSelectPostList(mockPostList[Number(postId) - 1]);
+                const post = data.content.find(post => post.postingId === postId);
+                if (post) {
+                  setSelectPostList(post);
+                }
               }}
             />
           )}
@@ -65,7 +69,9 @@ const ViewFiter = () => {
                 onClick={e => {
                   e.stopPropagation();
                   setIsShowDetail(true);
-                  router.push(`/new-content?step=2&postId=${selectPostList.id}`);
+                  router.push(
+                    `/${projectId}/new-content?step=2&postId=${selectPostList.postingId}`
+                  );
                 }}>
                 자세히 보기
               </button>

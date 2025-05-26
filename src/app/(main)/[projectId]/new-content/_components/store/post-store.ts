@@ -1,12 +1,12 @@
 import { create } from "zustand";
-import { PostCardType } from "../mocks";
+import { SNSPostingContent } from "@/lib/api/model/posting";
 
 interface PostState {
-  selectPostList: PostCardType | null;
+  selectPostList: SNSPostingContent | null;
   viewType: "vertical" | "gallery";
   isShowDetail: boolean;
 
-  setSelectPostList: (post: PostCardType | null) => void;
+  setSelectPostList: (post: SNSPostingContent | null) => void;
   setViewType: (type: "vertical" | "gallery") => void;
   setIsShowDetail: (isShow: boolean) => void;
 }
