@@ -5,17 +5,20 @@ import { useRouter } from "next/navigation";
 const PreparingModal = () => {
   const router = useRouter();
 
+  const handleClose = () => {
+    router.back();
+    setTimeout(() => {
+      router.refresh();
+    }, 1000);
+  };
+
   return (
     <Modal
       isOpen={true}
       title=""
       description=""
-      onCloseIconClick={() => {
-        router.back();
-      }}
-      onRightButtonClick={() => {
-        router.back();
-      }}
+      onCloseIconClick={handleClose}
+      onRightButtonClick={handleClose}
       buttonType="single"
       rightText="메인으로"
       overlayClassName="bg-grayscale-900/60">
