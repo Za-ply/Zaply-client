@@ -35,10 +35,13 @@ const PlatformButton = ({
   const displayImage = useProfileImage(platform);
 
   useEffect(() => {
-    if (type === "content" && isFirst) {
-      setIsChecked(true);
+    if (type === "content") {
+      if (isFirst) {
+        setIsChecked(true);
+        setSelectedContentPlatform(platform);
+      }
     }
-  }, [type, isFirst]);
+  }, [type, isFirst, platform, setSelectedContentPlatform]);
 
   useEffect(() => {
     if (type === "upload") {
