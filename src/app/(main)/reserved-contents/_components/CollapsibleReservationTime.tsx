@@ -63,7 +63,12 @@ export const CollapsibleReservationTime = () => {
                   return (
                     <div key={posting.postingId} className="flex items-center justify-between">
                       <div className="w-[70px]">{platform && <SnsProfile type={platform} />}</div>
-                      <ScheduleBlock platform={platform} selectedDate={date} selectedTime={time} />
+                      <ScheduleBlock
+                        platform={platform}
+                        selectedDate={date}
+                        selectedTime={time}
+                        onClick={() => {}}
+                      />
                     </div>
                   );
                 })}

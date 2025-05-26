@@ -8,6 +8,13 @@ import { Platforms } from "@/types/platform";
 import { platformConfig } from "../../config/platform-config";
 import { useContentMakeStore } from "../../store/content-make-store";
 import { useProfileImage } from "../../hooks/useProfileImage";
+import useUserStore from "@/stores/userStore";
+
+const snsTypeToPlatform: Record<string, Platforms> = {
+  INSTAGRAM: Platforms.INSTAGRAM,
+  THREADS: Platforms.THREADS,
+  FACEBOOK: Platforms.FACEBOOK,
+};
 
 interface PlatformButtonProps {
   isAccountConnected: boolean;
@@ -30,6 +37,11 @@ const PlatformButton = ({
   const { postData, selectedContentPlatform, setUploadPlatforms, setSelectedContentPlatform } =
     useContentMakeStore();
   const displayImage = useProfileImage(platform);
+  const accounts = useUserStore(state => state.accounts);
+
+  const accountProfileImage = accounts.find(
+    account => snsTypeToPlatform[account.snsType] === platform
+  )?.profileImageUrl;
 
   useEffect(() => {
     if (type === "content" && isFirst) {
@@ -82,12 +94,11 @@ const PlatformButton = ({
             />
           ) : hasProfileImage ? (
             <Image
-              src={profile1}
+              src={accountProfileImage || profile1}
               alt="profile"
               width={48}
               height={48}
               className="rounded-full"
-              placeholder="blur"
             />
           ) : (
             <div className="flex items-center justify-center w-12 h-12 p-2 rounded-full bg-grayscale-400">

@@ -52,13 +52,23 @@ export const SnsProfile = ({ type, className }: { type: SocialPlatform; classNam
   const shouldShowFullProfile = isLinked;
 
   return shouldShowFullProfile ? (
-    <div className={cn("relative w-[48px] h-[48px] bg-grayscale-400 rounded-full", className)}>
+    <div className="relative">
+      <Image
+        src={
+          accounts.find(account => snsTypeToPlatform[account.snsType] === type)?.profileImageUrl ||
+          icon.linked
+        }
+        alt={`${type} profile`}
+        width={48}
+        height={48}
+        className={cn("w-[48px] h-[48px] bg-grayscale-400 rounded-full", className)}
+      />
       <Image
         src={icon.unlinked}
         width={20}
         height={20}
         alt={`${type} badge`}
-        className="absolute bottom-[1px] right-[-3px]"
+        className="absolute bottom-[1px] right-[15px]"
       />
     </div>
   ) : (

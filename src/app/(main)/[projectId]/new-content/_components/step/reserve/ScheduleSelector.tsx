@@ -14,6 +14,7 @@ import { SheetOptions } from "@/constants/sheet-options";
 import { DrawerSheet } from "@/components/drawer";
 import { CalendarBottomContent } from "./CalendarBottomContent";
 import { PostingInfo } from "@/app/(main)/reserved-contents/_components/types/posting";
+import PlatformButton from "../content-make/PlatfomButton";
 
 const snsTypeToPlatform: Record<string, SocialPlatform> = {
   FACEBOOK: Platforms.FACEBOOK,
@@ -101,7 +102,12 @@ export const ScheduleSelector = ({ isUpdate = false, posting }: ScheduleSelector
                   return (
                     <div key={platform} className="flex items-center justify-between">
                       <div className="w-[70px]">
-                        <SnsProfile type={platform} />
+                        <PlatformButton
+                          type="content"
+                          platform={platform}
+                          hasProfileImage={true}
+                          isAccountConnected={true}
+                        />
                       </div>
                       <div className="flex items-center gap-2">
                         <ScheduleBlock

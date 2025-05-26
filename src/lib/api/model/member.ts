@@ -3,6 +3,7 @@ export type SnsType = "FACEBOOK" | "THREADS" | "INSTAGRAM";
 export interface Account {
   snsType: SnsType;
   accountName: string;
+  profileImageUrl?: string;
 }
 
 export interface AccountResponse {
