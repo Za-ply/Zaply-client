@@ -25,6 +25,7 @@ interface ModalProps {
   buttonDirectionType?: "row" | "column";
   modalPosition?: "center" | "bottom";
   className?: string;
+  overlayClassName?: string;
   onOpenChange?: (open: boolean) => void;
   onCloseIconClick?: () => void;
   onLeftButtonClick?: () => void;
@@ -47,6 +48,7 @@ const Modal = ({
   buttonDirectionType = "row",
   modalPosition = "center",
   isDisabledButton = false,
+  overlayClassName,
   onOpenChange,
   onCloseIconClick,
   onLeftButtonClick,
@@ -58,6 +60,7 @@ const Modal = ({
         style={{ maxWidth: width ? `${width}px` : undefined }}
         showCloseIcon={showCloseIcon}
         className={className}
+        overlayClassName={overlayClassName}
         onClose={onCloseIconClick}
         modalPosition={modalPosition}>
         <DialogHeader>
