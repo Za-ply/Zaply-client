@@ -1,5 +1,6 @@
 "use client";
 
+import useLoadContent from "@/app/(main)/[projectId]/new-content/_components/hooks/useLoadContent";
 import { usePlatformStore } from "@/app/(main)/[projectId]/new-content/_components/store";
 import { useContentMakeStore } from "@/app/(main)/[projectId]/new-content/_components/store/content-make-store";
 import useFilePreviewStore from "@/app/(main)/[projectId]/new-content/_components/store/preview-store";
@@ -12,11 +13,13 @@ const WarningModal = () => {
   const { reset } = usePlatformStore();
   const { resetPostData } = useContentMakeStore();
   const { resetFiles } = useFilePreviewStore();
+  const { setSelectedOption } = useLoadContent();
 
   const handleStop = () => {
     reset();
     resetPostData();
     resetFiles();
+    setSelectedOption("");
     router.back();
     setTimeout(() => {
       router.push("/main");

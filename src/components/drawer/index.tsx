@@ -8,7 +8,7 @@ interface DrawerSheetProps {
   buttonText?: string;
   className?: string;
   store: ReturnType<typeof createSheetStore>;
-  onClick?: () => void;
+  // onClick?: () => void;
 }
 
 export function DrawerSheet({
@@ -16,14 +16,18 @@ export function DrawerSheet({
   showCloseButton = true,
   className,
   store,
-  onClick = () => store().setIsOpen(false),
+  /**
+   * @deprecated
+   * 콘솔 에러가 발생하여 임시 주석 처리
+   */
+  // onClick = () => store().setIsOpen(false),
 }: DrawerSheetProps) {
   const { isOpen, setIsOpen } = store();
 
   return (
     <Drawer open={isOpen} onOpenChange={setIsOpen}>
       <DrawerTitle className="hidden" />
-      <DrawerContent showCloseIcon={showCloseButton} className={className} onClick={onClick}>
+      <DrawerContent showCloseIcon={showCloseButton} className={className}>
         {contentProps}
       </DrawerContent>
     </Drawer>

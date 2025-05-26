@@ -7,10 +7,10 @@ import { usePostStore } from "../../../store";
 import { LoadContentList } from "../../../content";
 import { selectSheetStore } from "../../../store/select-sheet-store";
 import { SheetOptions } from "@/constants/sheet-options";
+import useLoadContent from "../../../hooks/useLoadContent";
 
 const LoadContent = () => {
-  const store = selectSheetStore[SheetOptions.LOAD_POST];
-  const { isOpen, setIsOpen } = store();
+  const { isOpen, setIsOpen } = useLoadContent();
   const { setSelectPostList, setViewType, setIsShowDetail } = usePostStore();
 
   useEffect(() => {
