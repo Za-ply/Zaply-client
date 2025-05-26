@@ -11,12 +11,10 @@ const PreparingModal = () => {
       title=""
       description=""
       onCloseIconClick={() => {
-        router.replace("/main");
-        router.refresh();
+        router.back();
       }}
       onRightButtonClick={() => {
-        router.replace("/main");
-        router.refresh();
+        router.back();
       }}
       buttonType="single"
       rightText="메인으로"
