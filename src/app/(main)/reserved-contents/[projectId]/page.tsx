@@ -15,7 +15,11 @@ export default function ReservedContentDetailPage() {
           <div className="px-5">
             <TopBar
               left={
-                <ArrowIcon type="left" className="cursor-pointer" onClick={() => router.back()} />
+                <ArrowIcon
+                  type="left"
+                  className="cursor-pointer"
+                  onClick={() => router.push("/reserved-contents")}
+                />
               }
               center={<p className="text-t4 text-grayscale-900">업로드 예약</p>}
               right={<p className="text-button2 text-redscale-700 cursor-pointer">삭제</p>}

@@ -33,6 +33,10 @@ export const CollapsibleReservationTime = () => {
     };
   };
 
+  const handleUpdateClick = async () => {
+    router.push(`/reserved-contents/${projectId}/update`);
+  };
+
   return (
     <div className="flex flex-col gap-4 py-4 bg-grayscale-100 px-5">
       <div
@@ -67,16 +71,14 @@ export const CollapsibleReservationTime = () => {
                         platform={platform}
                         selectedDate={date}
                         selectedTime={time}
+                        isLinked={true}
                         onClick={() => {}}
                       />
                     </div>
                   );
                 })}
               </div>
-              <Button
-                variant="subAction"
-                className="w-full"
-                onClick={() => router.push(`/reserved-contents/${projectId}/update`)}>
+              <Button variant="subAction" className="w-full" onClick={handleUpdateClick}>
                 예약 일정 수정하기
               </Button>
             </div>

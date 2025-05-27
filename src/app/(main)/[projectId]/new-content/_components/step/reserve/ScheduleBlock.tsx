@@ -80,29 +80,21 @@ const ScheduleBlock = memo(
       return `w-[116px] px-4 py-2 border border-grayscale-300 rounded-[8px] text-b3M text-center cursor-pointer ${
         !isAll && !isLinked
           ? "bg-grayscale-300 text-grayscale-500"
-          : isAll
-            ? storeSelectedDate
-              ? "bg-grayscale-100 text-blue-blueblack"
-              : "bg-grayscale-100 text-grayscale-500"
-            : platformReserve?.date
-              ? "bg-grayscale-100 text-blue-blueblack"
-              : "bg-grayscale-100 text-grayscale-500"
+          : propSelectedDate || (isAll ? storeSelectedDate : platformReserve?.date)
+            ? "bg-grayscale-100 text-blue-blueblack"
+            : "bg-grayscale-100 text-grayscale-500"
       }`;
-    }, [isAll, isLinked, storeSelectedDate, platformReserve?.date]);
+    }, [isAll, isLinked, propSelectedDate, storeSelectedDate, platformReserve?.date]);
 
     const timeClassName = useMemo(() => {
       return `w-[116px] px-4 py-2 border border-grayscale-300 rounded-[8px] text-b3M text-center cursor-pointer ${
         !isAll && !isLinked
           ? "bg-grayscale-300 text-grayscale-500"
-          : isAll
-            ? storeSelectedTime
-              ? "bg-grayscale-100 text-blue-blueblack"
-              : "bg-grayscale-100 text-grayscale-500"
-            : platformReserve?.time
-              ? "bg-grayscale-100 text-blue-blueblack"
-              : "bg-grayscale-100 text-grayscale-500"
+          : propSelectedTime || (isAll ? storeSelectedTime : platformReserve?.time)
+            ? "bg-grayscale-100 text-blue-blueblack"
+            : "bg-grayscale-100 text-grayscale-500"
       }`;
-    }, [isAll, isLinked, storeSelectedTime, platformReserve?.time]);
+    }, [isAll, isLinked, propSelectedTime, storeSelectedTime, platformReserve?.time]);
 
     return (
       <div className="flex items-center gap-2">
