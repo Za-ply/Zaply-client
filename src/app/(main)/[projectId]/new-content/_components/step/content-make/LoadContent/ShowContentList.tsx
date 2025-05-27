@@ -8,7 +8,7 @@ import { ApiResponse } from "@/lib/api/model";
 
 type ShowContentListProps = {
   isLoading: boolean;
-  data: ApiResponse<SNSPostingResponse>[] | undefined;
+  data: ApiResponse<SNSPostingResponse | null>[] | undefined;
   hasNextPage: boolean;
   isFetchingNextPage: boolean;
   fetchNextPage: () => void;
@@ -56,22 +56,8 @@ const ShowContentList = ({
         {viewType === "vertical" ? (
           data?.map((pages, pageIndex) => (
             <Fragment key={pageIndex}>
-              {pages.data.content.map(post => (
-                <PostCard
-                  key={post.postingId}
-                  post={post}
-                  isSelected={selectPostList?.postingId === post.postingId}
-                  onSelect={setSelectPostList}
-                  viewType={viewType}
-                />
-              ))}
-            </Fragment>
-          ))
-        ) : (
-          <div className="grid items-center justify-center w-full grid-cols-3 gap-[6px]">
-            {data?.map((pages, pageIndex) => (
-              <Fragment key={pageIndex}>
-                {pages.data.content.map(post => (
+              {pages.data &&
+                pages.data.content.map(post => (
                   <PostCard
                     key={post.postingId}
                     post={post}
@@ -80,6 +66,22 @@ const ShowContentList = ({
                     viewType={viewType}
                   />
                 ))}
+            </Fragment>
+          ))
+        ) : (
+          <div className="grid items-center justify-center w-full grid-cols-3 gap-[6px]">
+            {data?.map((pages, pageIndex) => (
+              <Fragment key={pageIndex}>
+                {pages.data &&
+                  pages.data.content.map(post => (
+                    <PostCard
+                      key={post.postingId}
+                      post={post}
+                      isSelected={selectPostList?.postingId === post.postingId}
+                      onSelect={setSelectPostList}
+                      viewType={viewType}
+                    />
+                  ))}
               </Fragment>
             ))}
           </div>

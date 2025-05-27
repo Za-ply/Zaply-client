@@ -12,6 +12,7 @@ import { useContentMakeStore } from "../store/content-make-store";
 import useFilePreviewStore from "../store/preview-store";
 import { policyConfig } from "../config/constraint-config";
 import { toast } from "@/utils/useToast";
+import { useEffect } from "react";
 
 const LoadContentList = () => {
   const { selectPostList, isShowDetail } = usePostStore();
