@@ -14,14 +14,14 @@ export const SelectUploadType = () => {
 
   return (
     <>
-      <div className="w-full flex flex-col gap-10 mt-10">
+      <div className="flex flex-col w-full gap-10 mt-10">
         <p className="text-t3 text-grayscale-900">
           준비된 컨텐츠를
           <br />
           언제 업로드 할까요?
         </p>
 
-        <div className="w-full flex flex-col gap-3">
+        <div className="flex flex-col w-full gap-3">
           {[
             { key: false, label: "지금 바로 업로드하기" },
             { key: true, label: "업로드 예약하기" },

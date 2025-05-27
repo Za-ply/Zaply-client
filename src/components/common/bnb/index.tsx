@@ -45,7 +45,8 @@ const BNB = () => {
       <div
         onClick={() => {
           setActiveTab("insight");
-          router.push("/insight");
+          // router.push("/insight");
+          router.push("/preparing");
         }}
         className="w-[68px] flex flex-col items-center gap-[6px] px-2 py-[6px] cursor-pointer">
         <PieChartIcon
@@ -63,7 +64,8 @@ const BNB = () => {
       <div
         onClick={() => {
           setActiveTab("comment");
-          router.push("/comment");
+          // router.push("/comment");
+          router.push("/preparing");
         }}
         className="w-[68px] flex flex-col items-center gap-[6px] px-2 py-[6px] cursor-pointer">
         <ChatDotIcon

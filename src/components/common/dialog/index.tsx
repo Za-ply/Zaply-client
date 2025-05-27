@@ -13,13 +13,17 @@ const DialogClose = DialogPrimitive.Close;
 
 const DialogOverlay = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Overlay>,
-  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Overlay> & { onClose?: () => void }
->(({ className, onClose, ...props }, ref) => (
+  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Overlay> & {
+    onClose?: () => void;
+    overlayClassName?: string;
+  }
+>(({ className, onClose, overlayClassName, ...props }, ref) => (
   <DialogPrimitive.Overlay
     ref={ref}
     className={cn(
       "fixed inset-0 z-50 bg-grayscale-900/30 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
-      className
+      className,
+      overlayClassName
     )}
     onClick={onClose}
     {...props}
@@ -31,6 +35,7 @@ interface DialogContentProps
   extends React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content> {
   showCloseIcon?: boolean;
   modalPosition?: "center" | "bottom";
+  overlayClassName?: string;
   onClose?: () => void;
 }
 
@@ -39,11 +44,19 @@ const DialogContent = React.forwardRef<
   DialogContentProps
 >(
   (
-    { className, children, showCloseIcon = true, onClose, modalPosition = "center", ...props },
+    {
+      className,
+      children,
+      showCloseIcon = true,
+      onClose,
+      modalPosition = "center",
+      overlayClassName,
+      ...props
+    },
     ref
   ) => (
     <DialogPortal>
-      <DialogOverlay onClose={onClose} />
+      <DialogOverlay onClose={onClose} overlayClassName={overlayClassName} />
       <DialogPrimitive.Content
         ref={ref}
         className={cn(

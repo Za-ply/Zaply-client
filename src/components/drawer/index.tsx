@@ -8,7 +8,6 @@ interface DrawerSheetProps {
   buttonText?: string;
   className?: string;
   store: ReturnType<typeof createSheetStore>;
-  onClick?: () => void;
 }
 
 export function DrawerSheet({
@@ -16,14 +15,13 @@ export function DrawerSheet({
   showCloseButton = true,
   className,
   store,
-  onClick = () => store().setIsOpen(false),
 }: DrawerSheetProps) {
   const { isOpen, setIsOpen } = store();
 
   return (
     <Drawer open={isOpen} onOpenChange={setIsOpen}>
       <DrawerTitle className="hidden" />
-      <DrawerContent showCloseIcon={showCloseButton} className={className} onClick={onClick}>
+      <DrawerContent showCloseIcon={showCloseButton} className={className}>
         {contentProps}
       </DrawerContent>
     </Drawer>

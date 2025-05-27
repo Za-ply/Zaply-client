@@ -9,7 +9,6 @@ const ContentButton = () => {
   const handleCreateProject = () => {
     createProject(undefined, {
       onSuccess: data => {
-        console.log(data.data);
         router.push(`/${data.data}/new-content?step=1`);
       },
     });

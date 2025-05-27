@@ -4,18 +4,19 @@ import { ChevronIcon } from "../icons";
 import { instagramCircle, facebookCircle, threadCircle } from "@public/assets/images/sns";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { usePlatformStore } from "@/app/(main)/[projectId]/new-content/_components/store";
 
-const Dropdown = () => {
+const Dropdown = ({
+  onSelect,
+  selectedOption,
+}: {
+  onSelect: (option: string) => void;
+  selectedOption: string;
+}) => {
   const [isOpen, setIsOpen] = useState(false);
-  const { selectedPlatform } = usePlatformStore();
-  const [selectedOption, setSelectedOption] = useState<string>(
-    selectedPlatform || searchOptions[0].label
-  );
 
   const handleOptionClick = (e: React.MouseEvent<HTMLDivElement>, option: string) => {
     e.stopPropagation();
-    setSelectedOption(option);
+    onSelect(option);
     setIsOpen(false);
   };
 

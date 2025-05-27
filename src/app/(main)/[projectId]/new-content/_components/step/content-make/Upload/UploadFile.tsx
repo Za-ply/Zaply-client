@@ -88,7 +88,10 @@ const UploadFile = () => {
           <Image
             src={url}
             alt={`미리보기 ${index + 1}`}
-            fill
+            width={76}
+            height={76}
+            placeholder="blur"
+            blurDataURL="/assets/images/blur.png"
             className="object-cover w-full h-full rounded-lg"
           />
         </div>

@@ -1,7 +1,35 @@
 import { apiClient } from "../axios/instance";
-import { ApiResponse, Posting } from "../model";
+import { ApiResponse } from "../model";
+import {
+  Posting,
+  SNSPostingContent,
+  SNSPostingDetailRequest,
+  SNSPostingListRequest,
+  SNSPostingResponse,
+} from "../model/posting";
 
 const postingController = {
+  getSNSPostingList: async (
+    query: SNSPostingListRequest
+  ): Promise<ApiResponse<SNSPostingResponse>> => {
+    const response = await apiClient.get<ApiResponse<SNSPostingResponse>>("/posting/my-media", {
+      params: query,
+    });
+    return response.data;
+  },
+
+  getSNSPostingDetail: async (
+    query: SNSPostingDetailRequest
+  ): Promise<ApiResponse<SNSPostingContent>> => {
+    const response = await apiClient.get<ApiResponse<SNSPostingContent>>(`/posting/media`, {
+      params: {
+        snsType: query.snsType,
+        mediaId: query.mediaId,
+      },
+    });
+    return response.data;
+  },
+
   getPosting: async (projectId: number) => {
     const response = await apiClient.get(`/posting/${projectId}`);
     return response.data;

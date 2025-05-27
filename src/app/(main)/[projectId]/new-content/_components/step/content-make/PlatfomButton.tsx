@@ -8,6 +8,7 @@ import { Platforms } from "@/types/platform";
 import { platformConfig } from "../../config/platform-config";
 import { useContentMakeStore } from "../../store/content-make-store";
 import { useProfileImage } from "../../hooks/useProfileImage";
+import { cn } from "@/utils";
 import useUserStore from "@/stores/userStore";
 
 const snsTypeToPlatform: Record<string, Platforms> = {
@@ -23,6 +24,7 @@ interface PlatformButtonProps {
   type: "upload" | "content";
   isDisabled?: boolean;
   isFirst?: boolean;
+  className?: string;
 }
 
 const PlatformButton = ({
@@ -32,6 +34,7 @@ const PlatformButton = ({
   type,
   isDisabled = false,
   isFirst = false,
+  className,
 }: PlatformButtonProps) => {
   const [isChecked, setIsChecked] = useState(false);
   const { postData, selectedContentPlatform, setUploadPlatforms, setSelectedContentPlatform } =
@@ -44,14 +47,18 @@ const PlatformButton = ({
   )?.profileImageUrl;
 
   useEffect(() => {
-    if (type === "content" && isFirst) {
-      setIsChecked(true);
+    if (type === "content") {
+      if (isFirst) {
+        setIsChecked(true);
+        setSelectedContentPlatform(platform);
+      }
     }
-  }, []);
+  }, [type, isFirst, platform, setSelectedContentPlatform]);
 
   useEffect(() => {
     if (type === "upload") {
       setIsChecked(postData.uploadPlatforms.includes(platform));
+      setUploadPlatforms(postData.uploadPlatforms);
     } else if (type === "content") {
       setIsChecked(selectedContentPlatform === platform);
     }
@@ -76,7 +83,7 @@ const PlatformButton = ({
   };
 
   return (
-    <button type="button" disabled={isDisabled} className="relative w-12 h-12">
+    <button type="button" disabled={isDisabled} className={cn("relative w-12 h-12", className)}>
       <div className="flex flex-col items-center justify-center gap-2">
         <div
           onClick={handleClick}

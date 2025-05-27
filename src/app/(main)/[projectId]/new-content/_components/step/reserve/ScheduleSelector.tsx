@@ -131,7 +131,6 @@ export const ScheduleSelector = ({ isUpdate = false, posting }: ScheduleSelector
         store={selectSheetStore[SheetOptions.CALENDAR]}
         contentProps={<CalendarBottomContent />}
         showCloseButton={false}
-        onClick={() => {}}
       />
     </>
   );

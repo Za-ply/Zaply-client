@@ -10,6 +10,26 @@ const withPwa = withPWAFactory({
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "scontent-nrt1-1.cdninstagram.com",
+        port: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "scontent-*.cdninstagram.com",
+        port: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "*.cdninstagram.com",
+        port: "",
+        pathname: "/**",
+      },
+    ],
     domains: ["scontent-nrt1-2.xx.fbcdn.net"],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
