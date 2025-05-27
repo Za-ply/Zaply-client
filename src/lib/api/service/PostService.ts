@@ -5,6 +5,8 @@ import {
   SNSPostingDetailRequest,
   SNSPostingListRequest,
   SNSPostingResponse,
+  TransferSNSPostingRequest,
+  TransferSNSPostingResponse,
 } from "../model/posting";
 
 const postService = {
@@ -29,6 +31,18 @@ const postService = {
     } catch (error) {
       console.error(error);
       throw new Error("SNS 포스팅 상세 조회 실패", { cause: error });
+    }
+  },
+
+  transferSNSPosting: async (
+    query: TransferSNSPostingRequest
+  ): Promise<ApiResponse<TransferSNSPostingResponse>> => {
+    try {
+      const response = await postingController.transferSNSPosting(query);
+      return response;
+    } catch (error) {
+      console.error(error);
+      throw new Error("SNS 포스팅 변환 실패", { cause: error });
     }
   },
 };

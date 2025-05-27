@@ -12,7 +12,7 @@ const OnBoardingContent = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useRouterPrefetch({
-    path: ["/sign-in", "/link", "/main"],
+    path: ["/sign-in", "/main"],
   });
 
   useEffect(() => {

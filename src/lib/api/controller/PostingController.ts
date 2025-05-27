@@ -5,6 +5,8 @@ import {
   SNSPostingDetailRequest,
   SNSPostingListRequest,
   SNSPostingResponse,
+  TransferSNSPostingRequest,
+  TransferSNSPostingResponse,
 } from "../model/posting";
 
 const postingController = {
@@ -26,6 +28,16 @@ const postingController = {
         mediaId: query.mediaId,
       },
     });
+    return response.data;
+  },
+
+  transferSNSPosting: async (
+    query: TransferSNSPostingRequest
+  ): Promise<ApiResponse<TransferSNSPostingResponse>> => {
+    const response = await apiClient.post<ApiResponse<TransferSNSPostingResponse>>(
+      `/posting/transfer`,
+      query
+    );
     return response.data;
   },
 };
