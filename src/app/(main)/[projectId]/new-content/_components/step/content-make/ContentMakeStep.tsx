@@ -1,9 +1,9 @@
 import Bedge from "./Bedge";
 import UploadFile from "./Upload/UploadFile";
 import UploadLocation from "./Upload/UploadLocation";
-import WriteContent from "./WriteContent";
 import LoadContent from "./LoadContent/LoadContent";
 import CreatePost from "./CreatePost";
+import WritePost from "./WritePost/WritePost";
 
 const ContentMakeStep = () => {
   return (
@@ -17,7 +17,7 @@ const ContentMakeStep = () => {
         </div>
         <div className="flex flex-col gap-3">
           {/* 내용 작성 영역 */}
-          <WriteContent type="upload" />
+          <WritePost />
 
           {/* 사진 혹은 파일 업로드 영역 */}
           <UploadFile />

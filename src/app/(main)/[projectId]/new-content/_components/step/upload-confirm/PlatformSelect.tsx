@@ -1,12 +1,31 @@
 "use client";
 
-import { Fragment } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { useContentMakeStore } from "../../store/content-make-store";
 import PlatformButton from "../content-make/PlatfomButton";
 import { Platforms } from "@/types/platform";
+import { useSNSTransferStore } from "../../store/sns-transfer-store";
+import WriteContent from "../../common/WriteContent";
+import { searchOptions } from "@/constants/search-options";
 
 const PlatformSelect = () => {
-  const { postData } = useContentMakeStore();
+  const { postData, selectedContentPlatform } = useContentMakeStore();
+  const { snsTransferRequest } = useSNSTransferStore();
+
+  const [transferPrompt, setTransferPrompt] = useState<string>("");
+
+  useEffect(() => {
+    if (selectedContentPlatform) {
+      const readContent = searchOptions.filter(item => item.value === selectedContentPlatform)[0]
+        .name;
+
+      const transferContent = snsTransferRequest.find(sr =>
+        sr.snsTypes.includes(readContent as Platforms)
+      )?.userPrompt;
+
+      setTransferPrompt(transferContent as string);
+    }
+  }, [selectedContentPlatform]);
 
   return (
     <Fragment>
@@ -25,6 +44,7 @@ const PlatformSelect = () => {
           />
         ))}
       </div>
+      <WriteContent type="content" maxContentLength={1000} transferPrompt={transferPrompt} />
     </Fragment>
   );
 };

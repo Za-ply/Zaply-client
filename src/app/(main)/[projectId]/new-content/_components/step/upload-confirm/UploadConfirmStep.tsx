@@ -1,5 +1,4 @@
 import ContentTitle from "./ContentTitle";
-import WriteContent from "../content-make/WriteContent";
 import PlatformSelect from "./PlatformSelect";
 
 const UploadConfirmStep = () => {
@@ -8,7 +7,6 @@ const UploadConfirmStep = () => {
       <ContentTitle />
       <span className="w-full h-[1px] bg-grayscale-300 my-6" />
       <PlatformSelect />
-      <WriteContent type="content" />
     </div>
   );
 };

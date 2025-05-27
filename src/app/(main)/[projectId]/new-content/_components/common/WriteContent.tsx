@@ -1,27 +1,36 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import useFocus from "../../hooks/useFocus";
-import { usePlatformStore } from "../../store";
-import { policyConfig } from "../../config/constraint-config";
+import useFocus from "../hooks/useFocus";
 import { cn } from "@/utils";
 import { Textarea } from "@/components";
-import { useContentMakeStore } from "../../store/content-make-store";
+import { useContentMakeStore } from "../store/content-make-store";
 import { useDebounce } from "@/hooks";
 
-const WriteContent = ({ type }: { type: "upload" | "content" }) => {
-  const { selectedPlatform } = usePlatformStore();
+interface WriteContentProps {
+  type: "upload" | "content";
+  maxContentLength: number;
+  transferPrompt?: string;
+}
+
+const WriteContent = ({ type, maxContentLength, transferPrompt }: WriteContentProps) => {
   const { postData, setContent } = useContentMakeStore();
+
   const [contentLength, setContentLength] = useState<number>(0);
-  const [content, setContentState] = useState(type === "upload" ? postData.content : "");
+  const [content, setContentState] = useState(
+    type === "upload" ? postData.content : transferPrompt
+  );
 
   const ref = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const isFocused = useFocus(ref);
   const debouncedSetContent = useDebounce(setContent, 1000);
 
-  const { maxContentLength } =
-    selectedPlatform !== null ? policyConfig[selectedPlatform] : { maxContentLength: 0 };
+  useEffect(() => {
+    if (transferPrompt) {
+      setContentState(transferPrompt);
+    }
+  }, [transferPrompt]);
 
   const handleInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.target.value;
