@@ -11,6 +11,7 @@ import { Platforms } from "@/types/platform";
 import { SocialPlatform } from "@/app/(mypage)/_components/types/platform";
 import { Posting } from "./types/posting";
 import { motion, AnimatePresence } from "framer-motion";
+import { useReserveStore } from "../../[projectId]/new-content/_components/store/reserve-store";
 
 const snsTypeToPlatform: Record<string, SocialPlatform> = {
   INSTAGRAM: Platforms.INSTAGRAM,
@@ -23,6 +24,7 @@ export const CollapsibleReservationTime = () => {
   const { projectId } = useParams();
   const { data: postingInfo } = usePostingInfo(Number(projectId));
   const [isOpen, setIsOpen] = useState(true);
+  const { setSelectedDate, setSelectedTime, setPlatformReserves } = useReserveStore();
 
   const parseScheduledAt = (scheduledAt: string | null) => {
     if (!scheduledAt) return { date: null, time: null };
@@ -34,6 +36,38 @@ export const CollapsibleReservationTime = () => {
   };
 
   const handleUpdateClick = async () => {
+    if (!postingInfo?.data) return;
+
+    const firstPosting = postingInfo.data[0];
+    const firstScheduledAt = parseScheduledAt(firstPosting.scheduledAt);
+    const isAllSame = postingInfo.data.every((posting: Posting) => {
+      const { date, time } = parseScheduledAt(posting.scheduledAt);
+      return date === firstScheduledAt.date && time === firstScheduledAt.time;
+    });
+
+    if (isAllSame) {
+      setSelectedDate(new Date(firstScheduledAt.date!));
+      setSelectedTime(firstScheduledAt.time!);
+    } else {
+      const platformReserves: Record<SocialPlatform, { date: Date | null; time: string | null }> = {
+        [Platforms.FACEBOOK]: { date: null, time: null },
+        [Platforms.THREADS]: { date: null, time: null },
+        [Platforms.INSTAGRAM]: { date: null, time: null },
+      };
+
+      postingInfo.data.forEach((posting: Posting) => {
+        const platform = snsTypeToPlatform[posting.postingType];
+        if (platform) {
+          const { date, time } = parseScheduledAt(posting.scheduledAt);
+          platformReserves[platform] = {
+            date: date ? new Date(date) : null,
+            time,
+          };
+        }
+      });
+      setPlatformReserves(platformReserves);
+    }
+
     router.push(`/reserved-contents/${projectId}/update`);
   };
 

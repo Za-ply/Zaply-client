@@ -1,7 +1,6 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import SnsProfile from "@/app/(mypage)/mypage/_components/SnsProfile";
 import { CircleCheckBoldIcon, CircleCheckIcon } from "@/components";
 import useUserStore from "@/stores/userStore";
 import { Platforms } from "@/types/platform";
@@ -76,7 +75,15 @@ export const ScheduleSelector = ({ isUpdate = false, posting }: ScheduleSelector
           <div className="flex items-center justify-between">
             <div className="w-[70px]" />
             <div className="flex items-center gap-2">
-              <ScheduleBlock onClick={() => handleScheduleClick()} />
+              <ScheduleBlock
+                selectedDate={isUpdate && isAll ? format(new Date(), "yyyy-MM-dd") : undefined}
+                selectedTime={
+                  isUpdate && isAll
+                    ? format(new Date(), "a hh:mm").replace("am", "AM").replace("pm", "PM")
+                    : undefined
+                }
+                onClick={() => handleScheduleClick()}
+              />
             </div>
           </div>
 
@@ -107,6 +114,8 @@ export const ScheduleSelector = ({ isUpdate = false, posting }: ScheduleSelector
                           platform={platform}
                           hasProfileImage={true}
                           isAccountConnected={true}
+                          onClick={() => {}}
+                          className="pointer-events-none"
                         />
                       </div>
                       <div className="flex items-center gap-2">

@@ -25,6 +25,7 @@ interface PlatformButtonProps {
   isDisabled?: boolean;
   isFirst?: boolean;
   className?: string;
+  onClick?: () => void;
 }
 
 const PlatformButton = ({
@@ -35,6 +36,7 @@ const PlatformButton = ({
   isDisabled = false,
   isFirst = false,
   className,
+  onClick,
 }: PlatformButtonProps) => {
   const [isChecked, setIsChecked] = useState(false);
   const { postData, selectedContentPlatform, setUploadPlatforms, setSelectedContentPlatform } =
@@ -66,6 +68,10 @@ const PlatformButton = ({
 
   const handleClick = () => {
     if (isDisabled) return;
+    if (onClick) {
+      onClick();
+      return;
+    }
 
     if (type === "upload") {
       if (!isChecked) {
