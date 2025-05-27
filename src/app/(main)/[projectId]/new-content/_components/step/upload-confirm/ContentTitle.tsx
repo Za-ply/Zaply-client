@@ -1,10 +1,16 @@
 "use client";
 
 import { Input } from "@/components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSNSTransferStore } from "../../store/sns-transfer-store";
 
 const ContentTitle = () => {
   const [content, setContent] = useState("AI가 생성해준 제목명");
+  const { recommendContentTitle } = useSNSTransferStore();
+
+  useEffect(() => {
+    setContent(recommendContentTitle);
+  }, [recommendContentTitle]);
 
   return (
     <div>

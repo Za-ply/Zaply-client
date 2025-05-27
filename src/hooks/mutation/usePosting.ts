@@ -11,4 +11,13 @@ const useTransferSNSPosting = () => {
   });
 };
 
-export { useTransferSNSPosting };
+const useRecommendContentTitle = () => {
+  return useMutation({
+    mutationFn: async (query: TransferSNSPostingRequest) => {
+      const response = await postService.recommendContentTitle(query);
+      return response;
+    },
+  });
+};
+
+export { useTransferSNSPosting, useRecommendContentTitle };

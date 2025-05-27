@@ -3,7 +3,7 @@
 import { Container } from "@/components";
 import { useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
-import { useTransferSNSPosting } from "@/hooks/mutation/usePosting";
+import { useRecommendContentTitle, useTransferSNSPosting } from "@/hooks/mutation/usePosting";
 import { useContentMakeStore } from "../new-content/_components/store/content-make-store";
 import { searchOptions } from "@/constants/search-options";
 import Image from "next/image";
@@ -15,10 +15,11 @@ export default function TransformLoadingPage() {
   const { projectId } = useParams();
 
   const { mutate: transferSNSPosting } = useTransferSNSPosting();
+  const { mutate: recommendContentTitle } = useRecommendContentTitle();
 
   const { postData } = useContentMakeStore();
   const { currentBackground, backgrounds } = useBackgroundTransition();
-  const { setSnsTransferRequest } = useSNSTransferStore();
+  const { setRecommendContentTitle, setSnsTransferRequest } = useSNSTransferStore();
 
   useEffect(() => {
     const snsTypes = postData.uploadPlatforms.map(platform => {
@@ -26,6 +27,18 @@ export default function TransformLoadingPage() {
       return matchedOption ? matchedOption.name : platform;
     });
     const userPrompt = postData.content;
+
+    recommendContentTitle(
+      {
+        snsTypes: snsTypes,
+        userPrompt: postData.content,
+      },
+      {
+        onSuccess: data => {
+          setRecommendContentTitle(data.data);
+        },
+      }
+    );
 
     transferSNSPosting(
       {

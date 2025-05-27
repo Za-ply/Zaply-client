@@ -40,6 +40,11 @@ const postingController = {
     );
     return response.data;
   },
+
+  recommendContentTitle: async (query: TransferSNSPostingRequest): Promise<ApiResponse<string>> => {
+    const response = await apiClient.post<ApiResponse<string>>(`/posting/title`, query);
+    return response.data;
+  },
 };
 
 export default postingController;

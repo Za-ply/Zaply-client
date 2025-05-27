@@ -63,6 +63,16 @@ const postService = {
       throw new Error("SNS 포스팅 변환 실패", { cause: error });
     }
   },
+
+  recommendContentTitle: async (query: TransferSNSPostingRequest): Promise<ApiResponse<string>> => {
+    try {
+      const response = await postingController.recommendContentTitle(query);
+      return response;
+    } catch (error) {
+      console.error(error);
+      throw new Error("콘텐츠 제목 추천 실패", { cause: error });
+    }
+  },
 };
 
 export default postService;
