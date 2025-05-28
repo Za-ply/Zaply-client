@@ -7,12 +7,20 @@ import { Platforms } from "@/types/platform";
 import { useSNSTransferStore } from "../../store/sns-transfer-store";
 import WriteContent from "../../common/WriteContent";
 import { searchOptions } from "@/constants/search-options";
+import { policyConfig } from "../../config/constraint-config";
 
 const PlatformSelect = () => {
   const { postData, selectedContentPlatform } = useContentMakeStore();
   const { snsTransferRequest } = useSNSTransferStore();
 
   const [transferPrompt, setTransferPrompt] = useState<string>("");
+  const [length, setLength] = useState<number>(0);
+
+  useEffect(() => {
+    if (selectedContentPlatform) {
+      setLength(policyConfig[selectedContentPlatform as Platforms].maxContentLength);
+    }
+  }, [selectedContentPlatform]);
 
   useEffect(() => {
     if (selectedContentPlatform) {
@@ -44,7 +52,7 @@ const PlatformSelect = () => {
           />
         ))}
       </div>
-      <WriteContent type="content" maxContentLength={1000} transferPrompt={transferPrompt} />
+      <WriteContent type="content" maxContentLength={length} transferPrompt={transferPrompt} />
     </Fragment>
   );
 };

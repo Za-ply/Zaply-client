@@ -15,11 +15,16 @@ const WarningModal = () => {
   const { resetFiles } = useFilePreviewStore();
   const { setSelectedOption } = useLoadContent();
 
-  const handleStop = () => {
+  const handleReset = () => {
     reset();
     resetPostData();
     resetFiles();
     setSelectedOption("");
+    localStorage.clear();
+  };
+
+  const handleStop = () => {
+    handleReset();
     router.back();
     setTimeout(() => {
       router.push("/main");
