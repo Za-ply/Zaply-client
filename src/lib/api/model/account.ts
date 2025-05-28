@@ -6,3 +6,7 @@ export interface UnlinkResponse {
 export interface InstagramRequest {
   access_token: string;
 }
+
+export interface FacebookRequest {
+  access_token: string;
+}

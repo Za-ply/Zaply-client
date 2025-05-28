@@ -39,25 +39,32 @@ export const SnsProfile = ({ type, className }: { type: SocialPlatform; classNam
   const accounts = useUserStore(state => state.accounts);
   const icon = snsMap[type];
 
-  const isLinked = accounts.some(account => {
-    const platform = snsTypeToPlatform[account.snsType];
-    return platform === type && account.accountName !== "";
-  });
-
   if (!icon) {
     console.error(`Invalid social platform type: ${type}`);
     return null;
   }
 
-  const shouldShowFullProfile = isLinked;
+  const matchedAccount = accounts.find(account => snsTypeToPlatform[account.snsType] === type);
 
-  return shouldShowFullProfile ? (
+  const isLinked = matchedAccount && matchedAccount.accountName?.trim() !== "";
+
+  // ✅ profileImageUrl이 유효한 외부 URL인지 확인 (문자열 "null"도 필터링)
+  const validProfileImage =
+    matchedAccount?.profileImageUrl &&
+    typeof matchedAccount.profileImageUrl === "string" &&
+    matchedAccount.profileImageUrl.trim() !== "" &&
+    matchedAccount.profileImageUrl.trim().toLowerCase() !== "null" &&
+    matchedAccount.profileImageUrl.startsWith("http");
+
+  const profileSrc: string | StaticImageData =
+    validProfileImage && matchedAccount?.profileImageUrl
+      ? matchedAccount.profileImageUrl
+      : icon.linked;
+
+  return isLinked ? (
     <div className="relative">
       <Image
-        src={
-          accounts.find(account => snsTypeToPlatform[account.snsType] === type)?.profileImageUrl ||
-          icon.linked
-        }
+        src={profileSrc}
         alt={`${type} profile`}
         width={48}
         height={48}
@@ -68,7 +75,7 @@ export const SnsProfile = ({ type, className }: { type: SocialPlatform; classNam
         width={20}
         height={20}
         alt={`${type} badge`}
-        className="absolute bottom-[1px] right-[15px]"
+        className="absolute bottom-[1px] right-[-5px]"
       />
     </div>
   ) : (
