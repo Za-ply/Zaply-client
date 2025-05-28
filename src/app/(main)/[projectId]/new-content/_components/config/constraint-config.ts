@@ -13,7 +13,6 @@ export const policyConfig = {
     maxImageCount: 50,
     maxContentLength: 63206,
   },
-  /** X, LinkedIn 는 추후 정책 수정 예정 (임시 정책) */
   [Platforms.X]: {
     maxImageCount: 4,
     maxContentLength: 1000,

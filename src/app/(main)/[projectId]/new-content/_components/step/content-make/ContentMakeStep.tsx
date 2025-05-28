@@ -7,10 +7,10 @@ import WritePost from "./WritePost/WritePost";
 
 const ContentMakeStep = () => {
   return (
-    <div className="flex flex-col justify-between h-full pt-10 overflow-y-auto scrollbar-hide">
+    <div className="flex flex-col justify-between h-full pt-10">
       <div>
         <Bedge />
-        <div className="flex items-center justify-between w-full">
+        <div className="flex items-center justify-between w-full cursor-default">
           <p className="text-black text-t3 mt-[14px] mb-6">내용을 입력해주세요.</p>
           {/* 계정에서 콘텐츠 내용 불러오기*/}
           <LoadContent />

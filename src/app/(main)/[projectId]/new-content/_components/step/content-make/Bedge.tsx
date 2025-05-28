@@ -14,7 +14,7 @@ const Bedge = () => {
   }
 
   return (
-    <div className="inline-flex items-center gap-2 px-2 py-1 border rounded border-grayscale-300">
+    <div className="inline-flex items-center gap-2 px-2 py-1 border rounded cursor-default border-grayscale-300">
       <Image
         src={
           selectedPlatform === Platforms.INSTAGRAM

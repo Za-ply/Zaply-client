@@ -138,7 +138,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${pretendard.variable} ${creato400.variable} ${creato500.variable} ${creato700.variable} ${creato800.variable} relative max-w-[440px] mx-auto bg-grayscale-300 overflow-x-hidden overscroll-none`}>
+        className={`${pretendard.variable} ${creato400.variable} ${creato500.variable} ${creato700.variable} ${creato800.variable} relative max-w-[440px] mx-auto bg-grayscale-300 overflow-x-hidden overscroll-y-auto scrollbar-hide`}>
         <ViewportProvider>
           <ErrorProvider>
             <QueryProvider>

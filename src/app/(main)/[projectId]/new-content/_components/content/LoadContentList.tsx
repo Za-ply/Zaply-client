@@ -12,10 +12,9 @@ import { useContentMakeStore } from "../store/content-make-store";
 import useFilePreviewStore from "../store/preview-store";
 import { policyConfig } from "../config/constraint-config";
 import { toast } from "@/utils/useToast";
-import { useEffect } from "react";
 
 const LoadContentList = () => {
-  const { selectPostList, isShowDetail } = usePostStore();
+  const { selectPostList, isShowDetail, viewType } = usePostStore();
   const { isOpen, selectedOption, setIsOpen, setSelectedOption } = useLoadContent();
   const { setContent, setFiles } = useContentMakeStore();
   const { setFiles: setFilePreview } = useFilePreviewStore();
@@ -24,7 +23,7 @@ const LoadContentList = () => {
   const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } = useGetSNSPostingList({
     enabled: isOpen,
     query: {
-      size: 6,
+      size: viewType === "vertical" ? 6 : 12,
       snsType:
         selectedOption === "Instagram"
           ? "INSTAGRAM"

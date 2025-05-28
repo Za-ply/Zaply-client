@@ -13,7 +13,7 @@ const UploadLocation = () => {
   const { setIsOpen } = store();
 
   return (
-    <div className="flex flex-col gap-2 pb-[179px]">
+    <div className="flex flex-col gap-2 pb-[179px] cursor-default">
       <div className="flex items-center justify-start gap-2">
         <p className="text-grayscale-800 text-t4">어디에 업로드할까요?</p>
         <HelpIcon

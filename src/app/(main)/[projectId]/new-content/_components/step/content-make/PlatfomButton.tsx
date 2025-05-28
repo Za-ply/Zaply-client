@@ -29,43 +29,70 @@ const PlatformButton = ({
   isFirst = false,
   className,
 }: PlatformButtonProps) => {
-  const [isChecked, setIsChecked] = useState(false);
-  const { postData, selectedContentPlatform, setUploadPlatforms, setSelectedContentPlatform } =
-    useContentMakeStore();
+  const {
+    postData,
+    selectedContentPlatform,
+    setUploadPlatforms,
+    setSelectedContentPlatform,
+    setPlatformChecked,
+  } = useContentMakeStore();
+  const isChecked = postData.selectedPlatforms[platform];
   const displayImage = useProfileImage(platform);
 
   useEffect(() => {
     if (type === "content") {
-      if (isFirst) {
-        setIsChecked(true);
+      if (isFirst && !selectedContentPlatform) {
+        setPlatformChecked(platform, true);
         setSelectedContentPlatform(platform);
       }
     }
-  }, [type, isFirst, platform, setSelectedContentPlatform]);
+  }, [
+    type,
+    isFirst,
+    platform,
+    setSelectedContentPlatform,
+    setPlatformChecked,
+    selectedContentPlatform,
+  ]);
 
   useEffect(() => {
     if (type === "upload") {
-      setIsChecked(postData.uploadPlatforms.includes(platform));
-      setUploadPlatforms(postData.uploadPlatforms);
+      if (!postData.uploadPlatforms.includes(platform) && isChecked) {
+        setUploadPlatforms([...postData.uploadPlatforms, platform]);
+      }
     } else if (type === "content") {
-      setIsChecked(selectedContentPlatform === platform);
+      if (selectedContentPlatform === platform && !isChecked) {
+        setPlatformChecked(platform, true);
+      } else if (selectedContentPlatform !== platform && isChecked) {
+        setPlatformChecked(platform, false);
+      }
     }
-  }, [postData.uploadPlatforms, selectedContentPlatform, platform, type]);
+  }, [
+    postData.uploadPlatforms,
+    selectedContentPlatform,
+    platform,
+    type,
+    setPlatformChecked,
+    isChecked,
+  ]);
 
   const handleClick = () => {
     if (isDisabled) return;
 
+    const newChecked = !isChecked;
+    setPlatformChecked(platform, newChecked);
+
     if (type === "upload") {
-      if (!isChecked) {
+      if (newChecked) {
         setUploadPlatforms([...postData.uploadPlatforms, platform]);
       } else {
         setUploadPlatforms(postData.uploadPlatforms.filter(p => p !== platform));
       }
     } else if (type === "content") {
-      if (selectedContentPlatform === platform) {
-        setSelectedContentPlatform(null);
-      } else {
+      if (newChecked) {
         setSelectedContentPlatform(platform);
+      } else {
+        setSelectedContentPlatform(null);
       }
     }
   };
