@@ -3,7 +3,7 @@ export enum Platforms {
   THREADS = "Thread",
   FACEBOOK = "Facebook",
   X = "X",
-  LINKEDIN = "Linkedin",
+  LINKEDIN = "LinkedIn",
   /** 추후 플랫폼 추가 예정 */
 }
 

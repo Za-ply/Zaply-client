@@ -14,4 +14,14 @@ export const searchOptions = [
     value: "Facebook",
     name: "FACEBOOK",
   },
+  {
+    label: "X",
+    value: "X",
+    name: "TWITTER",
+  },
+  {
+    label: "LinkedIn",
+    value: "LinkedIn",
+    name: "LINKEDIN",
+  },
 ] as const;
