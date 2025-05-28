@@ -4,6 +4,7 @@ export interface Account {
   snsType: SnsType;
   accountName: string;
   profileImageUrl?: string;
+  linkedAt: string;
 }
 
 export interface AccountResponse {
