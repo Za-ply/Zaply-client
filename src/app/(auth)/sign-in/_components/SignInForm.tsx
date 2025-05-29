@@ -9,6 +9,7 @@ import { Button, Input } from "@/components";
 import { emailCheckSchema } from "@/lib/zod";
 import { authService } from "@/lib/api/service";
 import { useRouter } from "next/navigation";
+import { useUserLogin } from "@/hooks/mutation";
 
 const schema = emailCheckSchema.extend({
   password: z.string().min(1, "비밀번호를 입력해 주세요."),
@@ -30,6 +31,7 @@ const SignInForm = () => {
   const email = watch("email") ?? "";
   const password = watch("password") ?? "";
   const isInputFilled = email.trim() !== "" && password.trim() !== "";
+  const { mutate: login } = useUserLogin();
 
   const handleSignInSubmit = async (data: FormData, setError: any) => {
     const { email, password } = data;
@@ -43,15 +45,23 @@ const SignInForm = () => {
         return;
       }
 
-      const response = await authService.login({ email, password });
-
-      if (response.data.accountsInfoResponse.totalCount > 0) {
-        router.replace("/main");
-        router.refresh();
-      } else {
-        router.replace("/main?state=INIT");
-        router.refresh();
-      }
+      login(
+        { email, password },
+        {
+          onSuccess: response => {
+            if (response.data.accountsInfoResponse.totalCount > 0) {
+              router.replace("/main");
+              router.refresh();
+            } else {
+              router.replace("/main?state=INIT");
+              router.refresh();
+            }
+          },
+          onError: error => {
+            toast({ variant: "error", description: error.message });
+          },
+        }
+      );
     } catch (err) {
       toast({
         variant: "error",
