@@ -28,7 +28,8 @@ const ContentList = () => {
     if (activeTab === "reserved") {
       router.push("/reserved-contents");
     } else {
-      router.push("/recent-contents");
+      router.push("/preparing");
+      // router.push("/recent-contents");
     }
   };
 
@@ -65,7 +66,7 @@ const ContentList = () => {
     .slice(0, 3);
 
   return (
-    <div className="w-full flex flex-col items-center gap-4">
+    <div className="flex flex-col items-center w-full gap-4">
       {projects.length === 0 ? (
         <div className="w-full h-[56px] bg-grayscale-100/80 text-center text-b2R text-grayscale-600 rounded-[12px] shadow-drop flex items-center justify-center">
           현재 콘텐츠가 없어요.
