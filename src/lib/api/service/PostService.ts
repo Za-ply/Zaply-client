@@ -12,9 +12,14 @@ import {
 
 const postService = {
   getSNSPostingList: async (
-    query: SNSPostingListRequest
+    query: SNSPostingListRequest,
+    accessToken?: string
   ): Promise<ApiResponse<SNSPostingResponse | null>> => {
     try {
+      if (accessToken && typeof window === "undefined") {
+        postingController.setAuthToken(accessToken);
+      }
+
       const response = await postingController.getSNSPostingList(query);
       return response;
     } catch (error) {
@@ -40,6 +45,10 @@ const postService = {
         }
       }
       throw new Error("SNS 포스팅 목록 조회 실패", { cause: error });
+    } finally {
+      if (typeof window === "undefined") {
+        postingController.clearAuthToken();
+      }
     }
   },
 

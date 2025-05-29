@@ -10,6 +10,14 @@ import {
 } from "../model/posting";
 
 const postingController = {
+  setAuthToken: (accessToken: string) => {
+    apiClient.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
+  },
+
+  clearAuthToken: () => {
+    apiClient.defaults.headers.common["Authorization"] = "";
+  },
+
   getSNSPostingList: async (
     query: SNSPostingListRequest
   ): Promise<ApiResponse<SNSPostingResponse>> => {
