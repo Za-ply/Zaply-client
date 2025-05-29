@@ -10,7 +10,7 @@ import { CreatePostingRequest } from "@/lib/api/model";
 import postingService from "@/lib/api/service/PostingService";
 import { useSNSTransferStore } from "../../store/sns-transfer-store";
 import useFilePreviewStore from "../../store/preview-store";
-import imageService from "@/lib/api/service/ImageService"; // presigned url 요청
+import imageService from "@/lib/api/service/ImageService";
 import { format } from "date-fns";
 import { Platforms } from "@/types/platform";
 import { SocialPlatform } from "@/app/(mypage)/_components/types/platform";
@@ -31,25 +31,50 @@ function convertTo24Hour(timeStr: string): string {
   return `${hour.toString().padStart(2, "0")}:${minute.toString().padStart(2, "0")}`;
 }
 
+const uploadAllImages = async (projectId: number): Promise<string[]> => {
+  const uploadedUrls: string[] = [];
+  const { files } = useFilePreviewStore.getState();
+
+  for (let i = 0; i < files.length; i++) {
+    const file = files[i].file;
+    const fileName = `media_${i}`;
+
+    const { preSignedUrl, objectUrl } = await imageService.getPresignedUrl({
+      projectId: Number(projectId),
+      fileName,
+    });
+
+    await fetch(preSignedUrl, {
+      method: "PUT",
+      headers: {
+        "Content-Type": file.type,
+      },
+      body: file,
+    });
+
+    uploadedUrls.push(objectUrl);
+  }
+
+  return uploadedUrls;
+};
+
 const ReserveStep = () => {
   const router = useRouter();
   const { isReserve, clearReserve } = useReserveStore();
   const [isLoading, setIsLoading] = useState(false);
   const { projectId } = useParams();
   const { snsTransferRequest } = useSNSTransferStore.getState();
-  const { files } = useFilePreviewStore();
 
-  const handleImmediateUpload = async () => {
+  const handleImmediateUpload = async (uploadedUrls: string[]) => {
     const filtered = snsTransferRequest.filter(
       req => !req.snsTypes.includes("X") && !req.snsTypes.includes("LINKEDIN")
     );
-    const media = useFilePreviewStore.getState().files.map(file => file.previewUrl);
 
     for (const item of filtered) {
       const snsType = item.snsTypes[0];
       const createRequest: CreatePostingRequest = {
         mediaType: "IMAGE",
-        media: media,
+        media: uploadedUrls,
         text: item.userPrompt,
         scheduledAt: "",
       };
@@ -64,11 +89,10 @@ const ReserveStep = () => {
     }
   };
 
-  const handleUploadWithSchedule = async (projectId: number) => {
+  const handleUploadWithSchedule = async (projectId: number, uploadedUrls: string[]) => {
     const { snsTransferRequest } = useSNSTransferStore.getState();
     const { isAll, isReserve, selectedDate, selectedTime, platformReserves } =
       useReserveStore.getState();
-    const media = useFilePreviewStore.getState().files.map(file => file.previewUrl);
 
     const filtered = snsTransferRequest.filter(
       req => !req.snsTypes.includes("X") && !req.snsTypes.includes("LINKEDIN")
@@ -111,7 +135,7 @@ const ReserveStep = () => {
 
       const createRequest = {
         mediaType: "IMAGE",
-        media: media,
+        media: uploadedUrls,
         text: item.userPrompt,
         scheduledAt,
       };
@@ -129,12 +153,12 @@ const ReserveStep = () => {
   const handleComplete = async () => {
     setIsLoading(true);
     try {
-      const uploadedUrls: string[] = [];
+      const uploadedUrls = await uploadAllImages(Number(projectId));
 
       if (isReserve) {
-        await handleUploadWithSchedule(Number(projectId));
+        await handleUploadWithSchedule(Number(projectId), uploadedUrls);
       } else {
-        await handleImmediateUpload();
+        await handleImmediateUpload(uploadedUrls);
       }
 
       clearReserve();
