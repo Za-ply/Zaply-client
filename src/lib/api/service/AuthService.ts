@@ -45,7 +45,7 @@ const authService = {
     }
   },
 
-  googleLink: async (): Promise<ApiResponse<LoginResponse>> => {
+  googleLink: async (): Promise<void> => {
     try {
       const response = await authController.googleLink();
       return response;

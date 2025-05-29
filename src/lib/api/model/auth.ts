@@ -39,6 +39,7 @@ export interface UserInfo {
   name: string | null;
   email: string;
   phoneNumber: string;
+  profileImageUrl: string;
 }
 
 export interface LoginResponse {

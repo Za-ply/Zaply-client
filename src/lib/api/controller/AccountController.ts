@@ -1,4 +1,4 @@
-import { InstagramRequest, SnsType, UnlinkResponse } from "../model";
+import { FacebookRequest, InstagramRequest, SnsType, UnlinkResponse } from "../model";
 import { apiClient } from "../axios/instance";
 import useUserStore from "@/stores/userStore";
 
@@ -41,22 +41,18 @@ const accountController = {
   },
 
   facebook: async (): Promise<void> => {
-    if (typeof window === "undefined") return;
-
     const memberId = useUserStore.getState().userInfo?.memberId;
     if (!memberId) {
       throw new Error("로그인 후 시도해주세요 (memberId 없음)");
     }
 
-    const params = new URLSearchParams({
-      client_id: FACEBOOK_CLIENT_ID,
-      redirect_uri: FACEBOOK_REDIRECT_URI,
-      scope: "email",
-      state: memberId.toString(),
-    });
+    const facebookUrl = `${FACEBOOK_REDIRECT_URI}&state=${memberId}`;
+    window.location.href = facebookUrl;
+  },
 
-    const facebookUrl = `https://www.facebook.com/v22.0/dialog/oauth?${params.toString()}`;
-    window.open(facebookUrl, "_blank", "width=600,height=800");
+  facebookLink: async (data: FacebookRequest): Promise<void> => {
+    const response = await apiClient.get("/account/facebook/link", { params: data });
+    return response.data;
   },
 
   instagram: async (): Promise<void> => {

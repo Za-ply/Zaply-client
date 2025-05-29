@@ -12,7 +12,7 @@ export default function Home({ searchParams }: { searchParams: { state: string }
           isBlur={true}
           left={<Image src={"/assets/images/logo-black.webp"} width={99} height={36} alt="logo" />}
         />
-        <div className="flex flex-col gap-[72px]">
+        <div className="flex flex-col gap-[72px] ">
           <MainSection state={searchParams.state} />
           <MainContent />
         </div>

@@ -18,6 +18,7 @@ interface ReserveState {
   setSelectedDate: (date: Date | null) => void;
   setSelectedTime: (time: string | null) => void;
   setPlatformReserve: (platform: SocialPlatform, reserve: ReserveTime) => void;
+  setPlatformReserves: (reserves: Record<SocialPlatform, ReserveTime>) => void;
   setCurrentPlatform: (platform: SocialPlatform | null) => void;
   setIsAll: (isAll: boolean) => void;
   clearReserve: () => void;
@@ -46,6 +47,7 @@ export const useReserveStore = create<ReserveState>(set => ({
         [platform]: reserve,
       },
     })),
+  setPlatformReserves: reserves => set({ platformReserves: reserves }),
   setCurrentPlatform: platform => set({ currentPlatform: platform }),
   setIsAll: isAll => set({ isAll }),
   clearReserve: () =>

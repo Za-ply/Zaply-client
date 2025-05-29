@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { fadeUpVariants, transition } from "./animation";
 import { ONBOARDING_CONTENTS } from "@/app/(auth)/sign-in/_components/constants/onboardingContents";
 import useRouterPrefetch from "@/utils/useRouterPrefetch";
+import Image from "next/image";
 
 const OnBoardingContent = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -48,12 +49,20 @@ const OnBoardingContent = () => {
             <p className="text-center whitespace-pre-line text-blue-blueblack text-h2">
               {item.title}
             </p>
-            <div className="w-full h-[115px] flex items-center justify-center">{item.gui}</div>
+            <div className="w-full h-[240px] flex items-center justify-center">
+              <Image
+                src={item.gui}
+                alt="onboarding"
+                width={327}
+                height={240}
+                className="w-full h-full object-contain"
+              />
+            </div>
           </motion.div>
         ))}
       </div>
 
-      <div className="flex gap-2 mt-[92px]">
+      <div className="flex gap-2">
         {ONBOARDING_CONTENTS.map((_, i) => (
           <EllipseIcon
             key={i}

@@ -1,10 +1,12 @@
 import { useContentStore } from "@/stores/useContentStore";
 import { motion } from "framer-motion";
+import { useProjects } from "../hooks/useProjects";
 
 const ContentToggle = () => {
   const activeTab = useContentStore(state => state.activeTab);
   const setActiveTab = useContentStore(state => state.setActiveTab);
   const counts = useContentStore(state => state.counts);
+  const { isLoading } = useProjects();
 
   return (
     <div className="relative w-full bg-blue-300/30 rounded-[8px] py-[6px] px-2 flex items-center justify-between gap-2">
@@ -21,7 +23,7 @@ const ContentToggle = () => {
           className={`w-full px-4 py-2 text-center text-b3M rounded-[8px] cursor-pointer transition-colors duration-200 ${
             activeTab === "reserved" ? "text-grayscale-800" : "text-grayscale-600"
           }`}>
-          예약된 콘텐츠 <span className="text-blue-700">{counts.reserved}</span>
+          예약된 콘텐츠 {!isLoading && <span className="text-blue-700">{counts.reserved}</span>}
         </button>
       </div>
       <div className="relative z-10 w-1/2">
@@ -30,7 +32,7 @@ const ContentToggle = () => {
           className={`w-full px-4 py-2 text-center text-b3M rounded-[8px] cursor-pointer transition-colors duration-200 ${
             activeTab === "recent" ? "text-grayscale-800" : "text-grayscale-600"
           }`}>
-          최근 발행된 콘텐츠 <span className="text-blue-700">{counts.recent}</span>
+          최근 발행된 콘텐츠 {!isLoading && <span className="text-blue-700">{counts.recent}</span>}
         </button>
       </div>
     </div>
