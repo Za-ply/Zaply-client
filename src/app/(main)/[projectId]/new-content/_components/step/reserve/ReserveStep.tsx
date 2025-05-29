@@ -14,6 +14,9 @@ import imageService from "@/lib/api/service/ImageService";
 import { format } from "date-fns";
 import { Platforms } from "@/types/platform";
 import { SocialPlatform } from "@/app/(mypage)/_components/types/platform";
+import { usePlatformStore } from "../../store";
+import { useContentMakeStore } from "../../store/content-make-store";
+import useLoadContent from "../../hooks/useLoadContent";
 
 const snsTypeToPlatform: Record<string, SocialPlatform> = {
   FACEBOOK: Platforms.FACEBOOK,
@@ -64,6 +67,11 @@ const ReserveStep = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { projectId } = useParams();
   const { snsTransferRequest } = useSNSTransferStore.getState();
+
+  const { reset } = usePlatformStore();
+  const { resetPostData } = useContentMakeStore();
+  const { resetFiles } = useFilePreviewStore();
+  const { setSelectedOption } = useLoadContent();
 
   const handleImmediateUpload = async (uploadedUrls: string[]) => {
     const filtered = snsTransferRequest.filter(
@@ -150,6 +158,17 @@ const ReserveStep = () => {
     }
   };
 
+  const handleReset = () => {
+    reset();
+    resetPostData();
+    resetFiles();
+    setSelectedOption("");
+    localStorage.removeItem("platform-storage");
+    localStorage.removeItem("content-make-storage");
+    localStorage.removeItem("file-preview-storage");
+    localStorage.removeItem("sns-transfer-storage");
+  };
+
   const handleComplete = async () => {
     setIsLoading(true);
     try {
@@ -162,6 +181,7 @@ const ReserveStep = () => {
       }
 
       clearReserve();
+      handleReset();
       router.push("/upload?success=true");
     } catch (error) {
       console.error("업로드 실패", error);

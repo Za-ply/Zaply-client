@@ -14,7 +14,7 @@ interface ContentStore {
 }
 
 export const useContentStore = create<ContentStore>(set => ({
-  activeTab: "recent",
+  activeTab: "reserved",
   projects: [],
   counts: { reserved: 0, recent: 0 },
   setProjects: projects => set({ projects }),
