@@ -48,15 +48,6 @@ const SignInForm = () => {
       login(
         { email, password },
         {
-          onSuccess: response => {
-            if (response.data.accountsInfoResponse.totalCount > 0) {
-              router.replace("/main");
-              router.refresh();
-            } else {
-              router.replace("/main?state=INIT");
-              router.refresh();
-            }
-          },
           onError: error => {
             toast({ variant: "error", description: error.message });
           },

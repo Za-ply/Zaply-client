@@ -5,10 +5,25 @@ import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
 const useUserLogin = () => {
+  const router = useRouter();
+
   return useMutation({
     mutationFn: async (data: LoginRequest) => {
       const response = await authService.login(data);
       return response;
+    },
+    onSuccess: response => {
+      // 토큰이 저장되었는지 확인
+      const accessToken = tokenManager.getAccessToken();
+      if (accessToken) {
+        if (response.data.accountsInfoResponse.totalCount > 0) {
+          router.replace("/main");
+          router.refresh();
+        } else {
+          router.replace("/main?state=INIT");
+          router.refresh();
+        }
+      }
     },
   });
 };
