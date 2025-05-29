@@ -89,7 +89,7 @@ const ShowContentList = ({
 
         <div ref={loadMoreRef} className="h-4 col-span-full" />
         {isFetchingNextPage && (
-          <div className="flex items-center justify-center w-full text-center col-span-full bg-redscale-500">
+          <div className="flex items-center justify-center w-full text-center col-span-full">
             <Spinner />
           </div>
         )}
