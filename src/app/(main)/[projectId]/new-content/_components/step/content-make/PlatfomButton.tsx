@@ -3,7 +3,7 @@
 import Image from "next/image";
 import profile1 from "@public/assets/images/profile1.webp";
 import { CircleCheckBoldIcon, CircleCheckIcon, DefaultProfileIcon } from "@/components";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Platforms } from "@/types/platform";
 import { platformConfig } from "../../config/platform-config";
 import { useContentMakeStore } from "../../store/content-make-store";
@@ -132,9 +132,9 @@ const PlatformButton = ({
               className="rounded-full"
               placeholder="blur"
             />
-          ) : hasProfileImage ? (
+          ) : accountProfileImage ? (
             <Image
-              src={accountProfileImage || profile1}
+              src={accountProfileImage}
               alt="profile"
               width={48}
               height={48}
@@ -152,7 +152,6 @@ const PlatformButton = ({
               width={20}
               height={20}
               className="absolute bottom-0 right-0 rounded-full"
-              placeholder="blur"
             />
           )}
         </div>

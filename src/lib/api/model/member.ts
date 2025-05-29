@@ -1,7 +1,9 @@
+import { Platforms } from "@/types/platform";
+
 export type SnsType = "FACEBOOK" | "THREADS" | "INSTAGRAM";
 
 export interface Account {
-  snsType: SnsType;
+  snsType: Platforms;
   accountName: string;
   profileImageUrl?: string;
   linkedAt: string;

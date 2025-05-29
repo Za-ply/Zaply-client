@@ -7,10 +7,31 @@ import { selectSheetStore } from "../../../store/select-sheet-store";
 import { SheetOptions } from "@/constants/sheet-options";
 import { DrawerSheet } from "@/components/drawer";
 import UploadReserve from "../../../content/UploadReserve";
+import useUserStore from "@/stores/userStore";
+import { useEffect } from "react";
+import { searchOptions } from "@/constants/search-options";
 
 const UploadLocation = () => {
   const store = selectSheetStore[SheetOptions.UPLOAD_LOCATION];
   const { setIsOpen } = store();
+  const { accounts } = useUserStore();
+
+  const uploadLocationData = searchOptions.map(platform => {
+    const isAccountConnected = accounts
+      .map(acc => acc.snsType)
+      .includes(platform.name as Platforms);
+    const hasProfileImage = accounts.find(
+      acc => acc.snsType === (platform.name as Platforms)
+    )?.profileImageUrl;
+
+    return {
+      platform: platform.label as Platforms,
+      isAccountConnected:
+        platform.name !== "TWITTER" && platform.name !== "LINKEDIN" ? true : isAccountConnected,
+      hasProfileImage:
+        platform.name !== "TWITTER" && platform.name !== "LINKEDIN" ? true : !!hasProfileImage,
+    };
+  });
 
   return (
     <div className="flex flex-col gap-2 pb-[179px] cursor-default">
@@ -23,7 +44,7 @@ const UploadLocation = () => {
       </div>
       <div className="bg-grayscale-200 rounded-lg w-full h-[120px] p-5 my-[6px]">
         <div className="flex items-center gap-[17.5px] justify-center">
-          {mockData.map((pl, index) => (
+          {uploadLocationData.map((pl, index) => (
             <PlatformButton
               key={index}
               type="upload"
@@ -47,32 +68,3 @@ const UploadLocation = () => {
 };
 
 export default UploadLocation;
-
-/** 임시 더미 데이터 */
-export const mockData = [
-  {
-    isAccountConnected: true,
-    platform: Platforms.INSTAGRAM,
-    hasProfileImage: true,
-  },
-  {
-    isAccountConnected: true,
-    platform: Platforms.THREADS,
-    hasProfileImage: true,
-  },
-  {
-    isAccountConnected: true,
-    platform: Platforms.FACEBOOK,
-    hasProfileImage: false,
-  },
-  {
-    isAccountConnected: false,
-    platform: Platforms.X,
-    hasProfileImage: false,
-  },
-  {
-    isAccountConnected: false,
-    platform: Platforms.LINKEDIN,
-    hasProfileImage: false,
-  },
-];

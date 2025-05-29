@@ -38,7 +38,7 @@ const PlatformSelect = () => {
   return (
     <Fragment>
       <p className="text-b3M text-grayscale-900">플랫폼별 콘텐츠 내용</p>
-      <div className="flex items-center justify-start gap-3 mt-4 mb-6">
+      <div className="flex items-center justify-start gap-3 mt-4 mb-6 ml-1">
         {postData.uploadPlatforms.map((platform, index) => (
           <PlatformButton
             key={platform}
