@@ -20,7 +20,10 @@ const WarningModal = () => {
     resetPostData();
     resetFiles();
     setSelectedOption("");
-    localStorage.clear();
+    localStorage.removeItem("platform-storage");
+    localStorage.removeItem("content-make-storage");
+    localStorage.removeItem("file-preview-storage");
+    localStorage.removeItem("sns-transfer-storage");
   };
 
   const handleStop = () => {
