@@ -1,5 +1,5 @@
 import { ApiResponse } from "../model";
-import { AccountResponse, MemberInfo } from "../model";
+import { AccountResponse } from "../model";
 import memberController from "../controller/MemberController";
 
 const memberService = {

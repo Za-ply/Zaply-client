@@ -26,15 +26,14 @@ const authController = {
     return response.data;
   },
 
-  googleLink: async (): Promise<ApiResponse<LoginResponse>> => {
+  googleLink: async (): Promise<void> => {
     const googleUrl = GOOGLE_REDIRECT_URI;
     window.location.href = googleUrl;
-    return {} as ApiResponse<LoginResponse>;
   },
 
   googleLogin: async (code: string): Promise<ApiResponse<LoginResponse>> => {
-    const response = await apiClient.post<ApiResponse<LoginResponse>>("/auth/google/exchange", {
-      code,
+    const response = await apiClient.get<ApiResponse<LoginResponse>>("/auth/google/exchange", {
+      params: { code },
     });
     return response.data;
   },

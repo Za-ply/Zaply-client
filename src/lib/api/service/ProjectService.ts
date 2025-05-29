@@ -1,7 +1,17 @@
 import projectController from "../controller/ProjectController";
-import { ApiResponse } from "../model";
+import { ApiResponse, ProjectListResponse } from "../model";
 
 const projectService = {
+  getProjectList: async (): Promise<ApiResponse<ProjectListResponse>> => {
+    try {
+      const response = await projectController.getProjectList();
+      return response;
+    } catch (error) {
+      console.error("Get project list failed:", error);
+      throw new Error(error as string);
+    }
+  },
+
   createProject: async (): Promise<ApiResponse<number>> => {
     try {
       const response = await projectController.createProject();

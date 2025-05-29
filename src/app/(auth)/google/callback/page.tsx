@@ -2,16 +2,35 @@
 
 import { useEffect } from "react";
 import Image from "next/image";
+import { useSearchParams } from "next/navigation";
+import authService from "@/lib/api/service/AuthService";
 
 export default function GoogleCallback() {
+  const searchParams = useSearchParams();
+
   useEffect(() => {
-    if (window.opener) {
-      window.opener.location.href = "/main";
-      setTimeout(() => {
-        window.close();
-      }, 100);
-    }
-  }, []);
+    const handleGoogleLogin = async () => {
+      try {
+        const code = searchParams.get("code");
+        if (!code) return;
+
+        await authService.googleLogin(code);
+
+        if (window.opener) {
+          window.opener.location.href = "/main";
+          setTimeout(() => {
+            window.close();
+          }, 100);
+        } else {
+          window.location.href = "/main";
+        }
+      } catch (error) {
+        console.error("Google login failed:", error);
+      }
+    };
+
+    handleGoogleLogin();
+  }, [searchParams]);
 
   return (
     <div className="flex bg-b500-g100 items-center justify-center my-auto min-h-screen">

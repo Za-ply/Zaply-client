@@ -17,7 +17,7 @@ const BNB = () => {
       setActiveTab("comment");
     } else if (pathname.includes("/insight")) {
       setActiveTab("insight");
-    } else if (pathname.includes("/")) {
+    } else if (pathname.includes("/main") || pathname.includes("/reserved-contents")) {
       setActiveTab("upload");
     }
   }, [pathname]);

@@ -1,13 +1,14 @@
 export const useFormattedDateTime = (dateStr: string): string => {
   const date = new Date(dateStr);
+  const year = date.getFullYear().toString().slice(2);
   const month = (date.getMonth() + 1).toString().padStart(2, "0");
   const day = date.getDate().toString().padStart(2, "0");
   const hours = date.getHours();
   const minutes = date.getMinutes().toString().padStart(2, "0");
-  const period = hours >= 12 ? "PM" : "AM";
+  const period = hours >= 12 ? "오후" : "오전";
   const hour12 = hours % 12 || 12;
 
-  return `${month}/${day} ${hour12}:${minutes} ${period}`;
+  return `${year}/${month}/${day} ${period} ${hour12}:${minutes}`;
 };
 
 export const useDateLabel = (dateStr: string): string => {
