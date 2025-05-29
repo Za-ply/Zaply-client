@@ -8,8 +8,8 @@ import { SheetOptions } from "@/constants/sheet-options";
 import { DrawerSheet } from "@/components/drawer";
 import UploadReserve from "../../../content/UploadReserve";
 import useUserStore from "@/stores/userStore";
-import { useEffect } from "react";
 import { searchOptions } from "@/constants/search-options";
+import { SnsType } from "@/lib/api/model";
 
 const UploadLocation = () => {
   const store = selectSheetStore[SheetOptions.UPLOAD_LOCATION];
@@ -17,11 +17,9 @@ const UploadLocation = () => {
   const { accounts } = useUserStore();
 
   const uploadLocationData = searchOptions.map(platform => {
-    const isAccountConnected = accounts
-      .map(acc => acc.snsType)
-      .includes(platform.name as Platforms);
+    const isAccountConnected = accounts.map(acc => acc.snsType).includes(platform.name as SnsType);
     const hasProfileImage = accounts.find(
-      acc => acc.snsType === (platform.name as Platforms)
+      acc => acc.snsType === (platform.name as SnsType)
     )?.profileImageUrl;
 
     return {
