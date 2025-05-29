@@ -6,6 +6,7 @@ import SnsProfile from "@/app/(mypage)/mypage/_components/SnsProfile";
 import { ArrowIcon, Button, CircleCheckIcon } from "@/components";
 import useUserStore from "@/stores/userStore";
 import { Platforms } from "@/types/platform";
+import { useSNSTransferStore } from "../../[projectId]/new-content/_components/store/sns-transfer-store";
 
 const snsTypeToPlatform: Record<string, SocialPlatform> = {
   FACEBOOK: Platforms.FACEBOOK,
@@ -15,10 +16,16 @@ const snsTypeToPlatform: Record<string, SocialPlatform> = {
 
 export const SuccessContent = () => {
   const router = useRouter();
-  const accounts = useUserStore(state => state.accounts);
-  const linkedPlatforms = accounts
-    .map(account => snsTypeToPlatform[account.snsType])
-    .filter(Boolean);
+  const { snsTransferRequest } = useSNSTransferStore.getState();
+
+  const linkedPlatforms: SocialPlatform[] = Array.from(
+    new Set(
+      snsTransferRequest
+        .flatMap(req => req.snsTypes)
+        .filter(sns => snsTypeToPlatform[sns])
+        .map(sns => snsTypeToPlatform[sns])
+    )
+  );
 
   return (
     <div className="flex flex-col flex-1 min-h-real-screen">

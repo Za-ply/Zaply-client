@@ -45,3 +45,10 @@ export interface ToneTransferResponseItem {
 export interface TransferSNSPostingResponse {
   toneTransferResponseItems: ToneTransferResponseItem[];
 }
+
+export interface CreatePostingRequest {
+  mediaType: string;
+  media: string[];
+  text: string;
+  scheduledAt: string;
+}

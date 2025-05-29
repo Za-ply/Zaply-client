@@ -1,6 +1,7 @@
 import { apiClient } from "../axios/instance";
 import { ApiResponse } from "../model";
 import {
+  CreatePostingRequest,
   Posting,
   SNSPostingContent,
   SNSPostingDetailRequest,
@@ -83,6 +84,34 @@ const postingController = {
 
   recommendContentTitle: async (query: TransferSNSPostingRequest): Promise<ApiResponse<string>> => {
     const response = await apiClient.post<ApiResponse<string>>(`/posting/title`, query);
+    return response.data;
+  },
+
+  // 페이스북 포스팅
+  createFacebookSinglePosting: async (projectId: number, data: CreatePostingRequest) => {
+    const response = await apiClient.post(`/posting/facebook/${projectId}/single`, data);
+    return response.data;
+  },
+
+  createFacebookCarouselPosting: async (projectId: number, data: CreatePostingRequest) => {
+    const response = await apiClient.post(`/posting/facebook/${projectId}/carousel`, data);
+    return response.data;
+  },
+
+  // 스레드 포스팅
+  createThreadSinglePosting: async (projectId: number, data: CreatePostingRequest) => {
+    const response = await apiClient.post(`/posting/threads/${projectId}/single`, data);
+    return response.data;
+  },
+
+  createThreadCarouselPosting: async (projectId: number, data: CreatePostingRequest) => {
+    const response = await apiClient.post(`/posting/threads/${projectId}/carousel`, data);
+    return response.data;
+  },
+
+  // 인스타 포스팅
+  createInstagramCarouselPosting: async (projectId: number, data: CreatePostingRequest) => {
+    const response = await apiClient.post(`/posting/instagram/${projectId}/carousel`, data);
     return response.data;
   },
 };

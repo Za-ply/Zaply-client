@@ -115,6 +115,13 @@ const PlatformButton = ({
     }
   };
 
+  const validProfileImage =
+    accountProfileImage &&
+    typeof accountProfileImage === "string" &&
+    accountProfileImage.trim() !== "" &&
+    accountProfileImage.trim().toLowerCase() !== "null" &&
+    accountProfileImage.startsWith("http");
+
   return (
     <button type="button" disabled={isDisabled} className={cn("relative w-12 h-12", className)}>
       <div className="flex flex-col items-center justify-center gap-2">
@@ -132,7 +139,7 @@ const PlatformButton = ({
               className="rounded-full"
               placeholder="blur"
             />
-          ) : accountProfileImage ? (
+          ) : validProfileImage ? (
             <Image
               src={accountProfileImage}
               alt="profile"

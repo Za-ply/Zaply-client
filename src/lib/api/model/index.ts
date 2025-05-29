@@ -5,3 +5,4 @@ export * from "./sms";
 export * from "./account";
 export * from "./project";
 export * from "./posting";
+export * from "./image";
