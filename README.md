@@ -364,75 +364,103 @@
 
 > **'재빨리' + '연결' + '확장'의 동적 이미지를 기반으로 디자인 모티프 추출 예정입니다.**
 > 
-> *[컨셉 무드보드 이미지]*
+> ![컨셉 무드보드](https://github.com/user-attachments/assets/73c5f27a-08ca-4d90-9fe3-dff6c548f0a4)
+
 
 ## 브랜딩 디자인 (진행중)
 
 > **다양한 크리에이터들의 콘텐츠 생산을 돕는 생동감 있는 무드의 브랜딩으로 진행 중입니다.**
 > 
-> *[브랜딩 디자인 이미지]*
+> ![브랜딩 디자인](https://github.com/user-attachments/assets/cf4719a9-06be-4e5d-8726-55f2e847b99b)
+
 
 ## UI 레퍼런스
 
 > 💡 **유사 서비스 레퍼런스**
 > 
-> *[UI 레퍼런스 이미지들]*
+> ![UI 레퍼런스-2](https://github.com/user-attachments/assets/b17d0768-abff-4c9b-8052-63611578af70)
+> ![UI 레퍼런스](https://github.com/user-attachments/assets/e05de763-4b1d-47f3-8da8-4dc373a8da52)
+> ![UI 레퍼런스-1](https://github.com/user-attachments/assets/df945492-8d18-4910-b30f-4c44a9744b52)
+
 
 # 📃 디자인 시스템
 
 ## Typography System
-*[타이포그래피 시스템 이미지]*
+
+![Typography System](https://github.com/user-attachments/assets/05c969ca-ed11-4c72-b0d4-b030b5a5e8b6)
 
 ## Color System
-*[컬러 시스템 이미지]*
+
+![Color System](https://github.com/user-attachments/assets/4305ce0b-a616-4e9d-baeb-7190b5f4a6e1)
+
 
 ## ICON System
-*[아이콘 시스템 이미지]*
+
+![ICON System](https://github.com/user-attachments/assets/219ad880-d20f-450f-a89d-879374f73b18)
+
 
 ## Grid & Spacing
-*[그리드 및 스페이싱 시스템 이미지]*
+
+![Grid Spacing system](https://github.com/user-attachments/assets/c7d7a0e3-c277-46af-a516-9e376dfd0c78)
+
 
 # 📃 브랜딩
 
-## Branding Experience
-*[브랜딩 경험 이미지]*
+- ```Branding Experience```
+
+![브랜딩 디자인](https://github.com/user-attachments/assets/ddaee2ba-060c-42c7-88d8-3da045468c5b)
+
 
 # 📃 랜딩페이지
 
-## Landing Page
+- ```Landing Page```
 
 **URL**: [https://zaply-landing.vercel.app](https://zaply-landing.vercel.app)
 
-*[랜딩페이지 스크린샷]*
+![랜딩](https://github.com/user-attachments/assets/0a4ac55c-e6c2-4e08-aaf5-39fa518cf033)
 
 # 📃 GUI 화면 디자인
 
-## 로그인/회원가입
-*[로그인/회원가입 화면 이미지]*
+- ```로그인/회원가입```
+  
+![로그인](https://github.com/user-attachments/assets/bd330245-c558-4eea-8cad-3fedeb220b1f)
 
-## 1) (HOME)업로드
-*[홈 업로드 화면 이미지]*
+- 1) ```(HOME)업로드```
 
-## 1-1) HOME>새콘텐츠생성
-*[새 콘텐츠 생성 화면 이미지]*
+![home](https://github.com/user-attachments/assets/770e0351-f1ab-48bf-8a6d-a50cd388588a)
 
-## 2) 인사이트
-*[인사이트 화면 이미지]*
 
-## 3) 댓글 관리
-*[댓글 관리 화면 이미지]*
+- 1-1) ```HOME>새콘텐츠생성```
 
-## 4) 마이페이지
-*[마이페이지 화면 이미지]*
+![home새콘텐츠](https://github.com/user-attachments/assets/55943a61-5a34-4cd4-a3d2-7f1d521a9332)
 
-## 4-1) 마이페이지>계정 연동
-*[계정 연동 화면 이미지]*
 
-# 📃 프로젝트 포트폴리오 & 포스터
+- 2) ```인사이트```
 
-## Behance 링크
+![gui인사이트](https://github.com/user-attachments/assets/67160080-7e74-4bd7-abd5-ad0a07011983)
+
+
+- 3) ```댓글 관리```
+
+![gui댓글관리](https://github.com/user-attachments/assets/0e25ed2f-bb09-476c-9a19-94aa4c5f826d)
+
+
+- 4) ```마이페이지```
+
+![마이페이지](https://github.com/user-attachments/assets/abfeaa51-d972-483d-bcd5-f01a6005f038)
+
+
+- 4-1) ```마이페이지>계정 연동```
+
+![마이페이지2](https://github.com/user-attachments/assets/7c7d3293-2349-4b8c-b1b5-b7b282cd9baf)
+
+
+### 📃 프로젝트 포트폴리오 & 포스터
+
+```Behance 링크```
 [https://www.behance.net/gallery/226676895/Zaply-AI-SNS-](https://www.behance.net/gallery/226676895/Zaply-AI-SNS-)
 
 ## 포스터
-*[프로젝트 포스터 이미지들]*
-
+|  |  |
+|:----------:|:----------:|
+|  ![포스터1](https://github.com/user-attachments/assets/647dcd84-d96d-4d35-baa0-e8fefd51eb03) | ![포스터2](https://github.com/user-attachments/assets/9e815116-969e-40a6-8b5d-a267a41fc121)
