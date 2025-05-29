@@ -5,3 +5,4 @@ export { default as Container } from "./container";
 export { default as TopBar } from "./topBar";
 export { default as Modal } from "./modal";
 export { default as Skeleton } from "./skeleton";
+export { default as Progress } from "./progress";
