@@ -12,10 +12,13 @@ const useUserLogin = () => {
       const response = await authService.login(data);
       return response;
     },
-    onSuccess: response => {
+    onSuccess: async response => {
       // 토큰이 저장되었는지 확인
       const accessToken = tokenManager.getAccessToken();
       if (accessToken) {
+        // 쿠키가 설정될 시간을 주기 위해 약간의 지연 추가
+        await new Promise(resolve => setTimeout(resolve, 100));
+
         if (response.data.accountsInfoResponse.totalCount > 0) {
           router.replace("/main");
           router.refresh();

@@ -6,12 +6,14 @@ export const tokenManager = {
     setCookie(TokenType.ACCESS_TOKEN, accessToken, {
       path: "/",
       secure: process.env.NODE_ENV === "production",
-      sameSite: "lax",
+      sameSite: "strict",
+      maxAge: 60 * 60 * 24 * 7, // 7일
     });
     setCookie(TokenType.REFRESH_TOKEN, refreshToken, {
       path: "/",
       secure: process.env.NODE_ENV === "production",
-      sameSite: "lax",
+      sameSite: "strict",
+      maxAge: 60 * 60 * 24 * 7, // 7일
     });
   },
 
