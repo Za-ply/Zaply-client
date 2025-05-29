@@ -14,6 +14,7 @@ import { DrawerSheet } from "@/components/drawer";
 import { CalendarBottomContent } from "./CalendarBottomContent";
 import { PostingInfo } from "@/app/(main)/reserved-contents/_components/types/posting";
 import PlatformButton from "../content-make/PlatfomButton";
+import { useSNSTransferStore } from "../../store/sns-transfer-store";
 
 const snsTypeToPlatform: Record<string, SocialPlatform> = {
   FACEBOOK: Platforms.FACEBOOK,
@@ -31,6 +32,7 @@ export const ScheduleSelector = ({ isUpdate = false, posting }: ScheduleSelector
   const { isAll, setIsAll } = useReserveStore();
   const store = selectSheetStore[SheetOptions.CALENDAR];
   const { setIsOpen } = store();
+  const { snsTransferRequest } = useSNSTransferStore();
 
   const linkedPlatforms = accounts
     .map(account => snsTypeToPlatform[account.snsType])
@@ -46,10 +48,12 @@ export const ScheduleSelector = ({ isUpdate = false, posting }: ScheduleSelector
     };
   };
 
-  const displayPlatforms =
-    isUpdate && posting
-      ? posting.data.map(p => snsTypeToPlatform[p.postingType]).filter(Boolean)
-      : linkedPlatforms;
+  const displayPlatforms: SocialPlatform[] = isUpdate
+    ? (posting?.data.map(p => snsTypeToPlatform[p.postingType]).filter(Boolean) ?? [])
+    : snsTransferRequest
+        .flatMap(req => req.snsTypes)
+        .map(snsType => snsTypeToPlatform[snsType])
+        .filter(Boolean);
 
   const handleScheduleClick = (platform?: SocialPlatform) => {
     if (platform) {
