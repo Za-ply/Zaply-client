@@ -19,8 +19,6 @@ const PreparingModal = () => {
       description=""
       onCloseIconClick={handleClose}
       onRightButtonClick={handleClose}
-      onCloseIconClick={handleClose}
-      onRightButtonClick={handleClose}
       buttonType="single"
       rightText="메인으로"
       overlayClassName="bg-grayscale-900/60">
