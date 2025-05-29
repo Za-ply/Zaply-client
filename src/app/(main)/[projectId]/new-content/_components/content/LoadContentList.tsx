@@ -1,4 +1,4 @@
-import { Button } from "@/components";
+import { Button, Progress } from "@/components";
 import Dropdown from "@/components/dropdown";
 import ViewFiter from "../step/content-make/LoadContent/ViewFiter";
 import ShowContentList from "../step/content-make/LoadContent/ShowContentList";
@@ -12,6 +12,7 @@ import { useContentMakeStore } from "../store/content-make-store";
 import useFilePreviewStore from "../store/preview-store";
 import { policyConfig } from "../config/constraint-config";
 import { toast } from "@/utils/useToast";
+import { useProgress } from "../hooks/useProgress";
 
 const LoadContentList = () => {
   const { selectPostList, isShowDetail } = usePostStore();
@@ -23,7 +24,7 @@ const LoadContentList = () => {
   const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } = useGetSNSPostingList({
     enabled: isOpen,
     query: {
-      size: 6,
+      size: 12,
       snsType:
         selectedOption === "Instagram"
           ? "INSTAGRAM"
@@ -32,6 +33,8 @@ const LoadContentList = () => {
             : "THREADS",
     },
   });
+
+  const progress = useProgress({ isLoading });
 
   const handleLoadContent = () => {
     if (selectPostList) {
@@ -71,6 +74,8 @@ const LoadContentList = () => {
           <Dropdown onSelect={setSelectedOption} selectedOption={selectedOption} />
         )}
       </div>
+
+      {isLoading && <Progress value={progress} className="w-full mx-auto top-6" />}
 
       <div
         className="relative border-t-[6px] border-grayscale-200"

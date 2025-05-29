@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
 interface FileWithPreview {
   file: File;
@@ -9,10 +10,17 @@ const useFilePreviewStore = create<{
   files: FileWithPreview[];
   setFiles: (files: FileWithPreview[]) => void;
   resetFiles: () => void;
-}>(set => ({
-  files: [],
-  setFiles: (files: FileWithPreview[]) => set({ files }),
-  resetFiles: () => set({ files: [] }),
-}));
+}>()(
+  persist(
+    set => ({
+      files: [],
+      setFiles: (files: FileWithPreview[]) => set({ files }),
+      resetFiles: () => set({ files: [] }),
+    }),
+    {
+      name: "file-preview-storage",
+    }
+  )
+);
 
 export default useFilePreviewStore;

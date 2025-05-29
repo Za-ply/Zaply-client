@@ -43,7 +43,12 @@ const Dropdown = ({
             transition={{ duration: 0.2 }}
             className="z-[20] w-[176px] absolute left-0 top-8 shadow-dropdown rounded-[4px] bg-grayscale-100">
             {searchOptions
-              .filter(option => option.label !== selectedOption)
+              .filter(
+                option =>
+                  option.label !== selectedOption &&
+                  option.label !== "X" &&
+                  option.label !== "LinkedIn"
+              )
               .map(option => (
                 <motion.div
                   key={option.value}

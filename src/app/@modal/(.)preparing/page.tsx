@@ -8,8 +8,8 @@ const PreparingModal = () => {
   const handleClose = () => {
     router.back();
     setTimeout(() => {
-      router.refresh();
-    }, 1000);
+      router.push("/main");
+    }, 100);
   };
 
   return (

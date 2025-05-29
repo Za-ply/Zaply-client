@@ -3,7 +3,7 @@
 import Image from "next/image";
 import profile1 from "@public/assets/images/profile1.webp";
 import { CircleCheckBoldIcon, CircleCheckIcon, DefaultProfileIcon } from "@/components";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Platforms } from "@/types/platform";
 import { platformConfig } from "../../config/platform-config";
 import { useContentMakeStore } from "../../store/content-make-store";
@@ -38,9 +38,14 @@ const PlatformButton = ({
   className,
   onClick,
 }: PlatformButtonProps) => {
-  const [isChecked, setIsChecked] = useState(false);
-  const { postData, selectedContentPlatform, setUploadPlatforms, setSelectedContentPlatform } =
-    useContentMakeStore();
+  const {
+    postData,
+    selectedContentPlatform,
+    setUploadPlatforms,
+    setSelectedContentPlatform,
+    setPlatformChecked,
+  } = useContentMakeStore();
+  const isChecked = postData.selectedPlatforms[platform];
   const displayImage = useProfileImage(platform);
   const accounts = useUserStore(state => state.accounts);
 
@@ -50,21 +55,40 @@ const PlatformButton = ({
 
   useEffect(() => {
     if (type === "content") {
-      if (isFirst) {
-        setIsChecked(true);
+      if (isFirst && !selectedContentPlatform) {
+        setPlatformChecked(platform, true);
         setSelectedContentPlatform(platform);
       }
     }
-  }, [type, isFirst, platform, setSelectedContentPlatform]);
+  }, [
+    type,
+    isFirst,
+    platform,
+    setSelectedContentPlatform,
+    setPlatformChecked,
+    selectedContentPlatform,
+  ]);
 
   useEffect(() => {
     if (type === "upload") {
-      setIsChecked(postData.uploadPlatforms.includes(platform));
-      setUploadPlatforms(postData.uploadPlatforms);
+      if (!postData.uploadPlatforms.includes(platform) && isChecked) {
+        setUploadPlatforms([...postData.uploadPlatforms, platform]);
+      }
     } else if (type === "content") {
-      setIsChecked(selectedContentPlatform === platform);
+      if (selectedContentPlatform === platform && !isChecked) {
+        setPlatformChecked(platform, true);
+      } else if (selectedContentPlatform !== platform && isChecked) {
+        setPlatformChecked(platform, false);
+      }
     }
-  }, [postData.uploadPlatforms, selectedContentPlatform, platform, type]);
+  }, [
+    postData.uploadPlatforms,
+    selectedContentPlatform,
+    platform,
+    type,
+    setPlatformChecked,
+    isChecked,
+  ]);
 
   const handleClick = () => {
     if (isDisabled) return;
@@ -73,17 +97,20 @@ const PlatformButton = ({
       return;
     }
 
+    const newChecked = !isChecked;
+    setPlatformChecked(platform, newChecked);
+
     if (type === "upload") {
-      if (!isChecked) {
+      if (newChecked) {
         setUploadPlatforms([...postData.uploadPlatforms, platform]);
       } else {
         setUploadPlatforms(postData.uploadPlatforms.filter(p => p !== platform));
       }
     } else if (type === "content") {
-      if (selectedContentPlatform === platform) {
-        setSelectedContentPlatform(null);
-      } else {
+      if (newChecked) {
         setSelectedContentPlatform(platform);
+      } else {
+        setSelectedContentPlatform(null);
       }
     }
   };
@@ -105,9 +132,9 @@ const PlatformButton = ({
               className="rounded-full"
               placeholder="blur"
             />
-          ) : hasProfileImage ? (
+          ) : accountProfileImage ? (
             <Image
-              src={accountProfileImage || profile1}
+              src={accountProfileImage}
               alt="profile"
               width={48}
               height={48}
@@ -125,7 +152,6 @@ const PlatformButton = ({
               width={20}
               height={20}
               className="absolute bottom-0 right-0 rounded-full"
-              placeholder="blur"
             />
           )}
         </div>

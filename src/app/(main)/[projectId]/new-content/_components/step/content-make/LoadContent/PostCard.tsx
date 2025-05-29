@@ -77,7 +77,7 @@ const PostCard = ({ post, isSelected, onSelect, viewType }: PostCardProps) => {
         height={112}
         placeholder="blur"
         blurDataURL={"/assets/images/blur.png"}
-        className="w-[112px] h-[112px] object-cover"
+        className="w-full h-[112px] object-cover"
       />
       <div className="absolute top-2 right-2">
         {isSelected ? (

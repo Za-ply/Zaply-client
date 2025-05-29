@@ -24,7 +24,7 @@ const LoadContent = () => {
   return (
     <Fragment>
       <div
-        className="w-[97px] flex items-center gap-1 px-3 py-[6px] rounded-full bg-blue-300 text-blue-700"
+        className="w-[97px] flex items-center gap-1 px-3 py-[6px] rounded-full bg-blue-300 text-blue-700 cursor-pointer"
         onClick={() => setIsOpen(true)}>
         <DownLoadPageIcon />
         <p className="text-b3M">불러오기</p>

@@ -1,3 +1,5 @@
+import { Platforms } from "@/types/platform";
+
 export type SnsType = "FACEBOOK" | "THREADS" | "INSTAGRAM";
 
 export interface Account {

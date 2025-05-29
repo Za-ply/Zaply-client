@@ -14,6 +14,7 @@ const useUserLogout = () => {
     onSuccess: () => {
       /** 로그아웃 성공 시 토큰 삭제 */
       tokenManager.removeTokens();
+      localStorage.clear();
       router.replace("/sign-in");
     },
   });

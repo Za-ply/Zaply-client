@@ -31,3 +31,17 @@ export interface SNSPostingDetailRequest {
   snsType: string;
   mediaId: string;
 }
+
+export interface TransferSNSPostingRequest {
+  snsTypes: string[];
+  userPrompt: string;
+}
+
+export interface ToneTransferResponseItem {
+  snsType: string;
+  content: string;
+}
+
+export interface TransferSNSPostingResponse {
+  toneTransferResponseItems: ToneTransferResponseItem[];
+}
