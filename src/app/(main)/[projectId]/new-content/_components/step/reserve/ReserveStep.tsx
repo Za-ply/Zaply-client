@@ -40,7 +40,7 @@ const uploadAllImages = async (projectId: number): Promise<string[]> => {
 
   for (let i = 0; i < files.length; i++) {
     const file = files[i].file;
-    const fileName = `media_${i}.jpeg`;
+    const fileName = `media_${i}`;
 
     const { preSignedUrl, objectUrl } = await imageService.getPresignedUrl({
       projectId: Number(projectId),
