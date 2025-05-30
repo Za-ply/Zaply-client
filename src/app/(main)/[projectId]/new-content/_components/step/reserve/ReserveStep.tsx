@@ -50,7 +50,7 @@ const uploadAllImages = async (projectId: number): Promise<string[]> => {
     await fetch(preSignedUrl, {
       method: "PUT",
       headers: {
-        "Content-Type": file.type,
+        "Content-Type": "image/png",
       },
       body: file,
     });
