@@ -10,7 +10,7 @@ export default function ThreadsCallback() {
 
   useEffect(() => {
     setTimeout(() => {
-      router.push("/connect-complete?status=success&platform=instagram");
+      router.push("/connect-complete?status=success&platform=threads");
     }, 100);
   }, []);
 
