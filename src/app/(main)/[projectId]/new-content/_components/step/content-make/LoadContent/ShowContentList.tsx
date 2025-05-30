@@ -33,8 +33,10 @@ const ShowContentList = ({
   if (isLoading) {
     return (
       <div className="h-[528px] px-5 flex flex-col items-center justify-start gap-8 mt-[56px]">
-        <p className="text-t4 text-grayscale-600">
-          SNS 게시물을 처음 불러오는 경우 시간이 소요돼요
+        <p className="text-t4 text-grayscale-600 text-center">
+          SNS 게시물을 처음 불러오는 경우
+          <br />
+          시간이 소요돼요
         </p>
         <div className="flex items-center justify-center gap-2">
           <EllipseIcon className="w-2 h-2 animate-[bounce_1s_infinite_0ms,colorChange_1s_infinite_0ms]" />
