@@ -119,6 +119,7 @@ export const ScheduleSelector = ({ isUpdate = false, posting }: ScheduleSelector
                           hasProfileImage={true}
                           isAccountConnected={true}
                           onClick={() => {}}
+                          disableSelectedStyle={true}
                           className="pointer-events-none"
                         />
                       </div>
