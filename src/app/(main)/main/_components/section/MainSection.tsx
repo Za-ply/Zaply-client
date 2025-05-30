@@ -20,7 +20,7 @@ const MainSection = ({ state }: { state: string }) => {
   const isEmpty = counts.reserved === 0 && counts.recent === 0;
 
   useEffect(() => {
-    if (state === "INIT" && accounts.length === 0) {
+    if (state === "INIT" || accounts.length === 0) {
       router.push("/main/link");
     }
     const interval = setInterval(() => {
