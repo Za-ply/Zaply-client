@@ -12,6 +12,7 @@ import { SocialPlatform } from "@/app/(mypage)/_components/types/platform";
 import { Posting } from "./types/posting";
 import { motion, AnimatePresence } from "framer-motion";
 import { useReserveStore } from "../../[projectId]/new-content/_components/store/reserve-store";
+import PlatformButton from "../../[projectId]/new-content/_components/step/content-make/PlatfomButton";
 
 const snsTypeToPlatform: Record<string, SocialPlatform> = {
   INSTAGRAM: Platforms.INSTAGRAM,
@@ -100,7 +101,19 @@ export const CollapsibleReservationTime = () => {
 
                   return (
                     <div key={posting.postingId} className="flex items-center justify-between">
-                      <div className="w-[70px]">{platform && <SnsProfile type={platform} />}</div>
+                      <div className="w-[70px]">
+                        {platform && (
+                          <PlatformButton
+                            type="content"
+                            platform={platform}
+                            hasProfileImage={true}
+                            isAccountConnected={true}
+                            disableSelectedStyle={true}
+                            onClick={() => {}}
+                            className="pointer-events-none"
+                          />
+                        )}
+                      </div>
                       <ScheduleBlock
                         platform={platform}
                         selectedDate={date}

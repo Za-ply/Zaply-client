@@ -26,6 +26,7 @@ interface PlatformButtonProps {
   isFirst?: boolean;
   className?: string;
   onClick?: () => void;
+  disableSelectedStyle?: boolean;
 }
 
 const PlatformButton = ({
@@ -37,6 +38,7 @@ const PlatformButton = ({
   isFirst = false,
   className,
   onClick,
+  disableSelectedStyle = false,
 }: PlatformButtonProps) => {
   const {
     postData,
@@ -128,7 +130,9 @@ const PlatformButton = ({
         <div
           onClick={handleClick}
           className={`${
-            type === "content" && isChecked ? "border-2 border-blue-700 rounded-full" : ""
+            type === "content" && isChecked && !disableSelectedStyle
+              ? "border-2 border-blue-700 rounded-full"
+              : ""
           } cursor-pointer transition-all duration-200`}>
           {!isAccountConnected ? (
             <Image
@@ -164,7 +168,7 @@ const PlatformButton = ({
         </div>
 
         {/* content 타입일 때 선택 표시줄 */}
-        {type === "content" && (
+        {type === "content" && !disableSelectedStyle && (
           <div className="relative w-10 h-[3px]">
             <div
               className={`absolute w-10 h-[3px] bg-blue-700 rounded-full transition-all duration-300 ease-in-out ${
