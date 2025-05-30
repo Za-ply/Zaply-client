@@ -34,41 +34,25 @@ function convertTo24Hour(timeStr: string): string {
   return `${hour.toString().padStart(2, "0")}:${minute.toString().padStart(2, "0")}`;
 }
 
-function getExtensionFromMimeType(mimeType: string): string {
-  switch (mimeType) {
-    case "image/jpeg":
-      return "jpg";
-    case "image/png":
-      return "png";
-    case "image/webp":
-      return "webp";
-    default:
-      return "bin";
-  }
-}
-
 const uploadAllImages = async (projectId: number): Promise<string[]> => {
   const uploadedUrls: string[] = [];
   const { files } = useFilePreviewStore.getState();
 
   for (let i = 0; i < files.length; i++) {
     const file = files[i].file;
-    const extension = getExtensionFromMimeType(file.type);
-    const fileName = `media_${i}.${extension}`;
+    const fileName = `media_${i}.png`;
 
     const { preSignedUrl, objectUrl } = await imageService.getPresignedUrl({
       projectId: Number(projectId),
       fileName,
     });
 
-    const blob = new Blob([file], { type: file.type });
-
     await fetch(preSignedUrl, {
       method: "PUT",
       headers: {
         "Content-Type": file.type,
       },
-      body: blob,
+      body: file,
     });
 
     uploadedUrls.push(objectUrl);
