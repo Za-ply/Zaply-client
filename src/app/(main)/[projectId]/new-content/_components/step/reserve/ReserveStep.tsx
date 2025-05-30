@@ -196,9 +196,11 @@ const ReserveStep = () => {
       <SelectUploadType />
       <div className="fixed bottom-[60px] left-1/2 -translate-x-1/2 w-full max-w-[440px] px-5 z-50">
         <Button
+          variant={isLoading || isReserve === null ? "deactive" : "active"}
           className="w-full text-button1 text-grayscale-100"
           leftIcon={<CheckIcon />}
-          onClick={handleComplete}>
+          onClick={handleComplete}
+          disabled={isLoading || isReserve === null}>
           완료
         </Button>
       </div>
