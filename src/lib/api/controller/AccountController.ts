@@ -37,7 +37,7 @@ const accountController = {
     });
 
     const threadsUrl = `https://threads.net/oauth/authorize?${params.toString()}`;
-    window.open(threadsUrl, "_blank", "width=600,height=800");
+    window.location.href = threadsUrl;
   },
 
   facebook: async (): Promise<void> => {
