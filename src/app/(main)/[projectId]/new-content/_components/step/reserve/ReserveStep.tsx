@@ -55,7 +55,7 @@ const uploadAllImages = async (projectId: number): Promise<string[]> => {
       body: file,
     });
 
-    uploadedUrls.push(objectUrl);
+    uploadedUrls.push(objectUrl + ".png");
   }
 
   return uploadedUrls;

@@ -13,14 +13,14 @@ import useUserStore from "@/stores/userStore";
 const MainSection = ({ state }: { state: string }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const router = useRouter();
-  const { userInfo } = useUserStore();
+  const { userInfo, accounts } = useUserStore();
 
   const { counts } = useContentStore();
 
   const isEmpty = counts.reserved === 0 && counts.recent === 0;
 
   useEffect(() => {
-    if (state === "INIT") {
+    if (state === "INIT" && accounts.length > 0) {
       router.push("/main/link");
     }
     const interval = setInterval(() => {
