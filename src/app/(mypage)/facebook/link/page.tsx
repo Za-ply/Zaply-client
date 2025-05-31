@@ -33,7 +33,7 @@ export default function FacebookCallback() {
 
   return (
     <div className="flex flex-col bg-b500-g100 items-center justify-center my-auto min-h-screen">
-      <div className="flex flex-col items-center justify-center flex-1 items-center gap-4">
+      <div className="flex flex-col items-center justify-center flex-1 gap-4">
         <Image src={facebookCircle} alt="facebookCircle" width={48} height={48} />
         <p className="text-h3 text-blue-blueblack text-center">
           Facebook 계정을

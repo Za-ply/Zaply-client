@@ -32,10 +32,10 @@ export default function InstagramCallback() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen my-auto bg-b500-g100">
-      <div className="flex flex-col justify-center flex-1 gap-4">
-        <Image src={instagramCircle} alt="facebookCircle" width={48} height={48} />
-        <p className="text-center text-h3 text-blue-blueblack">
+    <div className="flex flex-col bg-b500-g100 items-center justify-center my-auto min-h-screen">
+      <div className="flex flex-col items-center justify-center flex-1 gap-4">
+        <Image src={instagramCircle} alt="instagramCircle" width={48} height={48} />
+        <p className="text-h3 text-blue-blueblack text-center">
           Instagram 계정을
           <br />
           연동할게요.
